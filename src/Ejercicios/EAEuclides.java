@@ -2,11 +2,9 @@ package Ejercicios;
 
 class EAEuclides{
     static void main(String[] args) {
-
-        int a = 50; int b =5;
+        int a = 12; int b =18;
         int res = calcularMCD(a, b);
         System.out.println("MCD de " + a + " % " + b + " = " + res);
-
     }
 
     static int calcularMCD(int a, int b){
