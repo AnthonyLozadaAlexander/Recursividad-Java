@@ -1,13 +1,13 @@
 package Ejercicios;
 
-public class ESuma {
-    public static void main(String[] args) {
+class ESuma {
+    static void main(String[] args) {
         int n = 10;
         int res = sumaRecursiva(n);
         System.out.println("La suma total es: " + res);
     }
 
-    public static int sumaRecursiva(int n){
+    static int sumaRecursiva(int n){
         int res;
 
         if(n == 1){
