@@ -1,6 +1,6 @@
-﻿package Ejercicios;
+package Ejercicios;
 
-public class EFactorial {
+class EFactorial {
     static void main(String[] args) {
         int num = 5; int res = calcularFactorial(num);
         System.out.println("El Factorial De " + num + "! : " + res);
