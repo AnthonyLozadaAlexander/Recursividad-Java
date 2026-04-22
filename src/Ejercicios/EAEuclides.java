@@ -6,7 +6,6 @@ class EAEuclides{
         int a = 50; int b =5;
         int res = calcularMCD(a, b);
         System.out.println("MCD de " + a + " % " + b + " = " + res);
-        
 
     }
 
