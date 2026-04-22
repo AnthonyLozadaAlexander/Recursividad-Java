@@ -1,4 +1,6 @@
-public class Ejemplo_Suma {
+package Ejercicios;
+
+public class ESuma {
     public static void main(String[] args) {
         int n = 10;
         int res = sumaRecursiva(n);
