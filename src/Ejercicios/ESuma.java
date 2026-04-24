@@ -2,7 +2,7 @@ package Ejercicios;
 
 class ESuma {
     static void main(String[] args) {
-        int n = 10;
+        int n = 4;
         int res = sumaRecursiva(n);
         System.out.println("La suma total es: " + res);
     }
