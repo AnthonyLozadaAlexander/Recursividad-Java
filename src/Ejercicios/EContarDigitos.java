@@ -7,15 +7,15 @@ public class EContarDigitos {
         Long start = System.nanoTime();
         Scanner input = new Scanner(System.in);
         int n = 0, digitos = 0;
-        System.out.println("--------------------------");
-        System.out.println("    CONTADOR DE DIGITOS   ");
-        System.out.println("--------------------------");
+        System.out.println("----------------------------------------");
+        System.out.println("          CONTADOR DE DIGITOS           ");
+        System.out.println("----------------------------------------");
         System.out.print("Ingrese el numero entero Positivo: "); n = input.nextInt();
         input.nextLine();
         digitos = ContarDigitos(n);
         System.out.println("Numero Ingresado: " + n);
         System.out.println("Digitos: " + digitos);
-        System.out.println("-------------------------");
+        System.out.println("----------------------------------------");
         Long end = System.nanoTime();
         System.out.println("Tiempo Total Ejecucion: " + (end - start) + " nanosegundos");
     }
