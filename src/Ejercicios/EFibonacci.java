@@ -26,7 +26,7 @@ public class EFibonacci {
         for (int i = 0; i < limite; i++) {
             System.out.print(factorialR(i) + " ");
         }
-        System.out.print(" ]");
+        System.out.print("]");
     }
 
 }
