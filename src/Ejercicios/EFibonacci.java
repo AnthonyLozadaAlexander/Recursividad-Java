@@ -3,14 +3,14 @@ package Ejercicios;
 import java.util.Scanner;
 
 public class EFibonacci {
-    public static int factorialR(int n){
+    public static int fibonacciR(int n){
         if(n == 0){
             return 0;
         }
         if(n == 1){
             return 1;
         }
-        return factorialR(n-1) + factorialR(n - 2);
+        return fibonacciR(n-1) + fibonacciR(n - 2);
     }
 
     static void main(String[] args) {
@@ -24,7 +24,7 @@ public class EFibonacci {
         System.out.println("------------------------");
         System.out.print("[ ");
         for (int i = 0; i < limite; i++) {
-            System.out.print(factorialR(i) + " ");
+            System.out.print(fibonacciR(i) + " ");
         }
         System.out.print("]");
     }
