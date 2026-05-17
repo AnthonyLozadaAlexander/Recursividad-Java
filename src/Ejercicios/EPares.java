@@ -19,16 +19,16 @@ public class EPares {
 
     }
 
-    public static int sumaPar(int n){
+    public static int sumaPar(int n) {
 
-        if(n <= 0){ // si n llega a ser menor igual a 0
+        if (n <= 0) { // si n llega a ser menor igual a 0
             return 0; // retorna Cero
         }
 
-        if(n % 2 != 0){ // si el residuo de n es distinto de 0
+        if (n % 2 != 0) { // si el residuo de n es distinto de 0
             n--; // Decrementa
         }
 
-        return n + sumaPar(n-2);
+        return n + sumaPar(n - 2);
     }
 }
