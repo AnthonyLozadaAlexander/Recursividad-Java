@@ -1,4 +1,4 @@
-package Ejercicios;
+package EjerciciosNormales;
 
 class ESuma {
     static void main(String[] args) {

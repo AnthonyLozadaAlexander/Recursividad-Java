@@ -1,4 +1,4 @@
-package Ejercicios.Repaso;
+package EjerciciosNormales.Repaso;
 
 import java.util.Scanner;
 

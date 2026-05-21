@@ -1,4 +1,4 @@
-package Ejercicios;
+package EjerciciosNormales;
 
 class EFactorial {
     static void main(String[] args) {

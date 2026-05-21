@@ -1,4 +1,4 @@
-package Ejercicios;
+package EjerciciosNormales;
 
 class EAEuclides{
     static void main(String[] args) {
