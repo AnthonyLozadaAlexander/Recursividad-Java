@@ -2,6 +2,7 @@ package PruebasQueue;
 
 import Queue.ColaVacia;
 import Queue.TadCola;
+import AlgoritmosQueue.*;
 
 public class PruebaQueue01 {
     static void main(String[] args) {
@@ -17,9 +18,14 @@ public class PruebaQueue01 {
 
 
         try {
-            AlgoritmosQueue.AlgoritmoCola.invertirCola(cola);
+           /* AlgoritmoCola.invertirCola(cola);
             System.out.println("Cola Invertida");
+            cola.imprimirCola();*/
+
+            System.out.println("Llevar Ultimo Elemento De La Cola Al Inicio");
+            AlgoritmoCola.ultimoAPrimero(cola);
             cola.imprimirCola();
+
 
         } catch (ColaVacia e) {
             e.getMessage();
