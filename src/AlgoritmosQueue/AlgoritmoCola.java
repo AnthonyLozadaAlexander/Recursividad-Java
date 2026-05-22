@@ -9,7 +9,7 @@ public class AlgoritmoCola<T> {
         aux = cola;
 
         if(!cola.colaVacia()){
-            T elem = cola.desencolar();
+            T elem = aux.desencolar();
             invertirCola(aux);
             aux.encolar(elem);
         }
