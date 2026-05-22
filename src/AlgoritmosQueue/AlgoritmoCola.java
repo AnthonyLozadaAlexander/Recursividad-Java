@@ -28,10 +28,12 @@ public class AlgoritmoCola<T> {
         T resul = null; // variable generica para guardar
 
         if (!cola.colaVacia()) {
-            T elem = aux.desencolar();
-            ultimoAPrimeroR(aux); // invocacion recursiva para desencolar toda la cola
+            T elem = aux.desencolar(); // desencolamos la cola
             if (cola.colaVacia()) {
                 resul = elem; // guardamos el ultimo elemento de la cola
+            }else{
+                resul = ultimoAPrimeroR(aux); // invocacion recursiva
+                cola.encolar(elem); // volver a encolar la cola
             }
         }
 
