@@ -47,10 +47,10 @@ public class TadPila<T> implements Pila<T> {
         tamanio++;
     }
 
-    public T desapilar() {
+    public T desapilar() throws PilaVacia{
         T guardar;
         if (estaVacia()) {
-            throw new IllegalStateException("La Pila se encuentra vacia");
+            throw new PilaVacia("La Pila se encuentra vacia");
         }
         guardar = nodoCima.dato;
         nodoCima = nodoCima.siguiente;
@@ -70,7 +70,7 @@ public class TadPila<T> implements Pila<T> {
         return tamanio;
     }
 
-    public void invertirPila() {
+    public void invertirPila() throws PilaVacia{
 
         TadPila<T> pilaAux = new TadPila<>("Aux");
         // pila auxiliar
