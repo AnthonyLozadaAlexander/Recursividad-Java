@@ -21,4 +21,6 @@ public interface Cola<T> {
 
     boolean colaVacia();
 
+    T primero() throws ColaVacia;
+
 }
