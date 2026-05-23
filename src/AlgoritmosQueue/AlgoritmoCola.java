@@ -55,6 +55,8 @@ public class AlgoritmoCola<T> {
 
         aux.invertirCola();
 
+        // aux.invertirCola();
+
      return count;
 
     }
