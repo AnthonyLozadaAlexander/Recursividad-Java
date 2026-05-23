@@ -11,6 +11,14 @@ public class TadCola<T> implements Cola<T> {
         fin = null;
     }
 
+    public T primero() throws ColaVacia{
+        if(colaVacia()){
+            throw new ColaVacia("Error: La Cola Se Encuentra Vacia");
+        }else {
+            return principio.dato;
+        }
+    }
+
     @Override
     public void encolar(T dato) {
         NodoCola<T> aux;
@@ -71,7 +79,7 @@ public class TadCola<T> implements Cola<T> {
     }
 
     @Override
-    public void invertirCola() {
+    public void invertirColaIterativo() {
         int n = numElemCola();
         T vector[] = (T[]) new Object[n]; // vector de tipo Generico
         for (int i = 0; i < n; i++) {
@@ -86,6 +94,20 @@ public class TadCola<T> implements Cola<T> {
         for (int i = n - 1; i >= 0; i--) {
             this.encolar(vector[i]); // va encolar los elementos del vector invertidos a la cola
         }
+    }
+
+    public void invertirCola()  {
+        T guardar;
+        if(!colaVacia()) {
+            try {
+                guardar = this.desencolar();
+                invertirCola();
+                encolar(guardar);
+            } catch (ColaVacia e) {
+
+            }
+        }
+
     }
 
     @Override
