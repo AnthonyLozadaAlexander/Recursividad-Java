@@ -15,27 +15,26 @@ public class PruebaQueue01 {
         cola.encolar(5);
         System.out.println("Cola Original");
         cola.imprimirCola();
-        System.out.println("Cola Invertida");
-        cola.invertirCola();
-        cola.imprimirCola();
 
 
-        /*try {
-           *//* AlgoritmoCola.invertirCola(cola);
+
+        try {
+            AlgoritmoCola.invertirCola(cola);
             System.out.println("Cola Invertida");
-            cola.imprimirCola();*//*
+            cola.imprimirCola();
 
-            *//* System.out.println("Llevar Ultimo Elemento De La Cola Al Inicio");
-            AlgoritmoCola.ultimoAPrimero(cola); *//*
+             System.out.println("Llevar Ultimo Elemento De La Cola Al Inicio");
+            AlgoritmoCola.ultimoAPrimero(cola);
 
             int tamanio = AlgoritmoCola.contarElementsR(cola, 0);
-            cola.imprimirCola();
             System.out.println("La cantidad de la cola es de: " + tamanio);
-
+            System.out.println("Cola Invertida");
+            cola.invertirCola();
+            cola.imprimirCola();
 
 
         } catch (ColaVacia e) {
             e.getMessage();
-        }*/
+        }
     }
 }
