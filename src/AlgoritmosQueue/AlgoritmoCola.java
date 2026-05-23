@@ -47,18 +47,15 @@ public class AlgoritmoCola<T> {
         Cola<T> aux;
         aux = cola;
 
-        if(!aux.colaVacia()){
-            T elem = aux.desencolar();
-            count = contarElementsR(aux, count + 1);
-            aux.encolar(elem);
+        if(aux.colaVacia()){
+            return 0;
         }
 
-        aux.invertirCola();
+        T guardar = aux.desencolar();
+        count = 1 + contarElementsR(aux, count);
+        aux.encolar(guardar);
 
-        // aux.invertirCola();
-
-     return count;
-
+        return count;
     }
 
 
