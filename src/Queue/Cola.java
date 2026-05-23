@@ -9,6 +9,8 @@ public interface Cola<T> {
 
     int numElemCola();
 
+    void invertirColaIterativo();
+
     void invertirCola();
 
     String getNombre();
