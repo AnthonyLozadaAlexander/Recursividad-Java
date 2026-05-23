@@ -41,4 +41,24 @@ public class AlgoritmoCola<T> {
 
     }
 
+
+
+    public static <T> int contarElementsR(Cola<T> cola, int count) throws ColaVacia {
+        Cola<T> aux;
+        aux = cola;
+
+        if(!aux.colaVacia()){
+            T elem = aux.desencolar();
+            count = contarElementsR(aux, count + 1);
+            aux.encolar(elem);
+        }
+
+        aux.invertirCola();
+
+     return count;
+
+    }
+
+
+
 }

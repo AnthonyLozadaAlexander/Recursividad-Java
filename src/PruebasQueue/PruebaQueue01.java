@@ -22,9 +22,12 @@ public class PruebaQueue01 {
             System.out.println("Cola Invertida");
             cola.imprimirCola();*/
 
-            System.out.println("Llevar Ultimo Elemento De La Cola Al Inicio");
-            AlgoritmoCola.ultimoAPrimero(cola);
+            /* System.out.println("Llevar Ultimo Elemento De La Cola Al Inicio");
+            AlgoritmoCola.ultimoAPrimero(cola); */
+
+            int tamanio = AlgoritmoCola.contarElementsR(cola, 0);
             cola.imprimirCola();
+            System.out.println("La cantidad de la cola es de: " + tamanio);
 
 
         } catch (ColaVacia e) {
