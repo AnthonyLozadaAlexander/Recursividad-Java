@@ -5,7 +5,7 @@ public interface Pila<T> {
 
     void apilar(T dato);
 
-    T desapilar();
+    T desapilar() throws PilaVacia;
 
     T cima();
 
