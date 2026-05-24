@@ -14,7 +14,6 @@ public class PruebaQueue01 {
         System.out.println("Cola Original");
         cola.imprimirCola();
 
-
         try {
             // AlgoritmoCola.invertirCola(cola);
             // System.out.println("Cola Invertida");
@@ -23,8 +22,8 @@ public class PruebaQueue01 {
             // System.out.println("Llevar Ultimo Elemento De La Cola Al Inicio");
             // AlgoritmoCola.ultimoAPrimero(cola);
 
-            //int tamanio = AlgoritmoCola.contarElementsR(cola, 0);
-            //System.out.println("La cantidad de la cola es de: " + tamanio);
+            // int tamanio = AlgoritmoCola.contarElementsR(cola, 0);
+            // System.out.println("La cantidad de la cola es de: " + tamanio);
 
             System.out.println("Cola Invertida");
             // cola.invertirCola();
@@ -34,7 +33,6 @@ public class PruebaQueue01 {
             System.out.println("Primer Elemento Al Ultimo");
             AlgoritmoCola.ultimoAlFrente(cola);
             cola.imprimirCola();
-
 
         } catch (ColaVacia e) {
             e.getMessage();
