@@ -5,9 +5,9 @@ import Stack.*;
 
 public class AlgoritmosPila<T> {
 
-    public static int contarPila(Pila<Integer> p) throws PilaVacia{
+    public static int contarPila(Pila<Integer> p) throws PilaVacia {
         int count = 0;
-        if(p.estaVacia()){
+        if (p.estaVacia()) {
             return 0;
         }
 
@@ -20,7 +20,7 @@ public class AlgoritmosPila<T> {
 
     public static void imprimirPilaInvertida(Pila<Integer> p) throws PilaVacia {
         Integer cima = 0;
-        if(p.estaVacia()){
+        if (p.estaVacia()) {
             return;
         }
 
@@ -32,5 +32,19 @@ public class AlgoritmosPila<T> {
 
     }
 
+    public static <T> void insertarAlFondo(Pila<T> pila, T elemento) throws PilaVacia {
+
+        T elementoExtraido;
+
+        if (pila.estaVacia()) {
+            pila.apilar(elemento);
+            return;
+        } else {
+            elementoExtraido = pila.desapilar();
+            insertarAlFondo(pila, elemento); // llamada recursiva
+            pila.apilar(elementoExtraido);
+        }
+
+    }
 
 }
