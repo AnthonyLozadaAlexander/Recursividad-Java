@@ -16,7 +16,11 @@ public class PruebaStack01 {
         try {
             tamanio = AlgoritmosPila.contarPila(pila);
             System.out.println("Tamanio de la pila es de: " + tamanio);
+            System.out.println("Pila Original");
             pila.imprimirPila();
+
+            System.out.println("Pila Invertida");
+            AlgoritmosPila.imprimirPilaInvertida(pila);
         }catch(PilaVacia e){
 
         }
