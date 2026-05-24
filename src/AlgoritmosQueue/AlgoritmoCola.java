@@ -15,13 +15,15 @@ public class AlgoritmoCola<T> {
         }
     }
 
+    // (4) -> (5) -> (6) -> (9)
+    // (9) -> (6) -> (5) -> (4)
+
     public static <T> void ultimoAPrimero(Cola<T> cola) throws ColaVacia {
         T elem = ultimoAPrimeroR(cola);
         cola.encolar(elem);
         cola.invertirCola();
 
     }
-
     private static <T> T ultimoAPrimeroR(Cola<T> cola) throws ColaVacia {
         Cola<T> aux;
         aux = cola;
@@ -56,6 +58,27 @@ public class AlgoritmoCola<T> {
         aux.encolar(guardar);
 
         return count;
+    }
+
+    public static int contarParesCola(Cola<Integer> c) throws ColaVacia {
+        Integer count = 0;
+        Integer primero;
+        if(c.colaVacia()){
+            return 0;
+        }
+
+        primero = c.desencolar();
+        if(primero % 2 == 0){
+            count = 1 + contarParesCola(c);
+
+        }else{
+            count = 0 + contarParesCola(c);
+        }
+
+        c.encolar(primero);
+
+        return count;
+
     }
 
 
