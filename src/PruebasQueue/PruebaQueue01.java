@@ -31,6 +31,8 @@ public class PruebaQueue01 {
             System.out.println("Cola Invertida");
             // cola.invertirCola();
             cola.imprimirCola();
+            int countPares = AlgoritmoCola.contarParesCola(cola);
+            System.out.println("Hay " + countPares + " numeros pares en la Cola");
 
 
         } catch (ColaVacia e) {
