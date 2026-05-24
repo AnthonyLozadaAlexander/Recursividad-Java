@@ -18,5 +18,19 @@ public class AlgoritmosPila<T> {
         return count;
     }
 
+    public void imprimirPilaInvertida(Pila<Integer> p) throws PilaVacia {
+        Integer cima = 0;
+        if(p.estaVacia()){
+            return;
+        }
+
+        cima = p.desapilar();
+        imprimirPilaInvertida(p);
+
+        System.out.println(cima);
+        p.apilar(cima);
+
+    }
+
 
 }
