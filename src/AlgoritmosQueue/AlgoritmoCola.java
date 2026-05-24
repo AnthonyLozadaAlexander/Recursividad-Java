@@ -81,6 +81,35 @@ public class AlgoritmoCola<T> {
 
     }
 
+    // (1) -> (2) -> (3) -> (4)
+    // (4) -> (1) -> (2) -> (3)
 
+     /*guardar = c.desencolar();
+        if(c.colaVacia()){
+            ultimo = guardar;
+            c.encolar(ultimo);
+        }else{
+            ultimoAlFrente(c);
+            c.encolar(guardar);
+        }*/
+
+    public static void ultimoAlFrente(Cola<Integer> c) throws ColaVacia{
+        int totalElementos = c.numElemCola();
+        if(totalElementos <= 1){
+            return;
+        }
+        rotarCola(c, totalElementos - 1);
+    }
+
+
+    private static void rotarCola(Cola<Integer> c, int veces) throws ColaVacia{
+        if(veces == 0){
+            return;
+        }
+
+        Integer primero = c.desencolar();
+        c.encolar(primero);
+        rotarCola(c, veces - 1);
+    }
 
 }
