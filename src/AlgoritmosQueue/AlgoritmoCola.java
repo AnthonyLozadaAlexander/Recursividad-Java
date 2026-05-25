@@ -340,17 +340,34 @@ public class AlgoritmoCola<T> {
 
     }
 
-    public static <T> void filtrarImpares(Cola<Integer> c) throws ColaVacia {
+    public static <T> void filtrarImparesE(Cola<Integer> c) throws ColaVacia {
 
         if (!c.colaVacia()) {
             Integer actual = c.desencolar();
-            filtrarImpares(c);
+            filtrarImparesE(c);
 
             if (actual % 2 == 0) {
                 c.encolar(actual);
                 c.invertirCola();
             }
 
+        }
+
+    }
+
+    public static void filtrarImparesDos(Cola<Integer> cola) throws ColaVacia {
+        if (!cola.colaVacia()) {
+            filtrarImparesR(cola, cola.numElemCola());
+        }
+    }
+
+    private static void filtrarImparesR(Cola<Integer> cola, int elementosRestantes) throws ColaVacia {
+        if (elementosRestantes > 0) {
+            Integer guardar = cola.desencolar();
+            if (guardar % 2 == 0) {
+                cola.encolar(guardar);
+            }
+            filtrarImparesR(cola, elementosRestantes - 1);
         }
 
     }
