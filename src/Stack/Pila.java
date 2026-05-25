@@ -1,7 +1,7 @@
 package Stack;
 
 public interface Pila<T> {
-    boolean estaVacia() throws PilaVacia;
+    boolean pilaVacia() throws PilaVacia;
 
     void apilar(T dato);
 
