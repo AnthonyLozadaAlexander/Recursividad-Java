@@ -1,13 +1,12 @@
 package AlgoritmosStack;
 
-import Stack.Pila;
 import Stack.*;
 
 public class AlgoritmosPila<T> {
 
     public static int contarPila(Pila<Integer> p) throws PilaVacia {
         int count = 0;
-        if (p.estaVacia()) {
+        if (p.pilaVacia()) {
             return 0;
         }
 
@@ -20,7 +19,7 @@ public class AlgoritmosPila<T> {
 
     public static void imprimirPilaInvertida(Pila<Integer> p) throws PilaVacia {
         Integer cima = 0;
-        if (p.estaVacia()) {
+        if (p.pilaVacia()) {
             return;
         }
 
@@ -36,7 +35,7 @@ public class AlgoritmosPila<T> {
 
         T elementoExtraido;
 
-        if (pila.estaVacia()) {
+        if (pila.pilaVacia()) {
             pila.apilar(elemento);
             return;
         } else {
@@ -48,16 +47,67 @@ public class AlgoritmosPila<T> {
     }
 
     public static <T> void eliminarOcurrencias(Pila<T> p, T x) throws PilaVacia {
-        if (p.estaVacia()) {
+        if (p.pilaVacia()) {
             return;
         }
 
         T actual = p.desapilar();
         eliminarOcurrencias(p, x);
 
-        if (actual != x) {
+        if (!actual.equals(x)) {
             p.apilar(actual);
         }
+    }
+
+    public static <T> Integer buscarElementoMaximoN(Pila<Integer> p) throws PilaVacia {
+        //
+        if (p.getTamanio() == 1) { // toma el ultimo de la pila para retornar y comparar
+            Integer save = p.desapilar();
+            p.apilar(save); // apilamos para no perder
+            return save;
+        }
+
+        Integer actual = p.desapilar();
+        Integer maximoResto = buscarElementoMaximoN(p); // trae el return save
+        // Recursivo desde 73 hasta 63
+
+        // una vez terminada la recursividad apila el regreso y compara y devuelve
+        p.apilar(actual);
+        // 2 4
+        return Math.max(actual, maximoResto); // compara y devuelve
+    }
+
+    public static <T> Integer buscarElementoMaximoE(Pila<Integer> p) throws PilaVacia {
+        Integer Max = 0;
+        // [5] , 9 , 3
+        if (!p.pilaVacia()) {
+            if (p.getTamanio() == 1) { // cuando llego al fondo de la pila
+                Integer save = p.desapilar();
+                p.apilar(save);
+                Max = save;
+            } else { // cuando no sea el tamanio el fondo
+                Integer actual = p.desapilar();
+                Integer max = buscarElementoMaximoE(p);
+                p.apilar(max);
+                Max = Math.max(actual, max);
+            }
+
+        }
+        return Max;
+
+    }
+
+    public static <T> Integer buscarElementoMax(Pila<Integer> p) throws PilaVacia {
+        Integer max = 0;
+        if (!p.pilaVacia()) {
+            Integer elem = p.desapilar();
+            max = buscarElementoMax(p);
+            if ((Integer) elem > max) {
+                max = (Integer) elem;
+            }
+            p.apilar(elem);
+        }
+        return max;
     }
 
 }
