@@ -16,15 +16,15 @@ public class TadPila<T> implements Pila<T> {
         return nombre;
     }
 
-    public boolean estaVacia() {
+    public boolean pilaVacia() {
         return nodoCima == null; // true
     }
 
     public void imprimirPila() {
-        boolean vacia = estaVacia();
+        boolean vacia = pilaVacia();
         NodoPila<T> aux;
         aux = nodoCima;
-        if (estaVacia()) {
+        if (pilaVacia()) {
             System.out.println("Error: Pila Vacia");
         }
 
@@ -47,9 +47,9 @@ public class TadPila<T> implements Pila<T> {
         tamanio++;
     }
 
-    public T desapilar() throws PilaVacia{
+    public T desapilar() throws PilaVacia {
         T guardar;
-        if (estaVacia()) {
+        if (pilaVacia()) {
             throw new PilaVacia("La Pila se encuentra vacia");
         }
         guardar = nodoCima.dato;
@@ -59,7 +59,7 @@ public class TadPila<T> implements Pila<T> {
     }
 
     public T cima() {
-        if (estaVacia()) {
+        if (pilaVacia()) {
             throw new IllegalStateException("La Pila se encuentra vacia");
         }
 
@@ -70,13 +70,13 @@ public class TadPila<T> implements Pila<T> {
         return tamanio;
     }
 
-    public void invertirPila() throws PilaVacia{
+    public void invertirPila() throws PilaVacia {
 
         TadPila<T> pilaAux = new TadPila<>("Aux");
         // pila auxiliar
 
         // mientras la pila no este vacia
-        while (!this.estaVacia()) {
+        while (!this.pilaVacia()) {
             T guardar;
             guardar = this.desapilar(); // desapilamos la pila original
             pilaAux.apilar(guardar);
