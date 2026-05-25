@@ -5,7 +5,7 @@ import Queue.TadCola;
 import AlgoritmosQueue.*;
 
 public class PruebaQueue01 {
-    static void main(String[] args) {
+    public static void main(String[] args) {
         TadCola<Integer> cola = new TadCola<>("Cola Integers");
         cola.encolar(1);
         cola.encolar(2);
