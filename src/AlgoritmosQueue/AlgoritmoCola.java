@@ -372,4 +372,17 @@ public class AlgoritmoCola<T> {
 
     }
 
+    public static <T> void duplicarElemento(Cola<T> cola) throws ColaVacia {
+        duplicarElementoR(cola, cola.numElemCola());
+    }
+
+    private static <T> void duplicarElementoR(Cola<T> cola, int elementosRestantes) throws ColaVacia{
+        if(elementosRestantes > 0){
+            T elem = cola.desencolar();
+            cola.encolar(elem);
+            cola.encolar(elem);
+            duplicarElementoR(cola, elementosRestantes - 1);
+        }
+    }
+
 }
