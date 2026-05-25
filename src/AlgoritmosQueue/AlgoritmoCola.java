@@ -340,4 +340,19 @@ public class AlgoritmoCola<T> {
 
     }
 
+    public static <T> void filtrarImpares(Cola<Integer> c) throws ColaVacia {
+
+        if (!c.colaVacia()) {
+            Integer actual = c.desencolar();
+            filtrarImpares(c);
+
+            if (actual % 2 == 0) {
+                c.encolar(actual);
+                c.invertirCola();
+            }
+
+        }
+
+    }
+
 }
