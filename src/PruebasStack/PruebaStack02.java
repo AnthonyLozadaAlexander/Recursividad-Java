@@ -4,7 +4,7 @@ import Stack.*;
 import AlgoritmosStack.*;
 
 public class PruebaStack02 {
-    static void main(String[] args) {
+    public static void main(String[] args) {
         TadPila<Integer> miPila = new TadPila<>("Pila Integers");
         miPila.apilar(3);
         miPila.apilar(2);
