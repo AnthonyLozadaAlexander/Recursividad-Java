@@ -47,4 +47,17 @@ public class AlgoritmosPila<T> {
 
     }
 
+    public static <T> void eliminarOcurrencias(Pila<T> p, T x) throws PilaVacia {
+        if (p.estaVacia()) {
+            return;
+        }
+
+        T actual = p.desapilar();
+        eliminarOcurrencias(p, x);
+
+        if (actual != x) {
+            p.apilar(actual);
+        }
+    }
+
 }
