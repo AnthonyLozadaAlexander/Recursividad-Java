@@ -15,7 +15,7 @@ public class PruebaQueue09 {
 
         try {
 
-            AlgoritmoCola.filtrarImpares(cola);
+            AlgoritmoCola.filtrarImparesE(cola);
             cola.imprimirCola();
         } catch (ColaVacia e) {
 
