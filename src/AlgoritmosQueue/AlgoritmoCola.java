@@ -3,6 +3,8 @@ package AlgoritmosQueue;
 import java.util.ArrayList;
 
 import Queue.*;
+import Stack.Pila;
+import Stack.TadPila;
 
 public class AlgoritmoCola<T> {
 
@@ -181,9 +183,9 @@ public class AlgoritmoCola<T> {
     // posision [1][2][3][4][5]
     // 4 entonncnes quedaria 5 8 7 6 1 (ojo empiennsa desde la psosisionn 1)
 
-    public static <T> void intercambiarLugar(Cola<T> cola, int pos1, int pos2) throws ColaVacia {
+    public static <T> void borrarDosPosicion(Cola<T> cola, int pos1, int pos2) throws ColaVacia {
 
-        borrar2PosicionR(cola, pos2, pos1, pos2, null);
+        borrarDosPosicionR(cola, 0, pos1, pos2);
 
     }
 
@@ -197,7 +199,7 @@ public class AlgoritmoCola<T> {
 
             // count == 2
             if (count == pos1) {
-                guardarinter2 = cola.desencolar();
+                guardar2 = cola.desencolar();
             }
             // count == 4
             if (count == pos2) {
@@ -229,7 +231,7 @@ public class AlgoritmoCola<T> {
 
             res = intercambairLugaresR(cola, pos, posCamb, cont + 1, d);
 
-        // Intercambio de los elementos de dichas posiciones
+            // Intercambio de los elementos de dichas posiciones
             if (cont == pos) {
                 cola.encolar(res);
                 res = elem;
@@ -242,6 +244,100 @@ public class AlgoritmoCola<T> {
         }
 
         return res;
+    }
+
+    /*
+     * de una cola ejemplo 1 2 3 4 5 6 7 quiero que todo los datos pares se
+     * intercambien por el 99 entonnces quedaria asi 1 99 3 99 5 99 7
+     */
+    public static <T> void intercambiarParesMA(Cola<T> cola) throws ColaVacia {
+        Integer dato1 = 99;
+        intercambiarParesM(cola, (T) dato1);
+    }
+
+    private static <T> void intercambiarParesM(Cola<T> cola, T dato) throws ColaVacia {
+        if (!cola.colaVacia()) {
+            T elem = cola.desencolar();
+            intercambiarParesM(cola, dato);
+            if ((Integer) elem % 2 == 0) {
+                cola.encolar(dato);
+            } else {
+                cola.encolar(elem);
+            }
+        }
+    }
+
+    public static <T> void intercambiarParesA(Cola<T> cola) throws ColaVacia {
+        Integer dato1 = 99;
+        intercambiarParesR(cola, (T) dato1);
+    }
+
+    private static <T> void intercambiarParesR(Cola<T> cola, T dato1) throws ColaVacia {
+
+        /*
+         * Aqui comienza la recursividad hasta que la cola quede vacia, se desencolan
+         * los datos en la memoria, de IDA
+         */
+        // ------------------------------------------------------
+        if (!cola.colaVacia()) {
+            T dato = cola.desencolar();
+            intercambiarParesA(cola);
+            // -----------------------------------------------------
+
+            if ((Integer) dato % 2 == 0) {
+                cola.encolar(dato1);
+            } else {
+                cola.encolar(dato);
+            }
+
+            /* Este es el momento donde el bucle va de regreso */
+
+        }
+    }
+
+    /*
+     * TONTO QUIEN LO LEA
+     * 
+     * 
+     */
+
+    /*
+     * TONTO QUIEN LO Siga LEYENDO
+     * 
+     * 
+     */
+
+    /*
+     * 
+     * de una cola ejemplo 2 3 5 6 9 1 quiero que la mitad de mi cola final se
+     * cambie de orden ejemplo
+     * quedaria 2 3 5 1 9 6
+     * 
+     * 
+     */
+
+    public static <T> void intercambiarMitad(Cola<T> cola) throws ColaVacia {
+        int total = cola.numElemCola();
+        int mitad = total / 2;
+
+        intercambiarMitadR(cola, mitad, 1, total);
+    }
+
+    private static <T> void intercambiarMitadR(Cola<T> cola, int mitad, int count, int total) throws ColaVacia {
+        if (count > total) {
+            return;
+        }
+
+        T save = cola.desencolar();
+
+        if (count <= mitad) {
+            cola.encolar(save);
+            intercambiarMitadR(cola, mitad, count + 1, total);
+        } else {
+            intercambiarMitadR(cola, mitad, count + 1, total);
+            cola.encolar(save);
+        }
+
     }
 
 }
