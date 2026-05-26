@@ -147,4 +147,19 @@ public class AlgoritmosPila<T> {
         }
     }
 
+    public static <T> void actualizarEnPosicion(Pila<T> pila, int posicion, T nuevoValor) throws PilaVacia {
+
+        if (posicion == 1) {
+            T guardar = pila.desapilar();
+            pila.apilar(nuevoValor);
+        }
+
+        if (posicion > 1) {
+            T save = pila.desapilar();
+            actualizarEnPosicion(pila, posicion - 1, nuevoValor);
+            pila.apilar(save);
+        }
+
+    }
+
 }
