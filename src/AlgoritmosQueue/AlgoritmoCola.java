@@ -376,13 +376,38 @@ public class AlgoritmoCola<T> {
         duplicarElementoR(cola, cola.numElemCola());
     }
 
-    private static <T> void duplicarElementoR(Cola<T> cola, int elementosRestantes) throws ColaVacia{
-        if(elementosRestantes > 0){
+    private static <T> void duplicarElementoR(Cola<T> cola, int elementosRestantes) throws ColaVacia {
+        if (elementosRestantes > 0) {
             T elem = cola.desencolar();
             cola.encolar(elem);
             cola.encolar(elem);
             duplicarElementoR(cola, elementosRestantes - 1);
         }
+    }
+
+    public static <T> boolean encontrar(Cola<T> c, T buscar) throws ColaVacia {
+        Boolean encontrado = false;
+        if (!c.colaVacia()) {
+            encontrado = encontrarR(c, buscar, c.numElemCola());
+        }
+
+        return encontrado;
+    }
+
+    private static <T> boolean encontrarR(Cola<T> c, T buscar, int elementosRestantes) throws ColaVacia {
+        boolean resul = false;
+        if (elementosRestantes != 0) {
+            T guardar = c.desencolar();
+            c.encolar(guardar);
+            resul = encontrarR(c, buscar, elementosRestantes - 1);
+            
+            if (guardar == buscar) {
+                resul = true;
+            }
+        }
+
+        return resul;
+
     }
 
 }
