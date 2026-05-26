@@ -369,23 +369,23 @@ public class AlgoritmoCola<T> {
 
     /*
      * TONTO QUIEN LO LEA
-     * 
-     * 
+     *
+     *
      */
 
     /*
      * TONTO QUIEN LO Siga LEYENDO
-     * 
-     * 
+     *
+     *
      */
 
     /*
-     * 
+     *
      * de una cola ejemplo 2 3 5 6 9 1 quiero que la mitad de mi cola final se
      * cambie de orden ejemplo
      * quedaria 2 3 5 1 9 6
-     * 
-     * 
+     *
+     *
      */
 
     public static <T> void intercambiarMitad(Cola<T> cola) throws ColaVacia {
@@ -503,5 +503,7 @@ public class AlgoritmoCola<T> {
         }
 
     }
+
+}
 
     
