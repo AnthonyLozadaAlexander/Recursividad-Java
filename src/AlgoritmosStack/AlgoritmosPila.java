@@ -125,6 +125,26 @@ public class AlgoritmosPila<T> {
         return count;
     }
 
-   
+    public static <T> void insertarAlFondoA(Pila<T> p, T dato) throws PilaVacia {
+        if (p.pilaVacia()) {
+            p.apilar(dato);
+        } else {
+            T guardar = p.desapilar();
+            insertarAlFondo(p, dato);
+            p.apilar(guardar);
+        }
+    }
+
+    public static <T> void eliminarBase(Pila<T> pila) throws PilaVacia {
+        if (pila.getTamanio() == 1) {
+            T eliminar = pila.desapilar();
+        }
+
+        if (pila.getTamanio() > 1) {
+            T guardar = pila.desapilar();
+            eliminarBase(pila);
+            pila.apilar(guardar);
+        }
+    }
 
 }
