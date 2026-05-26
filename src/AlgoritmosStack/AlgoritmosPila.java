@@ -1,5 +1,6 @@
 package AlgoritmosStack;
 
+import Queue.Cola;
 import Queue.ColaVacia;
 import Stack.*;
 
@@ -123,5 +124,7 @@ public class AlgoritmosPila<T> {
 
         return count;
     }
+
+   
 
 }
