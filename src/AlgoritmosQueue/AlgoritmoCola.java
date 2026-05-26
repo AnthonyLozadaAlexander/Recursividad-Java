@@ -400,13 +400,35 @@ public class AlgoritmoCola<T> {
             T guardar = c.desencolar();
             c.encolar(guardar);
             resul = encontrarR(c, buscar, elementosRestantes - 1);
-            
+
             if (guardar == buscar) {
                 resul = true;
             }
         }
 
         return resul;
+
+    }
+
+    public static <T> void insertarDelanteDe(Cola<T> cola, T a, T b) throws ColaVacia {
+
+        insertarDelanteDeR(cola, a, b, cola.numElemCola());
+
+    }
+
+    private static <T> void insertarDelanteDeR(Cola<T> cola, T a, T b, int elementosRestantes) throws ColaVacia {
+
+        if (elementosRestantes > 0) {
+            T actual = cola.desencolar();
+            if (actual.equals(b)) {
+                cola.encolar(a);
+                cola.encolar(actual);
+            } else {
+                cola.encolar(actual);
+            }
+            insertarDelanteDeR(cola, a, b, elementosRestantes - 1);
+
+        }
 
     }
 
