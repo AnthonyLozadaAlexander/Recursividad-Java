@@ -1,5 +1,6 @@
 package AlgoritmosStack;
 
+import Queue.ColaVacia;
 import Stack.*;
 
 public class AlgoritmosPila<T> {
@@ -108,6 +109,19 @@ public class AlgoritmosPila<T> {
             p.apilar(elem);
         }
         return max;
+    }
+
+    public static <T> int contarElementosR(Pila<T> p) throws PilaVacia {
+        int count = 0;
+        if (p.pilaVacia()) {
+            return 0;
+        } else {
+            T guardar = p.desapilar();
+            count = 1 + contarElementosR(p);
+            p.apilar(guardar);
+        }
+
+        return count;
     }
 
 }
