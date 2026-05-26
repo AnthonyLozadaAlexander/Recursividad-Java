@@ -147,4 +147,68 @@ public class AlgoritmosPila<T> {
         }
     }
 
+    // -- CRUD PARA PILA --
+
+    public static <T> void insertarElementoEnPosicion(Pila<T> p, T elemento, int pos) throws PilaVacia {
+        insertarElementoEnPosicionRecursivo(p, elemento, pos, 0);
+    }
+
+    public static <T> T obtenerElementoEnPosicion(Pila<T> p, int pos) throws PilaVacia {
+        return obtenerElementoEnPosicionRecursivo(p, pos, 0);
+    }
+
+    public static <T> void modificarElementoEnPosicion(Pila<T> p, T nuevo, int pos) throws PilaVacia {
+        modificarElementoEnPosicionRecursivo(p, nuevo, pos, 0);
+    }
+
+    public static <T> void removerElementoEnPosicion(Pila<T> p, int pos) throws PilaVacia {
+        removerElementoEnPosicionRecursivo(p, pos, 0);
+    }
+
+    private static <T> void insertarElementoEnPosicionRecursivo(Pila<T> p, T elemento, int pos, int actual) throws PilaVacia {
+        if (actual == pos) {
+            p.apilar(elemento);
+            return;
+        }
+        if (p.pilaVacia()) return;
+        T guardado = p.desapilar();
+        insertarElementoEnPosicionRecursivo(p, elemento, pos, actual + 1);
+        p.apilar(guardado);
+    }
+
+    private static <T> T obtenerElementoEnPosicionRecursivo(Pila<T> p, int pos, int actual) throws PilaVacia {
+        if (p.pilaVacia()) return null;
+        if (actual == pos) {
+            T guardado = p.desapilar();
+            p.apilar(guardado);
+            return guardado;
+        }
+        T guardado = p.desapilar();
+        T resultado = obtenerElementoEnPosicionRecursivo(p, pos, actual + 1);
+        p.apilar(guardado);
+        return resultado;
+    }
+
+    private static <T> void modificarElementoEnPosicionRecursivo(Pila<T> p, T nuevo, int pos, int actual) throws PilaVacia {
+        if (p.pilaVacia()) return;
+        T guardado = p.desapilar();
+        if (actual == pos) {
+            p.apilar(nuevo);
+        } else {
+            modificarElementoEnPosicionRecursivo(p, nuevo, pos, actual + 1);
+            p.apilar(guardado);
+        }
+    }
+
+    private static <T> void removerElementoEnPosicionRecursivo(Pila<T> p, int pos, int actual) throws PilaVacia {
+        if (p.pilaVacia()) return;
+        T guardado = p.desapilar();
+        if (actual == pos) {
+            // Se omite apilar de nuevo
+        } else {
+            removerElementoEnPosicionRecursivo(p, pos, actual + 1);
+            p.apilar(guardado);
+        }
+    }
+
 }
