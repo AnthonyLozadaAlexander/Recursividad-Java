@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import Queue.*;
 import Stack.Pila;
+import Stack.PilaVacia;
 import Stack.TadPila;
 
 public class AlgoritmoCola<T> {
@@ -431,5 +432,7 @@ public class AlgoritmoCola<T> {
         }
 
     }
+
+    
 
 }
