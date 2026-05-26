@@ -85,6 +85,77 @@ public class AlgoritmoCola<T> {
 
     }
 
+    // -- CRUD RECURSIVO PARA COLA --
+
+    public static <T> void insertarElementoEnPosicion(Cola<T> c, T elemento, int pos) throws ColaVacia {
+        insertarElementoEnPosicionRecursivo(c, elemento, pos, 0, c.numElemCola());
+    }
+
+    public static <T> T obtenerElementoEnPosicion(Cola<T> c, int pos) throws ColaVacia {
+        return obtenerElementoEnPosicionRecursivo(c, pos, 0, c.numElemCola());
+    }
+
+    public static <T> void modificarElementoEnPosicion(Cola<T> c, T nuevo, int pos) throws ColaVacia {
+        modificarElementoEnPosicionRecursivo(c, nuevo, pos, 0, c.numElemCola());
+    }
+
+    public static <T> void removerElementoEnPosicion(Cola<T> c, int pos) throws ColaVacia {
+        removerElementoEnPosicionRecursivo(c, pos, 0, c.numElemCola());
+    }
+
+    private static <T> void insertarElementoEnPosicionRecursivo(Cola<T> c, T elemento, int pos, int actual, int size) throws ColaVacia {
+        if (actual == size) {
+            if (pos == size) {
+                c.encolar(elemento);
+            }
+            return;
+        }
+        T guardado = c.desencolar();
+        if (actual == pos) {
+            c.encolar(elemento);
+        }
+        c.encolar(guardado);
+        insertarElementoEnPosicionRecursivo(c, elemento, pos, actual + 1, size);
+    }
+
+    private static <T> T obtenerElementoEnPosicionRecursivo(Cola<T> c, int pos, int actual, int size) throws ColaVacia {
+        if (actual == size) {
+            return null;
+        }
+        T guardado = c.desencolar();
+        T resultado = null;
+        if (actual == pos) {
+            resultado = guardado;
+        }
+        c.encolar(guardado);
+        T resRecursivo = obtenerElementoEnPosicionRecursivo(c, pos, actual + 1, size);
+        return resultado != null ? resultado : resRecursivo;
+    }
+
+    private static <T> void modificarElementoEnPosicionRecursivo(Cola<T> c, T nuevo, int pos, int actual, int size) throws ColaVacia {
+        if (actual == size) {
+            return;
+        }
+        T guardado = c.desencolar();
+        if (actual == pos) {
+            c.encolar(nuevo);
+        } else {
+            c.encolar(guardado);
+        }
+        modificarElementoEnPosicionRecursivo(c, nuevo, pos, actual + 1, size);
+    }
+
+    private static <T> void removerElementoEnPosicionRecursivo(Cola<T> c, int pos, int actual, int size) throws ColaVacia {
+        if (actual == size) {
+            return;
+        }
+        T guardado = c.desencolar();
+        if (actual != pos) {
+            c.encolar(guardado);
+        }
+        removerElementoEnPosicionRecursivo(c, pos, actual + 1, size);
+    }
+
     // (1) -> (2) -> (3) -> (4)
     // (4) -> (1) -> (2) -> (3)
 
@@ -434,5 +505,3 @@ public class AlgoritmoCola<T> {
     }
 
     
-
-}
