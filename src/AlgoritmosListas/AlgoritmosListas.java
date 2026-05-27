@@ -9,22 +9,28 @@ public class AlgoritmosListas {
 	// insertar al principio de la lista
 	public static <T> void insertarAlPrincipio(Lista<T> lista, T dato) {
 		
-		lista.crearNodo();
-		lista.asignarClave(dato);
+		lista.crearNodo(); // crear nodo
+		lista.asignarClave(dato); // dato
 		
 	}
 	public static <T> int contar(Lista<T> lista) {
+		if(lista.esNulo()){
+			return 0; // si la lista esta vacia, devuelve 0
+		}
 		Lista<T> aux = new TadLista<T>();
-		aux.asignarReferencia(lista.devolverReferencia());
-		return contar(aux, 0);
+		aux.asignarReferencia(lista.devolverReferencia()); // el nodo auxiliar toma la referencia del nodo siguiente al nodo cabeza, para empezar a contar desde el primer nodo de la lista
+		return contarR(aux); // llama al metodo recursivo privado
 	}
 	
-	private static <T> int contar(Lista<T> aux, int count) {
-		if(aux.devolverSiguiente() != null) {
-			aux.asignarReferencia(aux.devolverSiguiente());
-			count = 1 + contar(aux,count);
+	private static <T> int contarR(Lista<T> aux) {
+		// comprueba si existe un siguiente nodo, si existe, avanza al siguiente nodo y suma 1 al contador, hasta llegar al final de la lista
+		if(aux.esNulo()){
+			return 0;
 		}
-			return count;
+
+		 Lista<T> sig = new TadLista<T>();
+		sig.asignarReferencia(aux.devolverSiguiente()); // el nodo sig toma la referencia del nodo siguiente al nodo auxiliar, para avanzar al siguiente nodo
+		return 1 + contarR(sig);
 		
 	}
 	
@@ -90,25 +96,33 @@ public class AlgoritmosListas {
 	}
 	
 	public static <T> boolean buscar(Lista<T> lista, T dato) {
-		Lista<T> aux = new TadLista<T>(); // aux
-		aux.asignarReferencia(lista.devolverSiguiente()); // siguiente nodo
-		return buscarR(aux, dato); // invocacion recursiva
+		boolean encontrado = false;
+		if(!lista.esNulo()) { // si la lista esta vacia, devuelve false
+			Lista<T> aux = new TadLista<T>();
+			aux.asignarReferencia(lista.devolverReferencia()); // empezamos en primer nodo
+			encontrado = buscarR(aux, dato); // invocacion recursiva
+		}
+
+		return encontrado;
 	}
 	
 	public static <T> boolean buscarR(Lista<T> aux, T dato) {
 		boolean resul = false;
-		if(aux.esNulo()) { // caso base, si el nodo es nulo, quiere decir que se busco toda la lista y no se encontro el dato
-			return resul;
+		if (!aux.esNulo()) { // caso base, si el nodo es nulo, quiere decir que se busco toda la lista y no se encontro el dato
+			if (aux.devolverClave().equals(dato)) { // si el dato del nodo actual es igual al dato buscado,  si se cumple devuelve true
+				resul = true;
+			} else {
+
+				Lista<T> sig = new TadLista<T>();
+				sig.asignarReferencia(aux.devolverSiguiente());
+				resul = buscarR(aux, dato); // invocacion recursiva para avanzar al siguiente nodo y seguir buscando
+			}
 		}
-		
-		if(aux.devolverClave().equals(dato)) { // si el dato del nodo actual es igual al dato buscado,  si se cumple devuelve true
-			resul = true;
-			return resul;
-		}
-		
-		aux.asignarReferencia(aux.devolverSiguiente());
-		return buscarR(aux, dato);
+
+		return resul;
 	}
+
+
 
 
 
