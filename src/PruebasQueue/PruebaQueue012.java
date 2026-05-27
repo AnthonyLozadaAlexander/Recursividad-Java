@@ -15,7 +15,7 @@ public class PruebaQueue012 {
         cola.imprimirCola();
 
         try {
-            AlgoritmoCola.insertarDelanteDe(cola, "2", "5");
+            AlgoritmoCola.insertarDelanteDe(cola, "2", "8");
             cola.imprimirCola();
 
         } catch (ColaVacia e) {
