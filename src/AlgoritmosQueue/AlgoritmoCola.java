@@ -483,9 +483,7 @@ public class AlgoritmoCola<T> {
     }
 
     public static <T> void insertarDelanteDe(Cola<T> cola, T a, T b) throws ColaVacia {
-
         insertarDelanteDeR(cola, a, b, cola.numElemCola());
-
     }
 
     private static <T> void insertarDelanteDeR(Cola<T> cola, T a, T b, int elementosRestantes) throws ColaVacia {
