@@ -62,10 +62,10 @@ public class ENumPrimo {
 
         if (n <= 1) {
             result = false;
+        } else if (n % divisor == 0) {
+            result = false;
         } else if (Math.pow((divisor), 2) > n) {
             result = true;
-        } else if (divisor % n == 0) {
-            result = false;
         } else {
             result = esPrimoR(n, divisor + 1);
         }
