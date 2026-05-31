@@ -298,23 +298,23 @@ public class AlgoritmoCola<T> {
 
     /*
      * TONTO QUIEN LO LEA
-     * 
-     * 
+     *
+     *
      */
 
     /*
      * TONTO QUIEN LO Siga LEYENDO
-     * 
-     * 
+     *
+     *
      */
 
     /*
-     * 
+     *
      * de una cola ejemplo 2 3 5 6 9 1 quiero que la mitad de mi cola final se
      * cambie de orden ejemplo
      * quedaria 2 3 5 1 9 6
-     * 
-     * 
+     *
+     *
      */
 
     public static <T> void intercambiarMitad(Cola<T> cola) throws ColaVacia {
@@ -433,6 +433,32 @@ public class AlgoritmoCola<T> {
 
     }
 
-    
+    public static <T> void insertarDelanteDeB(Cola<T> cola, T a, T b) throws ColaVacia {
+        insertarDelanteDeBR(cola, a, b);
+        cola.invertirCola();
+
+    }
+
+    // b es la ocurrencia (repetido)
+    // a es el insertar
+
+    private static <T> void insertarDelanteDeBR(Cola<T> cola, T a, T b) throws ColaVacia {
+
+        if (!cola.colaVacia()) {
+            T actual = cola.desencolar();
+            insertarDelanteDeBR(cola, a, b);
+            if (actual.equals(b)) {
+                cola.encolar(actual);
+                cola.encolar(a);
+
+            }else{
+                cola.encolar(actual);
+
+            }
+        }
+
+    }
 
 }
+
+
