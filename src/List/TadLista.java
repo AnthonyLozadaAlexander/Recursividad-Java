@@ -3,8 +3,8 @@ package List;
 public class TadLista<T> implements Lista<T> {
 	private String nombre;
 	private NodoLista<T> inicio;
-	
-	public TadLista () {
+
+	public TadLista() {
 		this.inicio = null;
 		this.nombre = "";
 	}
@@ -16,7 +16,7 @@ public class TadLista<T> implements Lista<T> {
 		this.nombre = nombre;
 		this.inicio = null;
 	}
-	
+
 	/**
 	 * @param nombre
 	 * @param inicio
@@ -33,57 +33,75 @@ public class TadLista<T> implements Lista<T> {
 		return nombre;
 	}
 
-	public void crearNodo () {
-		/*Crea un nuevo nodo en el TadLista al principio de la lista*/
+	public void crearNodo() {
+		/* Crea un nuevo nodo en el TadLista al principio de la lista */
 		inicio = new NodoLista<>(null, inicio);
-	}	
-	public T devolverClave () {
-		/*Devuelve la clave contenida en el nodo del tadLista*/
+	}
+
+	public T devolverClave() {
+		/* Devuelve la clave contenida en el nodo del tadLista */
 		return inicio.clave;
-	}	
-	public NodoLista<T> devolverSiguiente () {
-		/*Devuelve una referencia al siguiente del TadLista*/
+	}
+
+	public NodoLista<T> devolverSiguiente() {
+		/* Devuelve una referencia al siguiente del TadLista */
 		return inicio.sig;
-	}	
-	public NodoLista<T> devolverReferencia () {
-		/*Devuelve una referencia al primer nodo del TadLista*/
+	}
+
+	public NodoLista<T> devolverReferencia() {
+		/* Devuelve una referencia al primer nodo del TadLista */
 		return inicio;
-	}	
-	public void asignarClave (T dato) {
-		/*Asigna el dato al primer nodo del TadLista*/
+	}
+
+	public void asignarClave(T dato) {
+		/* Asigna el dato al primer nodo del TadLista */
 		inicio.clave = dato;
-	}	
-	public void asignarReferencia (NodoLista<T> referencia) {
-		/*Hace que el inicio del TadLista apunte al mismo sitio que referencia*/
+	}
+
+	public void asignarReferencia(NodoLista<T> referencia) {
+		/* Hace que el inicio del TadLista apunte al mismo sitio que referencia */
 		inicio = referencia;
-	}	
-	public void asignarReferenciaSiguiente (NodoLista<T> referenciaNueva) {
-		/*Hace que el siguiente del nodo inicio apunte ahora al mismo sitio que referenciaNueva*/
+	}
+
+	public void asignarReferenciaSiguiente(NodoLista<T> referenciaNueva) {
+		/*
+		 * Hace que el siguiente del nodo inicio apunte ahora al mismo sitio que
+		 * referenciaNueva
+		 */
 		inicio.sig = referenciaNueva;
-	}	
-	public void asignarNulo () {
-		/*Hace que el inicio del TadLista tome el valor null*/
+	}
+
+	public void asignarNulo() {
+		/* Hace que el inicio del TadLista tome el valor null */
 		inicio = null;
-	}	
-	public boolean esNulo () {
-		/*Devuelve true si el inicio del TadLista tiene valor null; false en caso contrario*/
+	}
+
+	public boolean esNulo() {
+		/*
+		 * Devuelve true si el inicio del TadLista tiene valor null; false en caso
+		 * contrario
+		 */
 		return inicio == null;
-	}	
-	public boolean esIgual (NodoLista<T> referencia) {
-		/*Devuelve true si referencia apunta al mismo sitio que el inicio del TadLista, false en caso contrario*/
+	}
+
+	public boolean esIgual(NodoLista<T> referencia) {
+		/*
+		 * Devuelve true si referencia apunta al mismo sitio que el inicio del TadLista,
+		 * false en caso contrario
+		 */
 		return inicio == referencia;
-	}	
-	
-	public void imprimirLista () {
+	}
+
+	public void imprimirLista() {
 		NodoLista<T> aux;
-		
+
 		aux = inicio;
 		System.out.print("Lista " + this.nombre + ": ");
 		while (aux != null) {
-			System.out.print (aux.clave + " ");
+			System.out.print(aux.clave + " ");
 			aux = aux.sig;
 		}
-		System.out.println ("FIN");
+		System.out.println("FIN");
 	}
 
 }
