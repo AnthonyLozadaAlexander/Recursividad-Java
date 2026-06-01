@@ -441,6 +441,7 @@ public class AlgoritmoCola<T> {
 
     // b es la ocurrencia (repetido)
     // a es el insertar
+    // (a) -> (b)
 
     private static <T> void insertarDelanteDeBR(Cola<T> cola, T a, T b) throws ColaVacia {
 
@@ -454,6 +455,30 @@ public class AlgoritmoCola<T> {
             }else{
                 cola.encolar(actual);
 
+            }
+        }
+
+    }
+
+    public static <T> void insertarDelanteDe2(Cola<T> cola, T a, T b) throws ColaVacia {
+        insertarDelanteDeR2(cola, a, b);
+        cola.invertirCola();
+    }
+
+    private static <T> void insertarDelanteDeR2(Cola<T> cola, T a, T b) throws ColaVacia {
+        boolean resul = false;
+        T actual = null;
+        if(!cola.colaVacia() && resul == false){
+            actual = cola.desencolar();
+            if(actual.equals(b)){
+                resul = true;
+            }
+            insertarDelanteDeR2(cola, a, b);
+            if(resul == true){
+                cola.encolar(actual);
+                cola.encolar(a);
+            }else {
+                cola.encolar(actual);
             }
         }
 
