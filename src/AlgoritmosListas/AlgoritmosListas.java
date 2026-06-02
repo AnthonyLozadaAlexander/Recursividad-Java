@@ -172,4 +172,29 @@ public class AlgoritmosListas {
         return sum;
     }
 
+    public static <T> T obtenerUltimo(Lista<T> lista){
+        Lista<T> aux = new TadLista<T>();
+        T elem = null;
+        if(!lista.esNulo()){
+            aux.asignarReferencia(lista.devolverReferencia());
+            elem = obtenerUltimoR(aux);
+        }
+        return elem;
+    }
+
+    public static <T> T obtenerUltimoR(Lista<T> aux){
+        boolean on = false;
+        T guardar = null;
+
+        if(aux.devolverSiguiente() == null){
+            guardar = aux.devolverClave();
+        }else{
+            aux.asignarReferencia(aux.devolverSiguiente());
+            guardar = obtenerUltimoR(aux);
+        }
+
+        return guardar;
+
+    }
+
 }
