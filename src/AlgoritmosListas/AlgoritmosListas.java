@@ -166,7 +166,7 @@ public class AlgoritmosListas {
         if(!aux.esNulo()){
             Integer guardar = aux.devolverClave();
             sig.asignarReferencia(aux.devolverSiguiente());
-            sum = (sum + guardar) + sumarR(sig);
+            sum = guardar + sumarR(sig);
 
         }
         return sum;
