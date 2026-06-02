@@ -133,7 +133,7 @@ public class AlgoritmosListas {
     public static <T> void imprimirInverso(Lista<T> lista) {
         if (!lista.esNulo()) {
             Lista<T> aux = new TadLista<T>();
-            aux.asignarReferencia(lista.devolverReferencia());
+            aux.asignarReferencia(lista.devolverReferencia()); // le doy a aux el primer nodo que a su vez se conecta con los demas nodos
             imprimirInversoR(aux);
         } else {
             System.out.println("Error: Lista Vacia");
@@ -141,14 +141,36 @@ public class AlgoritmosListas {
     }
 
     private static <T> void imprimirInversoR(Lista<T> aux) {
-        Lista<T> sig = new TadLista<T>();
+        Lista<T> sig = new TadLista<T>(); // aux para recorrer la lista
         if (!aux.esNulo()) {
-            T elem = aux.devolverClave();
+            T elem = aux.devolverClave(); // va almacenando en call stack los elementos de aux
             sig.asignarReferencia(aux.devolverSiguiente());
             imprimirInversoR(sig);
             System.out.print("[" + elem + "] ");
         }
     }
 
+    public static int sumar(Lista<Integer> lista){
+		Lista<Integer> aux = new TadLista<Integer>();
+        int total = 0;
+        if(!lista.esNulo()){
+            aux.asignarReferencia(lista.devolverReferencia());
+            total = sumarR(aux);
+        }
+        return total;
+    }
+
+    private static int sumarR(Lista<Integer> aux){
+		Lista<Integer> sig = new TadLista<Integer>();
+        int sum = 0;
+        if(!aux.esNulo()){
+            Integer guardar = aux.devolverClave();
+            sig.asignarReferencia(aux.devolverSiguiente());
+            sumarR(sig);
+            sum = sum + guardar;
+        }
+
+        return sum;
+    }
 
 }
