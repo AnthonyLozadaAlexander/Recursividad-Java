@@ -41,7 +41,7 @@ public class AlgoritmosListas {
 	public static <T> void insertarAlFinal(Lista<T> lista, T dato) {
 		if(lista.esNulo()){ // si esta nulo la lista
 			insertarAlPrincipio(lista, dato); // insertamos al principio de la lista
-		}else {
+		}else { // si no esta nulo, se van insertando con el metodo recursivo
 			Lista<T> aux = new TadLista<T>();
 			aux.asignarReferencia(lista.devolverReferencia());
 			insertarAlFinalR(aux, dato);
@@ -145,7 +145,7 @@ public class AlgoritmosListas {
 			Lista<T> sig = new TadLista<T>();
 			sig.asignarReferencia(aux.devolverSiguiente());
 			imprimirInversoR(sig);
-			System.out.println(elem);
+			System.out.print("["+elem + "] ");
 		}
 	}
 
