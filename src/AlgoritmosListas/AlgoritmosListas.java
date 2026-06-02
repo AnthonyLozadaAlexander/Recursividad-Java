@@ -39,19 +39,27 @@ public class AlgoritmosListas {
 	}
 	
 	public static <T> void insertarAlFinal(Lista<T> lista, T dato) {
-		Lista<T> aux = new TadLista<T>();
-		aux.asignarReferencia(lista.devolverReferencia());
-		insertarAlFinalR(aux, dato);
+		if(lista.esNulo()){ // si esta nulo la lista
+			insertarAlPrincipio(lista, dato); // insertamos al principio de la lista
+		}else {
+			Lista<T> aux = new TadLista<T>();
+			aux.asignarReferencia(lista.devolverReferencia());
+			insertarAlFinalR(aux, dato);
+		}
 	}
 	
-	public static <T> void insertarAlFinalR(Lista<T> aux, T dato) {
-		if(aux.devolverSiguiente() != null){
+	private static <T> void insertarAlFinalR(Lista<T> aux, T dato) {
+		if(!aux.esNulo() && aux.devolverSiguiente() != null){
 			aux.asignarReferencia(aux.devolverSiguiente());
 			insertarAlFinalR(aux, dato);
 		}else {
-			Lista<T> aux2 = new TadLista<T>();
-			insertarAlPrincipio(aux2, dato);
-			aux.asignarReferenciaSiguiente(aux2.devolverReferencia());
+			if(aux.esNulo()){
+				insertarAlPrincipio(aux, dato);
+			}else {
+				Lista<T> aux2 = new TadLista<T>();
+				insertarAlPrincipio(aux2, dato);
+				aux.asignarReferenciaSiguiente(aux2.devolverReferencia());
+			}
 		}
 	}
 	
@@ -114,7 +122,7 @@ public class AlgoritmosListas {
 			} else {
 				Lista<T> sig = new TadLista<T>(); // lista sig aux para el siguiente del nodo
 				sig.asignarReferencia(aux.devolverSiguiente());
-				resul = buscarR(aux, dato); // invocacion recursiva para avanzar al siguiente nodo y seguir buscando
+				resul = buscarR(sig, dato); // invocacion recursiva para avanzar al siguiente nodo y seguir buscando
 			}
 		}
 
@@ -132,7 +140,13 @@ public class AlgoritmosListas {
 	}
 
 	private static <T> void imprimirInversoR(Lista<T> aux){
-
+		if(!aux.esNulo()){
+			T elem = aux.devolverClave();
+			Lista<T> sig = new TadLista<T>();
+			sig.asignarReferencia(aux.devolverSiguiente());
+			imprimirInversoR(sig);
+			System.out.println(elem);
+		}
 	}
 
 
