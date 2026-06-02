@@ -1,6 +1,192 @@
 package Algoritmos;
 
 public class Algoritmos {	
+	public static long factorial(int n) {
+		long resul;
+		if(n<=1)
+			resul = 1;
+		else
+			resul = n * factorial(n-1);
+		return resul;
+	}
+	
+	public static long potencia(int b, int n) {
+		if(n==0)
+			return 1;
+		else
+			return b * potencia(b, n-1);
+	}
+	
+	public static long fibonacci(int n) {
+		if(n==1 || n==2)
+			return 1;
+		else
+			return fibonacci(n-1)+fibonacci(n-2);
+	}
+	
+	public static long fibonacciOptimo(int n) {
+		long[] vector = new long[n+2];
+		for(int i=0; i<vector.length; ++i)
+			vector[i] = -1;
+		vector[1] = 1;
+		vector[2] = 1;
+		return fibonacciOptimo(n, vector);
+	}
+	
+	private static long fibonacciOptimo(int n, long[] vector) {
+		if(n==1)
+			return vector[1];
+		else
+			if(n==2)
+				return vector[2];
+			else {
+				if(vector[n-1] == -1)
+					vector[n-1] = fibonacciOptimo(n-1, vector);
+				if(vector[n-2] == -1)
+					vector[n-2] = fibonacciOptimo(n-2, vector);
+				return vector[n-1] + vector[n-2];
+			}
+	}
+	
+	public static void serieFibonacci(int n) {
+		if(n>=1) {
+			serieFibonacci(n-1);
+			System.out.print(fibonacci(n) + " ");
+		}
+	}
+	
+	public static void serieFibonacciOptimo(int n) {
+		if(n>=1) {
+			serieFibonacciOptimo(n-1);
+			System.out.print(fibonacciOptimo(n) + " ");
+		}
+	}
+	
+	/**
+	 * Método recursivo de cabeza para sumar enteros desde 1 hasta n
+	 * @param n Límite de la suma
+	 * @return Resultado de sumar los enteros desde el 1 hasta n
+	 */
+	public static int suma(int n) {
+		if(n==1)
+			return 1;
+		else
+			return n + suma(n-1);
+	}
+	
+	/**
+	 * M�todo 2 para sumar enteros desde 1 hasta n
+	 * utilizando un m�todo recursivo de cola
+	 * @param n L�mite de la suma
+	 * @return Resultado de sumar los enteros desde el 1 hasta n
+	 */
+	public static int suma2(int n) {
+		return suma2(n, 0);
+	}
+	
+	/**
+	 * M�todo recursivo 2 para sumar enteros desde 1 hasta n
+	 * @param n L�mite de la suma
+	 * @return Resultado de sumar los enteros desde el 1 hasta n
+	 */
+	private static int suma2(int n, int sum) {
+		sum+=n;
+		if(n>1)
+			sum = suma2(n-1,sum);		
+		return sum;
+	}
+	
+	/**
+	 * Determina si num es un n�mero primo o no
+	 * @param num N�mero para determinar si es primo o no
+	 * @return True si num es primo, False si no lo es
+	 */
+	public static boolean esPrimo(int num) {
+		return esPrimo(num, 2);
+	}
+	
+	/**
+	 * M�todo recursivo para determinar si num es n�mero primo
+	 * @param num N�mero entero a saber si es primo
+	 * @param div Divisor de prueba
+	 * @return True si num es primo, False si no lo es
+	 */
+	private static boolean esPrimo(int num, int div) {
+		if(num/2 < div)
+			return true;
+		else
+			if(num % div == 0)
+				return false;
+			else
+				return esPrimo(num, div+1);				
+	}
+	
+	/**
+	 * Muestra en pantalla los n primeros n�meros primos
+	 * @param n Cantidad de n�meros primos requeridos
+	 */
+	public static void nPrimos(int n) {
+		nPrimos(n, 2);
+	}
+	
+	/**
+	 * M�todo recursivo que muestra en pantalla los n primeros n�meros primos
+	 * @param n Cantidad de n�meros primos requeridos
+	 * @param num N�mero a verificar si es primo o no
+	 */
+	private static void nPrimos(int n, int num) {
+		if(n>=1)
+			if(esPrimo(num)) {
+				System.out.println(num);
+				nPrimos(n-1, num+1);
+			}
+			else
+				nPrimos(n,num+1);
+	}
+	
+	/**
+	 * Inicializa el m�todo recursivo que imprime en pantalla el contenido de un arreglo unidimensional
+	 * @param <T> Clase gen�rica que indica el tipo de objeto del vector
+	 * @param vector Vector cuyos elementos se desean imprimir en pantalla
+	 */
+	public static <T> void imprimirVector(T[] vector) {
+		imprimirVector(vector, 0);
+	}
+	
+	/**
+	 * Método recursivo para imprimir en pantalla el contenido de un arreglo unidimensional
+	 * @param <T> Clase gen�rica que indica el tipo de objeto del vector
+	 * @param vector Vector cuyos elementos se desean imprimir en pantalla
+	 * @param pos Posici�n inicial
+	 */
+	private static <T> void imprimirVector(T[] vector, int pos) {
+		if(pos>=0 && pos<vector.length) {
+			System.out.println(vector[pos]);
+			imprimirVector(vector, pos+1);
+		}
+	}
+	
+	/**
+	 * Imprime en forma tabular una matriz
+	 * @param matriz Matriz regular o irregular de cualquier tipo
+	 */	
+	public static <T> void imprimirMatriz(T[][] matriz) {
+		imprimirFilasMatriz(matriz, 0);
+	}
+	
+	private static <T> void imprimirFilasMatriz(T[][] matriz, int i) {
+		if(i<=matriz.length-1) {
+			imprimirColsMatriz(matriz, i, 0);
+			System.out.println();
+			imprimirFilasMatriz(matriz, i+1);
+		}
+	}
+	private static <T> void imprimirColsMatriz(T[][] matriz, int i, int j) {
+		if(j<=matriz[i].length-1) {
+			System.out.print(matriz[i][j] + "\t");
+			imprimirColsMatriz(matriz, i, j+1);
+		}
+	}
 	/**
 	 * Genera un número entero aleatorio en un rango, entre <em>m</em> y <em>n</em> (<em>m</em> &lt; <em>n</em>).
 	 * @param m Valor inicial del rango

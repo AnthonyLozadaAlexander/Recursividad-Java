@@ -1,21 +1,21 @@
 package Algoritmos;
 
 public class Ordenacion {
-	private static void intercambiar(int[] vector, int a, int b) {
-		int aux;
+	private static <T extends Comparable<T>> void intercambiar(T[] vector, int a, int b) {
+		T aux;
 		
 		aux = vector[a];
 		vector[a] = vector[b];
 		vector[b] = aux;
 	}
 	
-	public static void bubbleSort(int[] vector) {
+	public static <T extends Comparable<T>> void bubbleSort(T[] vector) {
 		boolean ordenado;
 
 		for(int i=0; i<vector.length; ++i) {
 			ordenado = true;
 			for(int j=0; j<vector.length-1-i; ++j) {
-				if(vector[j] > vector[j+1]) {
+				if(vector[j].compareTo(vector[j+1]) > 0) {
 					intercambiar(vector, j, j+1);;
 					ordenado = false;
 				}
@@ -25,17 +25,17 @@ public class Ordenacion {
 		}
 	}
 	
-	public static void bubbleSortR(int[] vector) {
+	public static <T extends Comparable<T>> void bubbleSortR(T[] vector) {
 		bubbleSortR(vector, 0);
 	}
 	
-	private static void bubbleSortR(int[] vector, int i) {
+	private static <T extends Comparable<T>> void bubbleSortR(T[] vector, int i) {
 		boolean ordenado;
-		int aux;
+		T aux;
 		if(i<vector.length) { //condición de parada de las pasadas recursivas
 			ordenado = true;
 			for(int j=0; j<vector.length-1-i; ++j) {
-				if(vector[j] > vector[j+1]) {
+				if(vector[j].compareTo(vector[j+1]) > 0) {
 					aux = vector[j];
 					vector[j] = vector[j+1];
 					vector[j+1] = aux;
@@ -47,30 +47,30 @@ public class Ordenacion {
 		}
 	}
 	
-	public static void seleccion(int[] vector) {
+	public static <T extends Comparable<T>> void seleccion(T[] vector) {
 		int indiceMenor, i, j, n;
 		n = vector.length;
 		for (i = 0; i < n - 1; i++) { // comienzo de la exploraci�n en �ndice i
 			indiceMenor = i; // j explora la sublista a[i+1]..a[n-1]
 			for (j = i + 1; j < n; j++)
-				if (vector[j] < vector[indiceMenor])
+				if (vector[j].compareTo(vector[indiceMenor])<0)
 					indiceMenor = j; // sit�a el elemento mas peque�o en a[i]
 			if (i != indiceMenor)
 				intercambiar(vector, i, indiceMenor);
 		}
 	}
 	
-	public static void seleccionR(int[] vector) {
+	public static <T extends Comparable<T>> void seleccionR(T[] vector) {
 		seleccionR(vector, 0);
 	}
 	
-	private static void seleccionR(int[] vector, int i) {
+	private static <T extends Comparable<T>> void seleccionR(T[] vector, int i) {
 		int indiceMenor, j, n;
 		n = vector.length;
 		if(i < n - 1) { // comienzo de la exploración en índice i
 			indiceMenor = i; // j explora la sublista a[i+1]..a[n-1]
 			for (j = i + 1; j < n; j++)
-				if (vector[j] < vector[indiceMenor])
+				if (vector[j].compareTo(vector[indiceMenor])<0)
 					indiceMenor = j; // sitúa el elemento mas pequeño en a[i]
 			if (i != indiceMenor)
 				intercambiar(vector, i, indiceMenor);
@@ -78,9 +78,9 @@ public class Ordenacion {
 		}
 	}
 	
-	public static void insercion(int[] vector) {
+	public static <T extends Comparable<T>> void insercion(T[] vector) {
 		int i, j;
-		int aux;
+		T aux;
 		for (i = 1; i < vector.length; i++) {
 			/*
 			 * índice j es para explorar la sublista a[i-1]..a[0] buscando la posici�n
@@ -89,7 +89,7 @@ public class Ordenacion {
 			j = i;
 			aux = vector[i];
 			// se localiza el punto de inserci�n explorando hacia abajo
-			while (j > 0 && aux < vector[j - 1]) {
+			while (j > 0 && aux.compareTo(vector[j - 1])<0) {
 				// desplazar elementos hacia arriba para hacer espacio
 				vector[j] = vector[j - 1];
 				j--;
@@ -98,13 +98,13 @@ public class Ordenacion {
 		}
 	}
 	
-	public static void insercionR(int[] vector) {
+	public static <T extends Comparable<T>> void insercionR(T[] vector) {
 		insercionR(vector, 1);
 	}
 	
-	private static void insercionR(int[] vector, int i) {
+	private static <T extends Comparable<T>> void insercionR(T[] vector, int i) {
 		int j;
-		int aux;
+		T aux;
 		if(i < vector.length) {
 			/*
 			 * índice j es para explorar la sublista a[i-1]..a[0] buscando la posici�n
@@ -113,7 +113,7 @@ public class Ordenacion {
 			j = i;
 			aux = vector[i];
 			// se localiza el punto de inserci�n explorando hacia abajo
-			while (j > 0 && aux < vector[j - 1]) {
+			while (j > 0 && aux.compareTo(vector[j - 1])<0) {
 				// desplazar elementos hacia arriba para hacer espacio
 				vector[j] = vector[j - 1];
 				j--;
@@ -123,22 +123,22 @@ public class Ordenacion {
 		}
 	}
 	
-	public static void quickSort(int vector[])
+	public static <T extends Comparable<T>> void quickSort(T vector[])
 	{
 		quickSort(vector, 0, vector.length-1);
 	}
 	
-	private static void quickSort(int vector[], int primero, int ultimo) {
+	private static <T extends Comparable<T>> void quickSort(T vector[], int primero, int ultimo) {
 		int i, j, central;
-		int pivote;
+		T pivote;
 		central = (primero + ultimo) / 2;
 		pivote = vector[central];
 		i = primero;
 		j = ultimo;
 		do {
-			while (vector[i] < pivote)
+			while (vector[i].compareTo(pivote)<0)
 				i++;
-			while (vector[j] > pivote)
+			while (vector[j].compareTo(pivote)>0)
 				j--;
 			if (i <= j) {
 				intercambiar(vector, i, j);
