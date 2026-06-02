@@ -10,5 +10,7 @@ public class pruebaList01 {
         AlgoritmosListas.insertarAlFinal(miLista, 2);
         AlgoritmosListas.insertarAlFinal(miLista, 3);
         miLista.imprimirLista();
+        System.out.print("Lista Invertida: ");
+        AlgoritmosListas.imprimirInverso(miLista);
     }
 }
