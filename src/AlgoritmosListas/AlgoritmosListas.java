@@ -152,7 +152,7 @@ public class AlgoritmosListas {
 
     public static int sumar(Lista<Integer> lista){
 		Lista<Integer> aux = new TadLista<Integer>();
-        int total = 0;
+        Integer total = 0;
         if(!lista.esNulo()){
             aux.asignarReferencia(lista.devolverReferencia());
             total = sumarR(aux);
@@ -162,14 +162,13 @@ public class AlgoritmosListas {
 
     private static int sumarR(Lista<Integer> aux){
 		Lista<Integer> sig = new TadLista<Integer>();
-        int sum = 0;
+        Integer sum = 0;
         if(!aux.esNulo()){
             Integer guardar = aux.devolverClave();
             sig.asignarReferencia(aux.devolverSiguiente());
-            sumarR(sig);
-            sum = sum + guardar;
-        }
+            sum = (sum + guardar) + sumarR(sig);
 
+        }
         return sum;
     }
 
