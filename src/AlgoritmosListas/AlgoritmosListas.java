@@ -112,14 +112,27 @@ public class AlgoritmosListas {
 			if (aux.devolverClave().equals(dato)) { // si el dato del nodo actual es igual al dato buscado,  si se cumple devuelve true
 				resul = true;
 			} else {
-
-				Lista<T> sig = new TadLista<T>();
+				Lista<T> sig = new TadLista<T>(); // lista sig aux para el siguiente del nodo
 				sig.asignarReferencia(aux.devolverSiguiente());
 				resul = buscarR(aux, dato); // invocacion recursiva para avanzar al siguiente nodo y seguir buscando
 			}
 		}
 
 		return resul;
+	}
+
+	public static <T> void imprimirInverso(Lista<T> lista){
+		if(!lista.esNulo()) {
+			Lista<T> aux = new TadLista<T>();
+			aux.asignarReferencia(lista.devolverReferencia());
+			imprimirInversoR(aux);
+		}else{
+			System.out.println("Error: Lista Vacia");
+		}
+	}
+
+	private static <T> void imprimirInversoR(Lista<T> aux){
+
 	}
 
 
