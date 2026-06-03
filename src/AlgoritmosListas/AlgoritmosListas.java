@@ -286,168 +286,171 @@ public class AlgoritmosListas {
     }
 
     public static <T> void insertarEnPosicion(Lista<T> lista, T dato, int posicion) {
-        if (lista == null) {
-            return;
+        if (lista != null) {
+            if (posicion <= 1 || lista.esNulo()) {
+                insertarAlPrincipio(lista, dato);
+            } else {
+                Lista<T> aux = new TadLista<T>();
+                aux.asignarReferencia(lista.devolverReferencia());
+                insertarEnPosicionR(aux, dato, posicion);
+            }
         }
-
-        if (posicion <= 1 || lista.esNulo()) {
-            insertarAlPrincipio(lista, dato);
-            return;
-        }
-
-        Lista<T> aux = new TadLista<T>();
-        aux.asignarReferencia(lista.devolverReferencia());
-        insertarEnPosicionR(aux, dato, posicion);
     }
 
     private static <T> void insertarEnPosicionR(Lista<T> aux, T dato, int posicion) {
-        if (posicion <= 2 || aux.devolverSiguiente() == null) {
-            Lista<T> nuevo = new TadLista<T>();
-            insertarAlPrincipio(nuevo, dato);
-            nuevo.asignarReferenciaSiguiente(aux.devolverSiguiente());
-            aux.asignarReferenciaSiguiente(nuevo.devolverReferencia());
-        } else {
-            aux.asignarReferencia(aux.devolverSiguiente());
-            insertarEnPosicionR(aux, dato, posicion - 1);
+        if (posicion > 0 && aux != null) {
+            if (posicion <= 2 || aux.devolverSiguiente() == null) {
+                Lista<T> nuevo = new TadLista<T>();
+                insertarAlPrincipio(nuevo, dato);
+                nuevo.asignarReferenciaSiguiente(aux.devolverSiguiente());
+                aux.asignarReferenciaSiguiente(nuevo.devolverReferencia());
+            } else {
+                aux.asignarReferencia(aux.devolverSiguiente());
+                insertarEnPosicionR(aux, dato, posicion - 1);
+            }
         }
     }
 
     public static <T> T obtenerEnPosicion(Lista<T> lista, int posicion) {
-        if (lista == null || lista.esNulo() || posicion < 1) {
-            return null;
+        T res = null;
+        if (lista != null && !lista.esNulo() && posicion >= 1) {
+            Lista<T> aux = new TadLista<T>();
+            aux.asignarReferencia(lista.devolverReferencia());
+            res = obtenerEnPosicionR(aux, posicion);
         }
-
-        Lista<T> aux = new TadLista<T>();
-        aux.asignarReferencia(lista.devolverReferencia());
-        return obtenerEnPosicionR(aux, posicion);
+        return res;
     }
 
     private static <T> T obtenerEnPosicionR(Lista<T> aux, int posicion) {
-        if (aux.esNulo()) {
-            return null;
+        T res = null;
+        if (aux != null && !aux.esNulo()) {
+            if (posicion == 1) {
+                res = aux.devolverClave();
+            } else {
+                Lista<T> sig = new TadLista<T>();
+                sig.asignarReferencia(aux.devolverSiguiente());
+                res = obtenerEnPosicionR(sig, posicion - 1);
+            }
         }
-
-        if (posicion == 1) {
-            return aux.devolverClave();
-        }
-
-        Lista<T> sig = new TadLista<T>();
-        sig.asignarReferencia(aux.devolverSiguiente());
-        return obtenerEnPosicionR(sig, posicion - 1);
+        return res;
     }
 
     public static <T> boolean actualizarEnPosicion(Lista<T> lista, int posicion, T nuevoDato) {
-        if (lista == null || lista.esNulo() || posicion < 1) {
-            return false;
+        boolean res = false;
+        if (lista != null && !lista.esNulo() && posicion >= 1) {
+            Lista<T> aux = new TadLista<T>();
+            aux.asignarReferencia(lista.devolverReferencia());
+            res = actualizarEnPosicionR(aux, posicion, nuevoDato);
         }
-
-        Lista<T> aux = new TadLista<T>();
-        aux.asignarReferencia(lista.devolverReferencia());
-        return actualizarEnPosicionR(aux, posicion, nuevoDato);
+        return res;
     }
 
     private static <T> boolean actualizarEnPosicionR(Lista<T> aux, int posicion, T nuevoDato) {
-        if (aux.esNulo()) {
-            return false;
+        boolean res = false;
+        if (aux != null && !aux.esNulo()) {
+            if (posicion == 1) {
+                aux.asignarClave(nuevoDato);
+                res = true;
+            } else {
+                Lista<T> sig = new TadLista<T>();
+                sig.asignarReferencia(aux.devolverSiguiente());
+                res = actualizarEnPosicionR(sig, posicion - 1, nuevoDato);
+            }
         }
-
-        if (posicion == 1) {
-            aux.asignarClave(nuevoDato);
-            return true;
-        }
-
-        Lista<T> sig = new TadLista<T>();
-        sig.asignarReferencia(aux.devolverSiguiente());
-        return actualizarEnPosicionR(sig, posicion - 1, nuevoDato);
+        return res;
     }
 
     public static <T> boolean eliminarPrimeraOcurrencia(Lista<T> lista, T dato) {
-        if (lista == null || lista.esNulo()) {
-            return false;
+        boolean res = false;
+        if (lista != null && !lista.esNulo()) {
+            if (mismoDato(lista.devolverClave(), dato)) {
+                lista.asignarReferencia(lista.devolverSiguiente());
+                res = true;
+            } else {
+                Lista<T> aux = new TadLista<T>();
+                aux.asignarReferencia(lista.devolverReferencia());
+                res = eliminarPrimeraOcurrenciaR(aux, dato);
+            }
         }
-
-        if (mismoDato(lista.devolverClave(), dato)) {
-            lista.asignarReferencia(lista.devolverSiguiente());
-            return true;
-        }
-
-        Lista<T> aux = new TadLista<T>();
-        aux.asignarReferencia(lista.devolverReferencia());
-        return eliminarPrimeraOcurrenciaR(aux, dato);
+        return res;
     }
 
     private static <T> boolean eliminarPrimeraOcurrenciaR(Lista<T> aux, T dato) {
-        Lista<T> sig = new TadLista<T>();
-        sig.asignarReferencia(aux.devolverSiguiente());
-
-        if (sig.esNulo()) {
-            return false;
+        boolean res = false;
+        if (aux != null && !aux.esNulo()) {
+            Lista<T> sig = new TadLista<T>();
+            sig.asignarReferencia(aux.devolverSiguiente());
+            if (!sig.esNulo() && mismoDato(sig.devolverClave(), dato)) {
+                aux.asignarReferenciaSiguiente(sig.devolverSiguiente());
+                res = true;
+            } else if (!sig.esNulo()) {
+                aux.asignarReferencia(sig.devolverReferencia());
+                res = eliminarPrimeraOcurrenciaR(aux, dato);
+            }
         }
-
-        if (mismoDato(sig.devolverClave(), dato)) {
-            aux.asignarReferenciaSiguiente(sig.devolverSiguiente());
-            return true;
-        }
-
-        aux.asignarReferencia(sig.devolverReferencia());
-        return eliminarPrimeraOcurrenciaR(aux, dato);
+        return res;
     }
 
     public static <T> boolean eliminarUltimo(Lista<T> lista) {
-        if (lista == null || lista.esNulo()) {
-            return false;
+        boolean res = false;
+        if (lista != null && !lista.esNulo()) {
+            if (lista.devolverSiguiente() == null) {
+                lista.asignarNulo();
+                res = true;
+            } else {
+                Lista<T> aux = new TadLista<T>();
+                aux.asignarReferencia(lista.devolverReferencia());
+                res = eliminarUltimoR(aux);
+            }
         }
-
-        if (lista.devolverSiguiente() == null) {
-            lista.asignarNulo();
-            return true;
-        }
-
-        Lista<T> aux = new TadLista<T>();
-        aux.asignarReferencia(lista.devolverReferencia());
-        return eliminarUltimoR(aux);
+        return res;
     }
 
     private static <T> boolean eliminarUltimoR(Lista<T> aux) {
-        Lista<T> sig = new TadLista<T>();
-        sig.asignarReferencia(aux.devolverSiguiente());
-
-        if (sig.devolverSiguiente() == null) {
-            aux.asignarReferenciaSiguiente(null);
-            return true;
+        boolean res = false;
+        if (aux != null && !aux.esNulo()) {
+            Lista<T> sig = new TadLista<T>();
+            sig.asignarReferencia(aux.devolverSiguiente());
+            if (sig.devolverSiguiente() == null) {
+                aux.asignarReferenciaSiguiente(null);
+                res = true;
+            } else {
+                aux.asignarReferencia(sig.devolverReferencia());
+                res = eliminarUltimoR(aux);
+            }
         }
-
-        aux.asignarReferencia(sig.devolverReferencia());
-        return eliminarUltimoR(aux);
+        return res;
     }
 
     public static <T> void invertirLista(Lista<T> lista) {
-        if (lista == null || lista.esNulo() || lista.devolverSiguiente() == null) {
-            return;
+        if (lista != null && !lista.esNulo() && lista.devolverSiguiente() != null) {
+            Lista<T> aux = new TadLista<T>();
+            aux.asignarReferencia(lista.devolverReferencia());
+            Lista<T> nuevaCabeza = invertirListaR(aux);
+            lista.asignarReferencia(nuevaCabeza.devolverReferencia());
         }
-
-        Lista<T> aux = new TadLista<T>();
-        aux.asignarReferencia(lista.devolverReferencia());
-        Lista<T> nuevaCabeza = invertirListaR(aux);
-        lista.asignarReferencia(nuevaCabeza.devolverReferencia());
     }
 
     private static <T> Lista<T> invertirListaR(Lista<T> aux) {
-        Lista<T> sig = new TadLista<T>();
-        sig.asignarReferencia(aux.devolverSiguiente());
-
-        if (sig.esNulo()) {
-            return aux;
+        Lista<T> res = aux;
+        if (aux != null && !aux.esNulo()) {
+            Lista<T> sig = new TadLista<T>();
+            sig.asignarReferencia(aux.devolverSiguiente());
+            if (!sig.esNulo()) {
+                res = invertirListaR(sig);
+                sig.asignarReferenciaSiguiente(aux.devolverReferencia());
+                aux.asignarReferenciaSiguiente(null);
+            }
         }
-
-        Lista<T> nuevaCabeza = invertirListaR(sig);
-        sig.asignarReferenciaSiguiente(aux.devolverReferencia());
-        aux.asignarReferenciaSiguiente(null);
-        return nuevaCabeza;
+        return res;
     }
 
     private static <T> boolean mismoDato(T a, T b) {
-        return a == b || (a != null && a.equals(b));
+        boolean res = false;
+        if (a == b || (a != null && a.equals(b))) {
+            res = true;
+        }
+        return res;
     }
 
 }

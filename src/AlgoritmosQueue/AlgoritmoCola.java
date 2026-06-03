@@ -470,187 +470,173 @@ public class AlgoritmoCola<T> {
     }
 
     public static <T> void encolarAlFrente(Cola<T> cola, T dato) throws ColaVacia {
-        if (cola == null) {
-            return;
+        if (cola != null) {
+            Cola<T> aux = new TadCola<>("AuxFrente");
+            int total = cola.numElemCola();
+            moverColaRecursivo(cola, aux, total);
+            cola.encolar(dato);
+            moverColaRecursivo(aux, cola, aux.numElemCola());
         }
-
-        Cola<T> aux = new TadCola<>("AuxFrente");
-        int total = cola.numElemCola();
-        moverColaRecursivo(cola, aux, total);
-        cola.encolar(dato);
-        moverColaRecursivo(aux, cola, aux.numElemCola());
     }
 
     public static <T> T obtenerFrente(Cola<T> cola) throws ColaVacia {
-        if (cola == null || cola.colaVacia()) {
-            return null;
+        T frente = null;
+        if (cola != null && !cola.colaVacia()) {
+            frente = cola.primero();
         }
-
-        return cola.primero();
+        return frente;
     }
 
     public static <T> boolean buscarElemento(Cola<T> cola, T dato) throws ColaVacia {
-        if (cola == null || cola.colaVacia()) {
-            return false;
+        boolean encontrado = false;
+        if (cola != null && !cola.colaVacia()) {
+            Cola<T> aux = new TadCola<>("AuxBuscar");
+            int total = cola.numElemCola();
+            encontrado = buscarElementoR(cola, aux, dato, total);
+            moverColaRecursivo(aux, cola, aux.numElemCola());
         }
-
-        Cola<T> aux = new TadCola<>("AuxBuscar");
-        int total = cola.numElemCola();
-        boolean encontrado = buscarElementoR(cola, aux, dato, total);
-        moverColaRecursivo(aux, cola, aux.numElemCola());
         return encontrado;
     }
 
     private static <T> boolean buscarElementoR(Cola<T> cola, Cola<T> aux, T dato, int restantes) throws ColaVacia {
-        if (restantes == 0) {
-            return false;
+        boolean encontrado = false;
+        if (restantes > 0) {
+            T actual = cola.desencolar();
+            aux.encolar(actual);
+            encontrado = mismoDato(actual, dato);
+            boolean resto = buscarElementoR(cola, aux, dato, restantes - 1);
+            encontrado = encontrado || resto;
         }
-
-        T actual = cola.desencolar();
-        aux.encolar(actual);
-        boolean encontrado = mismoDato(actual, dato);
-        boolean resto = buscarElementoR(cola, aux, dato, restantes - 1);
-        return encontrado || resto;
+        return encontrado;
     }
 
     public static <T> boolean eliminarPrimeraOcurrencia(Cola<T> cola, T dato) throws ColaVacia {
-        if (cola == null || cola.colaVacia()) {
-            return false;
+        boolean eliminado = false;
+        if (cola != null && !cola.colaVacia()) {
+            Cola<T> aux = new TadCola<>("AuxEliminar");
+            int total = cola.numElemCola();
+            eliminado = eliminarPrimeraOcurrenciaR(cola, aux, dato, total, false);
+            moverColaRecursivo(aux, cola, aux.numElemCola());
         }
-
-        Cola<T> aux = new TadCola<>("AuxEliminar");
-        int total = cola.numElemCola();
-        boolean eliminado = eliminarPrimeraOcurrenciaR(cola, aux, dato, total, false);
-        moverColaRecursivo(aux, cola, aux.numElemCola());
         return eliminado;
     }
 
     private static <T> boolean eliminarPrimeraOcurrenciaR(Cola<T> cola, Cola<T> aux, T dato, int restantes,
             boolean eliminado) throws ColaVacia {
-        if (restantes == 0) {
-            return eliminado;
+        boolean res = eliminado;
+        if (restantes > 0) {
+            T actual = cola.desencolar();
+            if (!eliminado && mismoDato(actual, dato)) {
+                res = eliminarPrimeraOcurrenciaR(cola, aux, dato, restantes - 1, true);
+            } else {
+                aux.encolar(actual);
+                res = eliminarPrimeraOcurrenciaR(cola, aux, dato, restantes - 1, eliminado);
+            }
         }
-
-        T actual = cola.desencolar();
-        if (!eliminado && mismoDato(actual, dato)) {
-            return eliminarPrimeraOcurrenciaR(cola, aux, dato, restantes - 1, true);
-        }
-
-        aux.encolar(actual);
-        return eliminarPrimeraOcurrenciaR(cola, aux, dato, restantes - 1, eliminado);
+        return res;
     }
 
     public static <T> boolean eliminarUltimo(Cola<T> cola) throws ColaVacia {
-        if (cola == null || cola.colaVacia()) {
-            return false;
+        boolean eliminado = false;
+        if (cola != null && !cola.colaVacia()) {
+            Cola<T> aux = new TadCola<>("AuxUltimo");
+            int total = cola.numElemCola();
+            moverColaRecursivo(cola, aux, total);
+            eliminarUltimoDesdeAux(aux, cola, aux.numElemCola());
+            eliminado = true;
         }
-
-        Cola<T> aux = new TadCola<>("AuxUltimo");
-        int total = cola.numElemCola();
-        moverColaRecursivo(cola, aux, total);
-        eliminarUltimoDesdeAux(aux, cola, aux.numElemCola());
-        return true;
+        return eliminado;
     }
 
     private static <T> void eliminarUltimoDesdeAux(Cola<T> aux, Cola<T> cola, int restantes) throws ColaVacia {
-        if (restantes == 0) {
-            return;
+        if (restantes > 0) {
+            T actual = aux.desencolar();
+            if (restantes > 1) {
+                cola.encolar(actual);
+            }
+            eliminarUltimoDesdeAux(aux, cola, restantes - 1);
         }
-
-        T actual = aux.desencolar();
-        if (restantes > 1) {
-            cola.encolar(actual);
-        }
-        eliminarUltimoDesdeAux(aux, cola, restantes - 1);
     }
 
     public static <T> boolean actualizarPrimero(Cola<T> cola, T nuevoDato) throws ColaVacia {
-        if (cola == null || cola.colaVacia()) {
-            return false;
+        boolean actualizado = false;
+        if (cola != null && !cola.colaVacia()) {
+            Cola<T> aux = new TadCola<>("AuxActualizarPrimero");
+            int total = cola.numElemCola();
+            actualizado = actualizarEnPosicionR(cola, aux, 1, nuevoDato, 1, total);
+            moverColaRecursivo(aux, cola, aux.numElemCola());
         }
-
-        Cola<T> aux = new TadCola<>("AuxActualizarPrimero");
-        int total = cola.numElemCola();
-        boolean actualizado = actualizarEnPosicionR(cola, aux, 1, nuevoDato, 1, total);
-        moverColaRecursivo(aux, cola, aux.numElemCola());
         return actualizado;
     }
 
     public static <T> boolean actualizarUltimo(Cola<T> cola, T nuevoDato) throws ColaVacia {
-        if (cola == null || cola.colaVacia()) {
-            return false;
+        boolean actualizado = false;
+        if (cola != null && !cola.colaVacia()) {
+            Cola<T> aux = new TadCola<>("AuxActualizarUltimo");
+            int total = cola.numElemCola();
+            actualizado = actualizarEnPosicionR(cola, aux, total, nuevoDato, 1, total);
+            moverColaRecursivo(aux, cola, aux.numElemCola());
         }
-
-        Cola<T> aux = new TadCola<>("AuxActualizarUltimo");
-        int total = cola.numElemCola();
-        boolean actualizado = actualizarEnPosicionR(cola, aux, total, nuevoDato, 1, total);
-        moverColaRecursivo(aux, cola, aux.numElemCola());
         return actualizado;
     }
 
     public static <T> boolean actualizarEnPosicion(Cola<T> cola, int posicion, T nuevoDato) throws ColaVacia {
-        if (cola == null || cola.colaVacia() || posicion < 1) {
-            return false;
+        boolean actualizado = false;
+        if (cola != null && !cola.colaVacia() && posicion >= 1) {
+            Cola<T> aux = new TadCola<>("AuxActualizarPosicion");
+            int total = cola.numElemCola();
+            actualizado = actualizarEnPosicionR(cola, aux, posicion, nuevoDato, 1, total);
+            moverColaRecursivo(aux, cola, aux.numElemCola());
         }
-
-        Cola<T> aux = new TadCola<>("AuxActualizarPosicion");
-        int total = cola.numElemCola();
-        boolean actualizado = actualizarEnPosicionR(cola, aux, posicion, nuevoDato, 1, total);
-        moverColaRecursivo(aux, cola, aux.numElemCola());
         return actualizado;
     }
 
     private static <T> boolean actualizarEnPosicionR(Cola<T> cola, Cola<T> aux, int posicion, T nuevoDato,
             int actual, int total) throws ColaVacia {
-        if (actual > total) {
-            return false;
+        boolean res = false;
+        if (actual <= total) {
+            T guardado = cola.desencolar();
+            if (actual == posicion) {
+                aux.encolar(nuevoDato);
+                res = true;
+            } else {
+                aux.encolar(guardado);
+            }
+            boolean resto = actualizarEnPosicionR(cola, aux, posicion, nuevoDato, actual + 1, total);
+            res = res || resto;
         }
-
-        T guardado = cola.desencolar();
-        boolean res;
-        if (actual == posicion) {
-            aux.encolar(nuevoDato);
-            res = true;
-        } else {
-            aux.encolar(guardado);
-            res = false;
-        }
-
-        boolean resto = actualizarEnPosicionR(cola, aux, posicion, nuevoDato, actual + 1, total);
-        return res || resto;
+        return res;
     }
 
     public static <T> void rotarHaciaLaIzquierda(Cola<T> cola, int veces) throws ColaVacia {
-        if (cola == null || cola.colaVacia() || veces <= 0) {
-            return;
+        if (cola != null && !cola.colaVacia() && veces > 0) {
+            int total = cola.numElemCola();
+            rotarHaciaLaIzquierdaR(cola, veces % total);
         }
-
-        int total = cola.numElemCola();
-        rotarHaciaLaIzquierdaR(cola, veces % total);
     }
 
     private static <T> void rotarHaciaLaIzquierdaR(Cola<T> cola, int veces) throws ColaVacia {
-        if (veces == 0) {
-            return;
+        if (veces > 0) {
+            T guardar = cola.desencolar();
+            cola.encolar(guardar);
+            rotarHaciaLaIzquierdaR(cola, veces - 1);
         }
-
-        T guardar = cola.desencolar();
-        cola.encolar(guardar);
-        rotarHaciaLaIzquierdaR(cola, veces - 1);
     }
 
     private static <T> void moverColaRecursivo(Cola<T> origen, Cola<T> destino, int restantes) throws ColaVacia {
-        if (restantes == 0) {
-            return;
+        if (restantes > 0) {
+            T actual = origen.desencolar();
+            destino.encolar(actual);
+            moverColaRecursivo(origen, destino, restantes - 1);
         }
-
-        T actual = origen.desencolar();
-        destino.encolar(actual);
-        moverColaRecursivo(origen, destino, restantes - 1);
     }
 
     private static <T> boolean mismoDato(T a, T b) {
-        return a == b || (a != null && a.equals(b));
+        boolean res = false;
+        if (a == b || (a != null && a.equals(b))) {
+            res = true;
+        }
+        return res;
     }
 
 }

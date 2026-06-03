@@ -163,130 +163,170 @@ public class AlgoritmosPila<T> {
     }
 
     public static <T> void insertarEnBase(Pila<T> pila, T dato) throws PilaVacia {
+        if (pila != null) {
+            insertarEnBaseR(pila, dato);
+        }
+    }
+
+    private static <T> void insertarEnBaseR(Pila<T> pila, T dato) throws PilaVacia {
         if (pila.pilaVacia()) {
             pila.apilar(dato);
-            return;
+        } else {
+            T guardar = pila.desapilar();
+            insertarEnBaseR(pila, dato);
+            pila.apilar(guardar);
         }
-
-        T guardar = pila.desapilar();
-        insertarEnBase(pila, dato);
-        pila.apilar(guardar);
     }
 
     public static <T> T obtenerBase(Pila<T> pila) throws PilaVacia {
-        if (pila.pilaVacia()) {
-            return null;
+        T base = null;
+        if (pila != null) {
+            base = obtenerBaseR(pila);
         }
+        return base;
+    }
 
-        T guardar = pila.desapilar();
-        T base;
-
+    private static <T> T obtenerBaseR(Pila<T> pila) throws PilaVacia {
+        T base = null;
         if (pila.pilaVacia()) {
-            base = guardar;
+            base = null;
         } else {
-            base = obtenerBase(pila);
+            T guardar = pila.desapilar();
+            if (pila.pilaVacia()) {
+                base = guardar;
+            } else {
+                base = obtenerBaseR(pila);
+            }
+            pila.apilar(guardar);
         }
-
-        pila.apilar(guardar);
         return base;
     }
 
     public static <T> boolean obtenerContiene(Pila<T> pila, T dato) throws PilaVacia {
-        if (pila.pilaVacia()) {
-            return false;
+        boolean encontrado = false;
+        if (pila != null) {
+            encontrado = obtenerContieneR(pila, dato);
         }
+        return encontrado;
+    }
 
-        T guardar = pila.desapilar();
-        boolean encontrado = obtenerContiene(pila, dato);
-
-        if (!encontrado && mismoDato(guardar, dato)) {
-            encontrado = true;
+    private static <T> boolean obtenerContieneR(Pila<T> pila, T dato) throws PilaVacia {
+        boolean encontrado = false;
+        if (!pila.pilaVacia()) {
+            T guardar = pila.desapilar();
+            encontrado = obtenerContieneR(pila, dato);
+            if (!encontrado && mismoDato(guardar, dato)) {
+                encontrado = true;
+            }
+            pila.apilar(guardar);
         }
-
-        pila.apilar(guardar);
         return encontrado;
     }
 
     public static <T> boolean eliminarPrimeraOcurrencia(Pila<T> pila, T dato) throws PilaVacia {
-        if (pila.pilaVacia()) {
-            return false;
+        boolean eliminado = false;
+        if (pila != null) {
+            eliminado = eliminarPrimeraOcurrenciaR(pila, dato);
         }
+        return eliminado;
+    }
 
-        T guardar = pila.desapilar();
-        if (mismoDato(guardar, dato)) {
-            devolverRestante(pila);
-            return true;
+    private static <T> boolean eliminarPrimeraOcurrenciaR(Pila<T> pila, T dato) throws PilaVacia {
+        boolean eliminado = false;
+        if (!pila.pilaVacia()) {
+            T guardar = pila.desapilar();
+            if (mismoDato(guardar, dato)) {
+                devolverRestante(pila);
+                eliminado = true;
+            } else {
+                eliminado = eliminarPrimeraOcurrenciaR(pila, dato);
+                pila.apilar(guardar);
+            }
         }
-
-        boolean eliminado = eliminarPrimeraOcurrencia(pila, dato);
-        pila.apilar(guardar);
         return eliminado;
     }
 
     public static <T> boolean eliminarBase(Pila<T> pila, T datoBase) throws PilaVacia {
-        if (pila.pilaVacia()) {
-            return false;
+        boolean eliminado = false;
+        if (pila != null) {
+            eliminado = eliminarBaseR(pila, datoBase);
         }
+        return eliminado;
+    }
 
-        T guardar = pila.desapilar();
-        if (pila.pilaVacia()) {
-            if (!mismoDato(guardar, datoBase)) {
+    private static <T> boolean eliminarBaseR(Pila<T> pila, T datoBase) throws PilaVacia {
+        boolean eliminado = false;
+        if (!pila.pilaVacia()) {
+            T guardar = pila.desapilar();
+            if (pila.pilaVacia()) {
+                if (mismoDato(guardar, datoBase)) {
+                    eliminado = true;
+                } else {
+                    pila.apilar(guardar);
+                }
+            } else {
+                eliminado = eliminarBaseR(pila, datoBase);
                 pila.apilar(guardar);
-                return false;
             }
-            return true;
         }
-
-        boolean eliminado = eliminarBase(pila, datoBase);
-        pila.apilar(guardar);
         return eliminado;
     }
 
     public static <T> void actualizarBase(Pila<T> pila, T nuevoValor) throws PilaVacia {
-        if (pila.pilaVacia()) {
-            return;
+        if (pila != null) {
+            actualizarBaseR(pila, nuevoValor);
         }
+    }
 
-        T guardar = pila.desapilar();
-        if (pila.pilaVacia()) {
-            pila.apilar(nuevoValor);
-        } else {
-            actualizarBase(pila, nuevoValor);
-            pila.apilar(guardar);
+    private static <T> void actualizarBaseR(Pila<T> pila, T nuevoValor) throws PilaVacia {
+        if (!pila.pilaVacia()) {
+            T guardar = pila.desapilar();
+            if (pila.pilaVacia()) {
+                pila.apilar(nuevoValor);
+            } else {
+                actualizarBaseR(pila, nuevoValor);
+                pila.apilar(guardar);
+            }
         }
     }
 
     public static <T> boolean actualizarEnPosicionSeguro(Pila<T> pila, int posicion, T nuevoValor) throws PilaVacia {
-        if (pila.pilaVacia() || posicion < 1) {
-            return false;
+        boolean actualizado = false;
+        if (pila != null && posicion >= 1) {
+            actualizado = actualizarEnPosicionSeguroR(pila, posicion, nuevoValor);
         }
+        return actualizado;
+    }
 
-        T guardar = pila.desapilar();
-        boolean actualizado;
-
-        if (posicion == 1) {
-            pila.apilar(nuevoValor);
-            actualizado = true;
-        } else {
-            actualizado = actualizarEnPosicionSeguro(pila, posicion - 1, nuevoValor);
-            pila.apilar(guardar);
+    private static <T> boolean actualizarEnPosicionSeguroR(Pila<T> pila, int posicion, T nuevoValor) throws PilaVacia {
+        boolean actualizado = false;
+        if (!pila.pilaVacia()) {
+            T guardar = pila.desapilar();
+            if (posicion == 1) {
+                pila.apilar(nuevoValor);
+                actualizado = true;
+            } else {
+                actualizado = actualizarEnPosicionSeguroR(pila, posicion - 1, nuevoValor);
+                pila.apilar(guardar);
+            }
         }
-
         return actualizado;
     }
 
     private static <T> void devolverRestante(Pila<T> pila) throws PilaVacia {
-        if (pila.pilaVacia()) {
-            return;
+        if (!pila.pilaVacia()) {
+            T guardar = pila.desapilar();
+            devolverRestante(pila);
+            pila.apilar(guardar);
         }
-
-        T guardar = pila.desapilar();
-        devolverRestante(pila);
-        pila.apilar(guardar);
     }
 
     private static <T> boolean mismoDato(T a, T b) {
-        return a == b || (a != null && a.equals(b));
+        boolean res = false;
+        if (a == b || (a != null && a.equals(b))) {
+            res = true;
+        }
+        return res;
     }
 
 }
