@@ -237,4 +237,26 @@ public class AlgoritmosListas {
         }
     }
 
+    public static<T> int countNodos(Lista<T> lista){
+        int cant = 0;
+        if(!lista.esNulo()){
+            Lista<T> aux = new TadLista<>();
+            aux.asignarReferencia(lista.devolverReferencia());
+            cant = countNodosR(aux);
+        }
+        return cant;
+    }
+
+    private static <T> int countNodosR(Lista<T> aux){
+        int result  = 0;
+        if(aux.esNulo()){
+            return 0;
+        }else{
+            aux.asignarReferencia(aux.devolverSiguiente());
+            result = 1 + countNodosR(aux);
+        }
+
+        return result;
+    }
+
 }
