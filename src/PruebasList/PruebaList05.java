@@ -3,7 +3,7 @@ package PruebasList;
 import AlgoritmosListas.*;
 import List.TadLista;
 
-public class PruebaLista04 {
+public class PruebaList05 {
     public static void main(String[] args) {
         TadLista<Integer> miLista = new TadLista<>();
         AlgoritmosListas.insertarAlFinal(miLista, 1);
