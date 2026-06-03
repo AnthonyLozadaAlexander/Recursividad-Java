@@ -259,4 +259,30 @@ public class AlgoritmosListas {
         return result;
     }
 
+    public static <T> boolean contiene(Lista<T> lista, T dato){
+        boolean result = false;
+        if(!lista.esNulo()){
+            Lista<T>  aux = new TadLista<>();
+            aux.asignarReferencia(lista.devolverReferencia());
+            result = contieneR(aux,dato);
+        }
+
+        return result;
+    }
+
+    private static <T> boolean contieneR(Lista<T> aux, T dato){
+        boolean encontrado = false;
+        if(!aux.esNulo() && encontrado == false){
+            if(aux.devolverClave().equals(dato)){
+                encontrado = true;
+            }else{
+                aux.asignarReferencia(aux.devolverSiguiente());
+                encontrado = contieneR(aux, dato);
+            }
+        }
+
+        return encontrado;
+
+    }
+
 }
