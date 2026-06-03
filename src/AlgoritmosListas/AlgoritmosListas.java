@@ -1,6 +1,5 @@
 package AlgoritmosListas;
 
-
 import List.Lista;
 import List.TadLista;
 
@@ -19,18 +18,22 @@ public class AlgoritmosListas {
             return 0; // si la lista esta vacia, devuelve 0
         }
         Lista<T> aux = new TadLista<T>();
-        aux.asignarReferencia(lista.devolverReferencia()); // el nodo auxiliar toma la referencia del nodo siguiente al nodo cabeza, para empezar a contar desde el primer nodo de la lista
+        aux.asignarReferencia(lista.devolverReferencia()); // el nodo auxiliar toma la referencia del nodo siguiente al
+                                                           // nodo cabeza, para empezar a contar desde el primer nodo de
+                                                           // la lista
         return contarR(aux); // llama al metodo recursivo privado
     }
 
     private static <T> int contarR(Lista<T> aux) {
-        // comprueba si existe un siguiente nodo, si existe, avanza al siguiente nodo y suma 1 al contador, hasta llegar al final de la lista
+        // comprueba si existe un siguiente nodo, si existe, avanza al siguiente nodo y
+        // suma 1 al contador, hasta llegar al final de la lista
         if (aux.esNulo()) {
             return 0;
         }
 
         Lista<T> sig = new TadLista<T>();
-        sig.asignarReferencia(aux.devolverSiguiente()); // el nodo sig toma la referencia del nodo siguiente al nodo auxiliar, para avanzar al siguiente nodo
+        sig.asignarReferencia(aux.devolverSiguiente()); // el nodo sig toma la referencia del nodo siguiente al nodo
+                                                        // auxiliar, para avanzar al siguiente nodo
         return 1 + contarR(sig);
 
     }
@@ -100,7 +103,8 @@ public class AlgoritmosListas {
             aux.asignarReferencia(aux.devolverSiguiente()); // avanzamos al siguiente nodo
             duplicarLista2R(aux, listaD); // invocacion recursiva
 
-            insertarAlPrincipio(listaD, dato); // una vez terminada la recursividad, se insertan los datos al principio de la listaD
+            insertarAlPrincipio(listaD, dato); // una vez terminada la recursividad, se insertan los datos al principio
+                                               // de la listaD
         }
     }
 
@@ -117,8 +121,10 @@ public class AlgoritmosListas {
 
     public static <T> boolean buscarR(Lista<T> aux, T dato) {
         boolean resul = false;
-        if (!aux.esNulo()) { // caso base, si el nodo es nulo, quiere decir que se busco toda la lista y no se encontro el dato
-            if (aux.devolverClave().equals(dato)) { // si el dato del nodo actual es igual al dato buscado,  si se cumple devuelve true
+        if (!aux.esNulo()) { // caso base, si el nodo es nulo, quiere decir que se busco toda la lista y no
+                             // se encontro el dato
+            if (aux.devolverClave().equals(dato)) { // si el dato del nodo actual es igual al dato buscado, si se cumple
+                                                    // devuelve true
                 resul = true;
             } else {
                 Lista<T> sig = new TadLista<T>(); // lista sig aux para el siguiente del nodo
@@ -133,7 +139,8 @@ public class AlgoritmosListas {
     public static <T> void imprimirInverso(Lista<T> lista) {
         if (!lista.esNulo()) {
             Lista<T> aux = new TadLista<T>();
-            aux.asignarReferencia(lista.devolverReferencia()); // le doy a aux el primer nodo que a su vez se conecta con los demas nodos
+            aux.asignarReferencia(lista.devolverReferencia()); // le doy a aux el primer nodo que a su vez se conecta
+                                                               // con los demas nodos
             imprimirInversoR(aux);
         } else {
             System.out.println("Error: Lista Vacia");
@@ -150,20 +157,20 @@ public class AlgoritmosListas {
         }
     }
 
-    public static int sumar(Lista<Integer> lista){
-		Lista<Integer> aux = new TadLista<Integer>();
+    public static int sumar(Lista<Integer> lista) {
+        Lista<Integer> aux = new TadLista<Integer>();
         Integer total = 0;
-        if(!lista.esNulo()){
+        if (!lista.esNulo()) {
             aux.asignarReferencia(lista.devolverReferencia());
             total = sumarR(aux);
         }
         return total;
     }
 
-    private static int sumarR(Lista<Integer> aux){
-		Lista<Integer> sig = new TadLista<Integer>();
+    private static int sumarR(Lista<Integer> aux) {
+        Lista<Integer> sig = new TadLista<Integer>();
         Integer sum = 0;
-        if(!aux.esNulo()){
+        if (!aux.esNulo()) {
             Integer guardar = aux.devolverClave();
             sig.asignarReferencia(aux.devolverSiguiente());
             sum = guardar + sumarR(sig);
@@ -172,29 +179,45 @@ public class AlgoritmosListas {
         return sum;
     }
 
-    public static <T> T obtenerUltimo(Lista<T> lista){
+    public static <T> T obtenerUltimo(Lista<T> lista) {
         Lista<T> aux = new TadLista<T>();
         T elem = null;
-        if(!lista.esNulo()){
+        if (!lista.esNulo()) {
             aux.asignarReferencia(lista.devolverReferencia());
             elem = obtenerUltimoR(aux);
         }
         return elem;
     }
 
-    public static <T> T obtenerUltimoR(Lista<T> aux){
+    public static <T> T obtenerUltimoR(Lista<T> aux) {
         boolean on = false;
         T guardar = null;
 
-        if(aux.devolverSiguiente() == null){
+        if (aux.devolverSiguiente() == null) {
             guardar = aux.devolverClave();
-        }else{
+        } else {
             aux.asignarReferencia(aux.devolverSiguiente());
             guardar = obtenerUltimoR(aux);
         }
 
         return guardar;
+    }
 
+    public static <T> void imprimirLista(Lista<T> lista) {
+        if (!lista.esNulo()) {
+            Lista<T> aux = new TadLista<>();
+            aux.asignarReferencia(lista.devolverReferencia());
+            imprimirListaR(aux);
+        }
+    }
+
+    private static <T> void imprimirListaR(Lista<T> aux) {
+        if (!aux.esNulo()) {
+            T guardar = aux.devolverClave();
+            System.out.print("[" + guardar + "], ");
+            aux.asignarReferencia(aux.devolverSiguiente());
+            imprimirListaR(aux);
+        }
     }
 
 }
