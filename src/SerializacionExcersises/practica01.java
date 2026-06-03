@@ -8,6 +8,34 @@ import archivos.Lectura;
 public class practica01 {
     public static void main(String[] args) {
 
+        String archivo = "datos.dat";
+
+        // ── PRUEBA 1: crearPila desde archivo ──────────────────
+        System.out.println("Pila de personas del archivo: " + archivo);
+        Pila<Persona> pPersonas = crearPila(archivo);
+        System.out.print("Estado de la pila Personas: ");
+        pPersonas.imprimirPila();
+
+        // ── PRUEBA 2: intercambiar cima con fondo ──────────────
+        System.out.println();
+        System.out.println("Intercambiar la cima con el fondo");
+
+        // Pila de prueba manual
+        Pila<Persona> pIntercambio = new TadPila<>("Personas");
+        pIntercambio.apilar(new Persona("2108871720", 96));
+        pIntercambio.apilar(new Persona("0754224558", 29));
+        pIntercambio.apilar(new Persona("2032270965", 44));
+        pIntercambio.apilar(new Persona("1633515562", 52));
+
+        System.out.println("Pila original");
+        System.out.print("Estado de la pila Personas: ");
+
+
+        intercambiar(pIntercambio);
+
+        System.out.println("Pila cambiada");
+        System.out.print("Estado de la pila Personas: ");
+        pIntercambio.imprimirPila();
     }
 
     public static  <T> Pila<T> crearPila(String archivo){
@@ -57,13 +85,13 @@ public class practica01 {
         T fondo;
 
         if(pila.pilaVacia()){
-            fondo = guardar; // fondo
-            pila.apilar(guardar);
+            fondo = guardar;            // caso base: guardar ES el fondo
+            pila.apilar(guardar);       // restaura el fondo
         }else{
-            fondo = obtenerFondoR((pila));
-            pila.apilar(fondo);
+            fondo = obtenerFondoR(pila); // sigue bajando
+            pila.apilar(guardar);        // restaura este elemento al subir ✅
         }
-        return fondo;
+        return fondo;                   // única salida
     }
 
     private static <T> void remplazarFondoR(Pila<T> pila, T nuevoValor) throws PilaVacia {

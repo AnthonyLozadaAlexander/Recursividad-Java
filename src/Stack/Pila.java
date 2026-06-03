@@ -12,4 +12,6 @@ public interface Pila<T> {
     int getTamanio();
 
     void vaciarPila();
+
+    void imprimirPila();
 }
