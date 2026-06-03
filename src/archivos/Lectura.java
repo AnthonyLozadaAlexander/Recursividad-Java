@@ -1,0 +1,45 @@
+package archivos;
+
+import java.io.EOFException;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+
+public class Lectura<T> {
+	private String nombreArchivo;
+	private FileInputStream archivo;
+	private ObjectInputStream lectura;
+	
+	public Lectura(String nombreArchivo) {
+		super();
+		this.nombreArchivo = nombreArchivo;
+	}
+	
+	public void abrir() throws IOException {
+		archivo = new FileInputStream(nombreArchivo);
+		lectura = new ObjectInputStream(archivo);
+	}
+
+	@SuppressWarnings("unchecked")
+	public T leer() throws ClassNotFoundException, IOException {
+		try {
+			if(lectura != null)
+				return (T) lectura.readObject();
+			else
+				return null;
+		}
+		catch(EOFException eof) {
+			return null;
+		}
+	}
+	
+	public void cerrar() throws IOException {
+		if(lectura != null)
+			lectura.close();
+	}
+	
+	
+	
+	
+	
+}
