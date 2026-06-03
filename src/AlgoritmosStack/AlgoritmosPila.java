@@ -162,4 +162,131 @@ public class AlgoritmosPila<T> {
 
     }
 
+    public static <T> void insertarEnBase(Pila<T> pila, T dato) throws PilaVacia {
+        if (pila.pilaVacia()) {
+            pila.apilar(dato);
+            return;
+        }
+
+        T guardar = pila.desapilar();
+        insertarEnBase(pila, dato);
+        pila.apilar(guardar);
+    }
+
+    public static <T> T obtenerBase(Pila<T> pila) throws PilaVacia {
+        if (pila.pilaVacia()) {
+            return null;
+        }
+
+        T guardar = pila.desapilar();
+        T base;
+
+        if (pila.pilaVacia()) {
+            base = guardar;
+        } else {
+            base = obtenerBase(pila);
+        }
+
+        pila.apilar(guardar);
+        return base;
+    }
+
+    public static <T> boolean obtenerContiene(Pila<T> pila, T dato) throws PilaVacia {
+        if (pila.pilaVacia()) {
+            return false;
+        }
+
+        T guardar = pila.desapilar();
+        boolean encontrado = obtenerContiene(pila, dato);
+
+        if (!encontrado && mismoDato(guardar, dato)) {
+            encontrado = true;
+        }
+
+        pila.apilar(guardar);
+        return encontrado;
+    }
+
+    public static <T> boolean eliminarPrimeraOcurrencia(Pila<T> pila, T dato) throws PilaVacia {
+        if (pila.pilaVacia()) {
+            return false;
+        }
+
+        T guardar = pila.desapilar();
+        if (mismoDato(guardar, dato)) {
+            devolverRestante(pila);
+            return true;
+        }
+
+        boolean eliminado = eliminarPrimeraOcurrencia(pila, dato);
+        pila.apilar(guardar);
+        return eliminado;
+    }
+
+    public static <T> boolean eliminarBase(Pila<T> pila, T datoBase) throws PilaVacia {
+        if (pila.pilaVacia()) {
+            return false;
+        }
+
+        T guardar = pila.desapilar();
+        if (pila.pilaVacia()) {
+            if (!mismoDato(guardar, datoBase)) {
+                pila.apilar(guardar);
+                return false;
+            }
+            return true;
+        }
+
+        boolean eliminado = eliminarBase(pila, datoBase);
+        pila.apilar(guardar);
+        return eliminado;
+    }
+
+    public static <T> void actualizarBase(Pila<T> pila, T nuevoValor) throws PilaVacia {
+        if (pila.pilaVacia()) {
+            return;
+        }
+
+        T guardar = pila.desapilar();
+        if (pila.pilaVacia()) {
+            pila.apilar(nuevoValor);
+        } else {
+            actualizarBase(pila, nuevoValor);
+            pila.apilar(guardar);
+        }
+    }
+
+    public static <T> boolean actualizarEnPosicionSeguro(Pila<T> pila, int posicion, T nuevoValor) throws PilaVacia {
+        if (pila.pilaVacia() || posicion < 1) {
+            return false;
+        }
+
+        T guardar = pila.desapilar();
+        boolean actualizado;
+
+        if (posicion == 1) {
+            pila.apilar(nuevoValor);
+            actualizado = true;
+        } else {
+            actualizado = actualizarEnPosicionSeguro(pila, posicion - 1, nuevoValor);
+            pila.apilar(guardar);
+        }
+
+        return actualizado;
+    }
+
+    private static <T> void devolverRestante(Pila<T> pila) throws PilaVacia {
+        if (pila.pilaVacia()) {
+            return;
+        }
+
+        T guardar = pila.desapilar();
+        devolverRestante(pila);
+        pila.apilar(guardar);
+    }
+
+    private static <T> boolean mismoDato(T a, T b) {
+        return a == b || (a != null && a.equals(b));
+    }
+
 }

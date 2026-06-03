@@ -123,7 +123,7 @@ public class AlgoritmosListas {
         boolean resul = false;
         if (!aux.esNulo()) { // caso base, si el nodo es nulo, quiere decir que se busco toda la lista y no
                              // se encontro el dato
-            if (aux.devolverClave().equals(dato)) { // si el dato del nodo actual es igual al dato buscado, si se cumple
+            if (mismoDato(aux.devolverClave(), dato)) { // si el dato del nodo actual es igual al dato buscado, si se cumple
                                                     // devuelve true
                 resul = true;
             } else {
@@ -273,7 +273,7 @@ public class AlgoritmosListas {
     private static <T> boolean contieneR(Lista<T> aux, T dato){
         boolean encontrado = false;
         if(!aux.esNulo() && encontrado == false){
-            if(aux.devolverClave().equals(dato)){
+            if(mismoDato(aux.devolverClave(), dato)){
                 encontrado = true;
             }else{
                 aux.asignarReferencia(aux.devolverSiguiente());
@@ -283,6 +283,171 @@ public class AlgoritmosListas {
 
         return encontrado;
 
+    }
+
+    public static <T> void insertarEnPosicion(Lista<T> lista, T dato, int posicion) {
+        if (lista == null) {
+            return;
+        }
+
+        if (posicion <= 1 || lista.esNulo()) {
+            insertarAlPrincipio(lista, dato);
+            return;
+        }
+
+        Lista<T> aux = new TadLista<T>();
+        aux.asignarReferencia(lista.devolverReferencia());
+        insertarEnPosicionR(aux, dato, posicion);
+    }
+
+    private static <T> void insertarEnPosicionR(Lista<T> aux, T dato, int posicion) {
+        if (posicion <= 2 || aux.devolverSiguiente() == null) {
+            Lista<T> nuevo = new TadLista<T>();
+            insertarAlPrincipio(nuevo, dato);
+            nuevo.asignarReferenciaSiguiente(aux.devolverSiguiente());
+            aux.asignarReferenciaSiguiente(nuevo.devolverReferencia());
+        } else {
+            aux.asignarReferencia(aux.devolverSiguiente());
+            insertarEnPosicionR(aux, dato, posicion - 1);
+        }
+    }
+
+    public static <T> T obtenerEnPosicion(Lista<T> lista, int posicion) {
+        if (lista == null || lista.esNulo() || posicion < 1) {
+            return null;
+        }
+
+        Lista<T> aux = new TadLista<T>();
+        aux.asignarReferencia(lista.devolverReferencia());
+        return obtenerEnPosicionR(aux, posicion);
+    }
+
+    private static <T> T obtenerEnPosicionR(Lista<T> aux, int posicion) {
+        if (aux.esNulo()) {
+            return null;
+        }
+
+        if (posicion == 1) {
+            return aux.devolverClave();
+        }
+
+        Lista<T> sig = new TadLista<T>();
+        sig.asignarReferencia(aux.devolverSiguiente());
+        return obtenerEnPosicionR(sig, posicion - 1);
+    }
+
+    public static <T> boolean actualizarEnPosicion(Lista<T> lista, int posicion, T nuevoDato) {
+        if (lista == null || lista.esNulo() || posicion < 1) {
+            return false;
+        }
+
+        Lista<T> aux = new TadLista<T>();
+        aux.asignarReferencia(lista.devolverReferencia());
+        return actualizarEnPosicionR(aux, posicion, nuevoDato);
+    }
+
+    private static <T> boolean actualizarEnPosicionR(Lista<T> aux, int posicion, T nuevoDato) {
+        if (aux.esNulo()) {
+            return false;
+        }
+
+        if (posicion == 1) {
+            aux.asignarClave(nuevoDato);
+            return true;
+        }
+
+        Lista<T> sig = new TadLista<T>();
+        sig.asignarReferencia(aux.devolverSiguiente());
+        return actualizarEnPosicionR(sig, posicion - 1, nuevoDato);
+    }
+
+    public static <T> boolean eliminarPrimeraOcurrencia(Lista<T> lista, T dato) {
+        if (lista == null || lista.esNulo()) {
+            return false;
+        }
+
+        if (mismoDato(lista.devolverClave(), dato)) {
+            lista.asignarReferencia(lista.devolverSiguiente());
+            return true;
+        }
+
+        Lista<T> aux = new TadLista<T>();
+        aux.asignarReferencia(lista.devolverReferencia());
+        return eliminarPrimeraOcurrenciaR(aux, dato);
+    }
+
+    private static <T> boolean eliminarPrimeraOcurrenciaR(Lista<T> aux, T dato) {
+        Lista<T> sig = new TadLista<T>();
+        sig.asignarReferencia(aux.devolverSiguiente());
+
+        if (sig.esNulo()) {
+            return false;
+        }
+
+        if (mismoDato(sig.devolverClave(), dato)) {
+            aux.asignarReferenciaSiguiente(sig.devolverSiguiente());
+            return true;
+        }
+
+        aux.asignarReferencia(sig.devolverReferencia());
+        return eliminarPrimeraOcurrenciaR(aux, dato);
+    }
+
+    public static <T> boolean eliminarUltimo(Lista<T> lista) {
+        if (lista == null || lista.esNulo()) {
+            return false;
+        }
+
+        if (lista.devolverSiguiente() == null) {
+            lista.asignarNulo();
+            return true;
+        }
+
+        Lista<T> aux = new TadLista<T>();
+        aux.asignarReferencia(lista.devolverReferencia());
+        return eliminarUltimoR(aux);
+    }
+
+    private static <T> boolean eliminarUltimoR(Lista<T> aux) {
+        Lista<T> sig = new TadLista<T>();
+        sig.asignarReferencia(aux.devolverSiguiente());
+
+        if (sig.devolverSiguiente() == null) {
+            aux.asignarReferenciaSiguiente(null);
+            return true;
+        }
+
+        aux.asignarReferencia(sig.devolverReferencia());
+        return eliminarUltimoR(aux);
+    }
+
+    public static <T> void invertirLista(Lista<T> lista) {
+        if (lista == null || lista.esNulo() || lista.devolverSiguiente() == null) {
+            return;
+        }
+
+        Lista<T> aux = new TadLista<T>();
+        aux.asignarReferencia(lista.devolverReferencia());
+        Lista<T> nuevaCabeza = invertirListaR(aux);
+        lista.asignarReferencia(nuevaCabeza.devolverReferencia());
+    }
+
+    private static <T> Lista<T> invertirListaR(Lista<T> aux) {
+        Lista<T> sig = new TadLista<T>();
+        sig.asignarReferencia(aux.devolverSiguiente());
+
+        if (sig.esNulo()) {
+            return aux;
+        }
+
+        Lista<T> nuevaCabeza = invertirListaR(sig);
+        sig.asignarReferenciaSiguiente(aux.devolverReferencia());
+        aux.asignarReferenciaSiguiente(null);
+        return nuevaCabeza;
+    }
+
+    private static <T> boolean mismoDato(T a, T b) {
+        return a == b || (a != null && a.equals(b));
     }
 
 }
