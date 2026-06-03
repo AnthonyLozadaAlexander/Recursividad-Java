@@ -220,4 +220,21 @@ public class AlgoritmosListas {
         }
     }
 
+    public static <T> void imprimirInvertido(Lista<T> lista){
+        if(!lista.esNulo()){
+            Lista<T> aux = new TadLista<>();
+            aux.asignarReferencia(lista.devolverReferencia());
+            imprimirInvertidoR(aux);
+        }
+    }
+
+    private static <T> void imprimirInvertidoR(Lista<T> aux){
+        if(!aux.esNulo()){
+            T guardar = aux.devolverClave();
+            aux.asignarReferencia(aux.devolverSiguiente());
+            imprimirInvertidoR(aux);
+            System.out.println(guardar);
+        }
+    }
+
 }
