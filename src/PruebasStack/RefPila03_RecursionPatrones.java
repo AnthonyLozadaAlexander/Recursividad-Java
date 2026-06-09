@@ -6,120 +6,114 @@ import AlgoritmosStack.AlgoritmosPila;
 
 /**
  * ═══════════════════════════════════════════════════════════════════
- * EJERCICIO PILA 3 — Recursión en Pila: patrón desapilar → recursión → apilar
+ * EJERCICIO PILA 3 — Patrones recursivos de Pila
+ *                    VERSIÓN 100% RECURSIVA (sin for ni while)
  * ═══════════════════════════════════════════════════════════════════
  *
- * PATRÓN RECURSIVO FUNDAMENTAL DE PILA (para examen):
+ * PATRÓN RECURSIVO IDA/VUELTA DE PILA:
  *
  *   void metodo(Pila<T> pila) throws PilaVacia {
- *       if (!pila.pilaVacia()) {
- *           T dato = pila.desapilar();    // 1. sacar de la cima
- *           metodo(pila);                 // 2. llamada recursiva (IDA)
- *           pila.apilar(dato);            // 3. volver a apilar (VUELTA)
- *       }
+ *       if (pila.pilaVacia()) return;       ← caso base (fondo)
+ *       T dato = pila.desapilar();          ← IDA: bajar nivel
+ *       metodo(pila);                       ← seguir bajando
+ *       pila.apilar(dato);                  ← VUELTA: restaurar
  *   }
  *
- * EFECTO de este patrón:
- *   - En la IDA  : desapilamos uno a uno hasta llegar a la base (vacía)
- *   - En la VUELTA: apilamos en orden inverso → pila queda IGUAL
+ * CUÁNDO PONER EL PROCESAMIENTO:
+ *   ANTES de la llamada recursiva  → procesa en orden CIMA→BASE (IDA)
+ *   DESPUÉS de la llamada recursiva → procesa en orden BASE→CIMA (VUELTA)
  *
- * ¿POR QUÉ QUEDA IGUAL? Porque apilar en la VUELTA reconstruye desde la base.
- *   Si tenemos [C, B, A] (C=cima):
- *   IDA: desapila C, desapila B, desapila A (pila vacía)
- *   VUELTA: apila A (base), apila B, apila C → [C, B, A] ← mismo orden
- *
- * EJERCICIOS DE EXAMEN COMUNES CON ESTE PATRÓN:
- *   1. Contar elementos sin destruir
- *   2. Buscar máximo/mínimo
- *   3. Insertar al fondo (base)
- *   4. Eliminar un elemento específico
- *   5. Imprimir en orden inverso (base → cima)
+ * Ejemplos:
+ *   Imprimir cima→base: System.out.print(dato) ANTES de recursión
+ *   Imprimir base→cima: System.out.print(dato) DESPUÉS de recursión
  */
 public class RefPila03_RecursionPatrones {
 
     public static void main(String[] args) throws PilaVacia {
 
-        // ── SETUP ─────────────────────────────────────────────────────────────
-        // Pila: [60, 50, 40, 30, 20, 10] (60=cima, 10=base)
+        // ── SETUP CON RECURSIVIDAD ────────────────────────────────────────────
+        // Pila: cima=60, base=10
         TadPila<Integer> pila = new TadPila<>("pila");
-        int[] valores = {10, 20, 30, 40, 50, 60};
-        for (int v : valores) pila.apilar(v);
+        Integer[] valores = {10, 20, 30, 40, 50, 60};
+        apilarArregloR(pila, valores, 0);   // sin for
 
         System.out.println("Pila original (cima → base):");
         pila.imprimirPila();
         System.out.println();
 
         // ── PATRÓN 1: CONTAR SIN DESTRUIR ────────────────────────────────────
-        int total = contarSinDestruir(pila);
-        System.out.println("Total de elementos: " + total);   // 6
-        System.out.println("Cima intacta: " + pila.cima());   // 60
+        int total = contarSinDestruirR(pila);
+        System.out.println("Total: " + total);
+        System.out.println("Cima intacta: " + pila.cima()); // 60
         System.out.println();
 
-        // ── PATRÓN 2: BUSCAR MÁXIMO (ya en AlgoritmosPila) ───────────────────
+        // ── PATRÓN 2: BUSCAR MÁXIMO ───────────────────────────────────────────
         int maximo = AlgoritmosPila.buscarElementoMax(pila);
-        System.out.println("Máximo: " + maximo);       // 60
+        System.out.println("Máximo: " + maximo); // 60
         System.out.println("Pila intacta: " + pila.getTamanio() + " elementos");
         System.out.println();
 
         // ── PATRÓN 3: INSERTAR AL FONDO (BASE) ───────────────────────────────
-        // insertarAlFondo usa el patrón recursivo para llegar a la base
         System.out.println("=== Insertar 99 en la BASE ===");
         AlgoritmosPila.insertarAlFondo(pila, 99);
-        pila.imprimirPila();
-        // Resultado: [60, 50, 40, 30, 20, 10, 99] (99 en la base)
+        pila.imprimirPila(); // [60, 50, 40, 30, 20, 10, 99]
         System.out.println();
 
         // ── PATRÓN 4: IMPRIMIR DE BASE A CIMA ────────────────────────────────
-        // Usar recursión: llegar al fondo en la IDA, imprimir en la VUELTA
-        System.out.println("=== Imprimir de BASE a CIMA ===");
-        imprimirDesdeLaBase(pila);
+        System.out.println("=== Imprimir BASE → CIMA ===");
+        imprimirBaseACimaR(pila);
         System.out.println();
         System.out.println();
 
         // ── PATRÓN 5: ELIMINAR OCURRENCIAS ───────────────────────────────────
-        // Apilar algunos duplicados para probar
         TadPila<Integer> pila2 = new TadPila<>("pila2");
-        pila2.apilar(10); pila2.apilar(30); pila2.apilar(10);
-        pila2.apilar(50); pila2.apilar(10); pila2.apilar(20);
+        Integer[] conDups = {10, 30, 10, 50, 10, 20};
+        apilarArregloR(pila2, conDups, 0);
         System.out.println("=== Eliminar todas las ocurrencias de 10 ===");
         System.out.print("Antes:  "); pila2.imprimirPila();
         AlgoritmosPila.eliminarOcurrencias(pila2, 10);
         System.out.print("Después:"); pila2.imprimirPila();
     }
 
+    // ══════════════════════════════════════════════════════════════════════════
+    // MÉTODOS RECURSIVOS
+    // ══════════════════════════════════════════════════════════════════════════
+
+    /** Apilar arreglo genérico (recursivo, arr[0]=BASE, arr[n-1]=CIMA) */
+    public static <T> void apilarArregloR(TadPila<T> pila, T[] arr, int i) {
+        if (i >= arr.length) return;
+        pila.apilar(arr[i]);
+        apilarArregloR(pila, arr, i + 1);
+    }
+
     /**
-     * PATRÓN: Contar elementos sin destruir la pila
-     * ──────────────────────────────────────────────
-     * IDA  : desapilar → llamada recursiva
-     * VUELTA: apilar de vuelta → 1 + resultado
-     *
-     * La pila queda IGUAL porque apilamos exactamente lo que desapilamos.
+     * PATRÓN 1: Contar sin destruir (IDA/VUELTA)
+     * ────────────────────────────────────────────
+     * IDA  : desapilar → bajar
+     * VUELTA: 1 + count + apilar → pila restaurada
      */
-    public static <T> int contarSinDestruir(TadPila<T> pila) throws PilaVacia {
-        if (pila.pilaVacia()) return 0;        // caso base: pila vacía → 0
-
-        T dato = pila.desapilar();             // IDA: sacar de la cima
-        int count = 1 + contarSinDestruir(pila); // recursión + contar
-        pila.apilar(dato);                     // VUELTA: restaurar
-
+    public static <T> int contarSinDestruirR(TadPila<T> pila) throws PilaVacia {
+        if (pila.pilaVacia()) return 0;       // caso base: fondo = 0
+        T dato = pila.desapilar();            // IDA
+        int count = 1 + contarSinDestruirR(pila); // recursión
+        pila.apilar(dato);                    // VUELTA: restaurar
         return count;
     }
 
     /**
-     * PATRÓN: Imprimir desde la BASE hasta la CIMA (orden inverso al normal)
-     * ────────────────────────────────────────────────────────────────────────
-     * IDA  : desapilar y bajar hasta la base (sin imprimir)
-     * VUELTA: imprimir mientras apilamos de vuelta
+     * PATRÓN 4: Imprimir de BASE a CIMA (procesar en VUELTA)
+     * ────────────────────────────────────────────────────────
+     * IDA  : bajar hasta la base (sin imprimir)
+     * VUELTA: imprimir al subir → sale BASE primero, CIMA al final
      *
-     * El System.out DESPUÉS de la llamada recursiva → imprime en la VUELTA
-     * → Sale en orden BASE → CIMA (inverso a imprimirPila normal)
+     * TRUCO: el System.out está DESPUÉS de la llamada recursiva
+     *        → se ejecuta en el camino de VUELTA (BASE → CIMA)
      */
-    public static <T> void imprimirDesdeLaBase(TadPila<T> pila) throws PilaVacia {
-        if (pila.pilaVacia()) return;          // caso base
-
-        T dato = pila.desapilar();             // IDA: bajar hacia la base
-        imprimirDesdeLaBase(pila);             // recursión (llega a la base)
-        System.out.print(dato + " ");          // VUELTA: imprimir al subir
-        pila.apilar(dato);                     // VUELTA: restaurar pila
+    public static <T> void imprimirBaseACimaR(TadPila<T> pila) throws PilaVacia {
+        if (pila.pilaVacia()) return;         // caso base
+        T dato = pila.desapilar();            // IDA: bajar
+        imprimirBaseACimaR(pila);             // seguir bajando
+        System.out.print(dato + " ");         // VUELTA: imprimir al subir
+        pila.apilar(dato);                    // VUELTA: restaurar
     }
 }

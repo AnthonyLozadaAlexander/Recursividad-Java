@@ -7,33 +7,22 @@ import Algoritmos.Ordenacion;
 /**
  * ═══════════════════════════════════════════════════════════════════
  * EJERCICIO COLA 4 — Cola de Objetos (Comparable) + BubbleSort
+ *                    VERSIÓN 100% RECURSIVA (sin for ni while)
  * ═══════════════════════════════════════════════════════════════════
- *
- * CONCEPTO: ordenar una cola de objetos propios.
- * REQUISITO: el objeto DEBE implementar Comparable<T>.
- *
- * PATRÓN COMPLETO (igual que en listas, pero con cola):
- *   1. Encolar objetos
- *   2. Cola → Objeto[] (desencolar en loop)
- *   3. Ordenacion.bubbleSort(arreglo)  ← usa compareTo del objeto
- *   4. Objeto[] → Cola (encolar en orden)
- *
- * CASO DE USO: cola de atención en hospital, ordenada por prioridad
  */
 public class RefCola04_ObjetosComparables {
 
     // ── CLASE INTERNA: Paciente ──────────────────────────────────────────────
-    // Implementa Comparable para poder usar Ordenacion.bubbleSort
     static class Paciente implements Comparable<Paciente> {
-        private String nombre;
-        private int prioridad; // 1 = más urgente, 10 = menos urgente
+        String nombre;
+        int prioridad; // 1 = más urgente, 10 = menos urgente
 
         public Paciente(String nombre, int prioridad) {
             this.nombre    = nombre;
             this.prioridad = prioridad;
         }
 
-        // compareTo: orden ASCENDENTE por prioridad (1 va primero → más urgente)
+        // compareTo ascendente: prioridad 1 va antes que prioridad 10
         @Override
         public int compareTo(Paciente otro) {
             return Integer.compare(this.prioridad, otro.prioridad);
@@ -47,50 +36,97 @@ public class RefCola04_ObjetosComparables {
 
     public static void main(String[] args) throws ColaVacia {
 
-        // ── 1. CREAR LA COLA DE PACIENTES ────────────────────────────────────
-        TadCola<Paciente> colaPacientes = new TadCola<>("hospital");
-
-        // Pacientes llegan en desorden de prioridad
-        colaPacientes.encolar(new Paciente("Carlos",  7));
-        colaPacientes.encolar(new Paciente("Ana",     2));
-        colaPacientes.encolar(new Paciente("Pedro",   9));
-        colaPacientes.encolar(new Paciente("Maria",   1));  // más urgente
-        colaPacientes.encolar(new Paciente("Jorge",   5));
-        colaPacientes.encolar(new Paciente("Sofia",   3));
+        // ── 1. CREAR Y LLENAR LA COLA (recursivo) ─────────────────────────────
+        TadCola<Paciente> cola = new TadCola<>("hospital");
+        Paciente[] pacientes = {
+            new Paciente("Carlos",  7),
+            new Paciente("Ana",     2),
+            new Paciente("Pedro",   9),
+            new Paciente("Maria",   1),
+            new Paciente("Jorge",   5),
+            new Paciente("Sofia",   3)
+        };
+        encolarArregloR(cola, pacientes, 0);  // sin for
 
         System.out.println("=== Cola de llegada (sin ordenar) ===");
-        colaPacientes.imprimirCola();
+        cola.imprimirCola();
         System.out.println();
 
-        // ── 2. COLA → ARREGLO ────────────────────────────────────────────────
-        int n = colaPacientes.numElemCola();
+        // ── 2. COLA → ARREGLO (recursivo) ────────────────────────────────────
+        int n = cola.numElemCola();
         Paciente[] arreglo = new Paciente[n];
+        colaAArregloR(cola, arreglo, 0);    // cola queda vacía
 
-        for (int i = 0; i < n; i++) {
-            arreglo[i] = colaPacientes.desencolar(); // vacía la cola
-        }
+        // ── 3. BUBBLESORT DOBLE RECURSIVO ─────────────────────────────────────
+        // Usa compareTo de Paciente → ordena por prioridad ascendente
+        bubbleSortR(arreglo, 0, 0);
 
-        // ── 3. BUBBLE SORT SOBRE ARREGLO DE OBJETOS ──────────────────────────
-        // Ordenacion.bubbleSort usa compareTo de Paciente
-        // → orden ascendente por prioridad (1=más urgente al frente)
-        Ordenacion.bubbleSort(arreglo);
-
-        // ── 4. ARREGLO → COLA ────────────────────────────────────────────────
-        for (int i = 0; i < n; i++) {
-            colaPacientes.encolar(arreglo[i]);
-        }
+        // ── 4. ARREGLO → COLA (recursivo) ────────────────────────────────────
+        arregloAColaR(cola, arreglo, 0);
 
         System.out.println("=== Cola ordenada por PRIORIDAD (más urgente al frente) ===");
-        colaPacientes.imprimirCola();
+        cola.imprimirCola();
         System.out.println();
 
-        // ── 5. ATENDER PACIENTES (desencolar en orden) ────────────────────────
+        // ── 5. ATENDER PACIENTES (recursivo) ──────────────────────────────────
         System.out.println("=== Orden de atención ===");
-        int turno = 1;
-        while (!colaPacientes.colaVacia()) {
-            Paciente p = colaPacientes.desencolar();
-            System.out.printf("Turno %d: %s (prioridad %d)%n",
-                              turno++, p.nombre, p.prioridad);
+        atenderPacientesR(cola, 1);
+    }
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // MÉTODOS RECURSIVOS
+    // ══════════════════════════════════════════════════════════════════════════
+
+    /** Encolar arreglo genérico recursivamente */
+    public static <T> void encolarArregloR(TadCola<T> cola, T[] arr, int i) {
+        if (i >= arr.length) return;
+        cola.encolar(arr[i]);
+        encolarArregloR(cola, arr, i + 1);
+    }
+
+    /** Cola → Arreglo (recursivo), cola queda vacía */
+    public static <T> void colaAArregloR(TadCola<T> cola, T[] arr, int i) throws ColaVacia {
+        if (i >= arr.length) return;
+        arr[i] = cola.desencolar();
+        colaAArregloR(cola, arr, i + 1);
+    }
+
+    /** Arreglo → Cola (recursivo), arreglo[0] queda al FRENTE */
+    public static <T> void arregloAColaR(TadCola<T> cola, T[] arr, int i) {
+        if (i >= arr.length) return;
+        cola.encolar(arr[i]);
+        arregloAColaR(cola, arr, i + 1);
+    }
+
+    /**
+     * BubbleSort DOBLE RECURSIVO (sin for ni while)
+     * i = pasada exterior, j = comparación interior
+     */
+    public static <T extends Comparable<T>> void bubbleSortR(T[] v, int i, int j) {
+        if (i >= v.length - 1) return;           // caso base: todas las pasadas hechas
+        if (j >= v.length - 1 - i) {             // caso base: pasada i terminada
+            bubbleSortR(v, i + 1, 0);
+            return;
         }
+        if (v[j].compareTo(v[j + 1]) > 0) {      // comparar adyacentes
+            T temp    = v[j];
+            v[j]      = v[j + 1];
+            v[j + 1]  = temp;
+        }
+        bubbleSortR(v, i, j + 1);                // siguiente comparación
+    }
+
+    /**
+     * Atender pacientes recursivamente (desencolar hasta vaciar)
+     * CASO BASE : cola vacía → todos atendidos
+     * CASO REC. : desencolar + imprimir + atender siguiente
+     */
+    public static void atenderPacientesR(TadCola<Paciente> cola,
+                                         int turno) throws ColaVacia {
+        if (cola.colaVacia()) return;             // caso base
+        Paciente p = cola.desencolar();
+        System.out.printf("Turno %d: %-10s (prioridad %d)%n",
+                          turno, p.nombre, p.prioridad);
+        atenderPacientesR(cola, turno + 1);       // siguiente turno
     }
 }

@@ -6,109 +6,134 @@ import Stack.TadPila;
 /**
  * ═══════════════════════════════════════════════════════════════════
  * EJERCICIO PILA 1 — Operaciones básicas + PATRÓN FUNDAMENTAL
+ *                    VERSIÓN 100% RECURSIVA (sin for ni while)
  * ═══════════════════════════════════════════════════════════════════
  *
  * CONCEPTO CLAVE — PILA (Stack): LIFO = Last In, First Out
- *   → El ÚLTIMO en entrar es el PRIMERO en salir
- *   → apilar(dato)    = agregar EN LA CIMA  (como una pila de platos)
- *   → desapilar()     = sacar DE LA CIMA    (el último que llegó sale primero)
+ *   → apilar(dato)    = agregar EN LA CIMA
+ *   → desapilar()     = sacar DE LA CIMA
  *   → cima()          = ver la cima SIN sacar
  *   → pilaVacia()     = true si no hay elementos
+ *   → getTamanio()    = cantidad de elementos
  *
- * OPERACIONES DE TadPila (las que usarás en examen):
- *   pila.apilar(dato)           → agrega en la cima (arriba)
- *   pila.desapilar()            → extrae de la cima (lanza PilaVacia si vacía)
- *   pila.cima()                 → lee la cima sin extraer
- *   pila.pilaVacia()            → boolean: ¿está vacía?
- *   pila.getTamanio()           → cantidad de elementos
- *   pila.imprimirPila()         → imprime desde cima hasta base
- *   pila.vaciarPila()           → vacía la pila (nodoCima = null)
+ * PATRÓN RECURSIVO FUNDAMENTAL DE PILA (IDA / VUELTA):
  *
- * DIFERENCIA CLAVE PILA vs COLA (para examen):
- *   COLA: encolar→final, desencolar→frente  (FIFO)
- *   PILA: apilar→cima,   desapilar→cima     (LIFO)
- *
- * PATRÓN FUNDAMENTAL DE PILA (memorizar para examen):
- *   Para recorrer sin destruir → desapilar + guardar + apilar de vuelta
- *   Pero OJO: al reencolar, el orden se INVIERTE si no usas pila auxiliar.
- *
- *   PATRÓN SEGURO (con pila auxiliar):
- *   TadPila<T> aux = new TadPila<>("aux");
- *   while (!pila.pilaVacia()) {
- *       T dato = pila.desapilar();
- *       // ... procesar dato ...
- *       aux.apilar(dato);        // guardar en auxiliar (invierte)
+ *   void metodo(Pila<T> pila) throws PilaVacia {
+ *       if (pila.pilaVacia()) return;       ← caso base
+ *       T dato = pila.desapilar();          ← IDA: sacar de la cima
+ *       metodo(pila);                       ← bajar hasta la base
+ *       pila.apilar(dato);                  ← VUELTA: restaurar
  *   }
- *   while (!aux.pilaVacia()) {
- *       pila.apilar(aux.desapilar()); // restaurar (invierte de vuelta)
- *   }
- *   // La pila queda IGUAL que al inicio.
+ *
+ * DIFERENCIA con COLA: en la VUELTA apilamos → pila queda IGUAL.
+ * En COLA: reencolamos → cola queda INVERTIDA si no usamos límite.
  */
 public class RefPila01_Basicos {
 
     public static void main(String[] args) throws PilaVacia {
 
         // ── CREAR LA PILA ─────────────────────────────────────────────────────
-        // TadPila<T>(String nombre) → pila vacía con etiqueta
         TadPila<Integer> pila = new TadPila<>("mi_pila");
 
-        // ── APILAR ELEMENTOS ──────────────────────────────────────────────────
-        // Los elementos se apilan EN LA CIMA (arriba)
-        // Orden de apilar: 10, 20, 30, 40, 50
-        // Estado visual (cima arriba):
-        //   [50] ← cima
-        //   [40]
-        //   [30]
-        //   [20]
-        //   [10] ← base
-        pila.apilar(10);
-        pila.apilar(20);
-        pila.apilar(30);
-        pila.apilar(40);
-        pila.apilar(50);
+        // ── APILAR ELEMENTOS CON RECURSIVIDAD ────────────────────────────────
+        // En vez de: for (int v : valores) pila.apilar(v);
+        // Apilamos [10, 20, 30, 40, 50] → cima = 50
+        int[] valores = {10, 20, 30, 40, 50};
+        apilarArregloR(pila, valores, 0);
+        // Estado (cima → base): [50, 40, 30, 20, 10]
 
-        System.out.println("=== Estado inicial (cima → base) ===");
-        pila.imprimirPila();   // imprime desde cima: 50, 40, 30, 20, 10
+        System.out.println("=== Pila inicial (cima → base) ===");
+        pila.imprimirPila();
         System.out.println("Tamaño: " + pila.getTamanio());
         System.out.println();
 
-        // ── VER LA CIMA SIN EXTRAER ───────────────────────────────────────────
+        // ── VER LA CIMA ────────────────────────────────────────────────────
         System.out.println("Cima (sin extraer): " + pila.cima());
-        // → 50 (el último en apilar está en la cima)
+        // → 50
 
-        // ── DESAPILAR (LIFO) ──────────────────────────────────────────────────
+        // ── DESAPILAR ──────────────────────────────────────────────────────
         System.out.println("Desapilado: " + pila.desapilar());
-        // → 50 sale primero (LIFO: último en entrar, primero en salir)
+        // → 50 (LIFO)
         System.out.println("Nueva cima: " + pila.cima());
         // → 40
         System.out.println();
 
-        // ── PATRÓN: RECORRER SIN DESTRUIR (con pila auxiliar) ─────────────────
-        System.out.println("=== Recorrer sin destruir (con auxiliar) ===");
-        TadPila<Integer> aux = new TadPila<>("auxiliar");
-        int suma = 0;
-
-        // FASE 1: vaciar a auxiliar mientras procesamos
-        while (!pila.pilaVacia()) {
-            int dato = pila.desapilar();  // extraer de la cima
-            suma += dato;
-            System.out.print(dato + " "); // sale en orden: 40, 30, 20, 10
-            aux.apilar(dato);             // guardar en auxiliar (queda invertida)
-        }
-        System.out.println("\nSuma: " + suma);
-
-        // FASE 2: restaurar la pila original desde auxiliar
-        // auxiliar tiene: [10, 20, 30, 40] → al desapilar: 40, 30, 20, 10
-        while (!aux.pilaVacia()) {
-            pila.apilar(aux.desapilar()); // vuelve a apilar → pila queda igual
-        }
-
+        // ── PATRÓN: RECORRER + SUMAR SIN DESTRUIR (recursivo) ─────────────
+        // En vez de: TadPila<Integer> aux; while (!pila.pilaVacia()) {...}
+        System.out.println("=== Recorrer sin destruir (recursivo IDA/VUELTA) ===");
+        int[] acumulador = {0};
+        recorrerSinDestruirR(pila, acumulador);
+        System.out.println("\nSuma: " + acumulador[0]);
         System.out.println("Pila restaurada:");
-        pila.imprimirPila();  // [40, 30, 20, 10] → igual que antes
+        pila.imprimirPila();
         System.out.println();
 
-        // ── VACIAR LA PILA ────────────────────────────────────────────────────
-        pila.vaciarPila();   // nodoCima = null, tamanio = 0
+        // ── IMPRIMIR DE BASE A CIMA (recursivo) ───────────────────────────
+        System.out.println("=== Orden BASE → CIMA ===");
+        imprimirDesdeLaBaseR(pila);
+        System.out.println();
+        System.out.println();
+
+        // ── VACIAR LA PILA RECURSIVAMENTE ─────────────────────────────────
+        vaciarPilaR(pila);
         System.out.println("¿Pila vacía? " + pila.pilaVacia()); // → true
+    }
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // MÉTODOS RECURSIVOS
+    // ══════════════════════════════════════════════════════════════════════════
+
+    /**
+     * Apilar todos los elementos de un arreglo (recursivo)
+     * ─────────────────────────────────────────────────────
+     * CASO BASE : i >= arr.length → ya apilamos todo
+     * CASO REC. : apilar arr[i] → llamar con i+1
+     * → arreglo[0] apilado primero → queda en la BASE
+     * → arreglo[n-1] apilado último → queda en la CIMA
+     */
+    public static void apilarArregloR(TadPila<Integer> pila, int[] arr, int i) {
+        if (i >= arr.length) return;       // caso base
+        pila.apilar(arr[i]);               // apilar elemento actual
+        apilarArregloR(pila, arr, i + 1);  // recursión: siguiente
+    }
+
+    /**
+     * Recorrer la pila sin destruirla, acumulando suma (IDA/VUELTA)
+     * ──────────────────────────────────────────────────────────────
+     * IDA  : desapilar → bajar hasta la base
+     * VUELTA: imprimir + apilar → restaurar la pila
+     * → al restaurar en VUELTA, el orden queda IGUAL al original
+     */
+    public static void recorrerSinDestruirR(TadPila<Integer> pila,
+                                            int[] acumulador) throws PilaVacia {
+        if (pila.pilaVacia()) return;              // caso base: llegamos al fondo
+        int dato = pila.desapilar();               // IDA: sacar de la cima
+        recorrerSinDestruirR(pila, acumulador);    // bajar más
+        acumulador[0] += dato;                     // VUELTA: acumular
+        System.out.print(dato + " ");              // VUELTA: imprimir (base→cima)
+        pila.apilar(dato);                         // VUELTA: restaurar
+    }
+
+    /**
+     * Imprimir pila desde la BASE hasta la CIMA
+     * ───────────────────────────────────────────
+     * IDA  : bajar hasta la base
+     * VUELTA: imprimir al subir → sale BASE primero, luego CIMA
+     */
+    public static <T> void imprimirDesdeLaBaseR(TadPila<T> pila) throws PilaVacia {
+        if (pila.pilaVacia()) return;          // caso base
+        T dato = pila.desapilar();             // IDA
+        imprimirDesdeLaBaseR(pila);            // bajar
+        System.out.print(dato + " ");          // VUELTA: imprimir (base→cima)
+        pila.apilar(dato);                     // VUELTA: restaurar
+    }
+
+    /**
+     * Vaciar la pila recursivamente
+     */
+    public static <T> void vaciarPilaR(TadPila<T> pila) throws PilaVacia {
+        if (pila.pilaVacia()) return;          // caso base: ya está vacía
+        pila.desapilar();                      // eliminar la cima
+        vaciarPilaR(pila);                     // recursión con el resto
     }
 }
