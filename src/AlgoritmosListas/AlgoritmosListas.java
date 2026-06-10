@@ -92,7 +92,7 @@ public class AlgoritmosListas {
     // Metodo Recursivo insertando al principio
     public static <T> void duplicarLista2(Lista<T> listaO, Lista<T> listaD) {
         Lista<T> aux = new TadLista<T>();
-        aux.asignarReferencia(listaO.devolverReferencia()); // siguiente nodo
+        aux.asignarReferencia(listaO.devolverReferencia()); // tomo el nodo desde el inicio de la lista
         duplicarLista2R(aux, listaD);
     }
 
@@ -285,4 +285,25 @@ public class AlgoritmosListas {
 
     }
 
-}
+    public static <T> void invertirLista(Lista<T> lista){
+        if(!lista.esNulo()){
+            Lista<T> aux = new TadLista<>();
+            aux.asignarReferencia(lista.devolverReferencia());
+            invertirListaR(aux, lista);
+        }
+    }
+
+    private static <T> void invertirListaR(Lista<T> aux, Lista<T> lista) {
+        if (!aux.esNulo()) {
+            T guardar = aux.devolverClave(); // guardar los datos de la lista en el call stack
+            aux.asignarReferencia(aux.devolverSiguiente()); // ir al siguiente nodo para tomar su dato
+            invertirListaR(aux, lista); // llamada recursiva
+            insertarAlFinal(lista, guardar); // insertando los elementos a la lista
+        }else{
+            lista.asignarReferencia(null); // vaciar la referencia lista para poder guardar los datos en el call stack del guardar
+        }
+    }
+
+    }
+
+
