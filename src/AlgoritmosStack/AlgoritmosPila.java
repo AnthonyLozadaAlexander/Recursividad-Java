@@ -162,4 +162,34 @@ public class AlgoritmosPila<T> {
 
     }
 
+    public static <T> int sumarElementos(Pila<Integer> pila) throws PilaVacia{
+        if(pila.pilaVacia()){
+            return 0;
+        }
+        Integer guardar = pila.desapilar();
+        Integer suma = (guardar + sumarElementos(pila));
+        sumarElementos(pila);
+        pila.apilar(guardar);
+        return suma;
+    }
+
+    public static <T> T obtenerElementoEnPosicion(Pila<T> p, int posicion) throws PilaVacia {
+        T guardar = null;
+        T actual = null;
+
+        if(!p.pilaVacia()) {
+            if (posicion == 1) {
+                guardar = p.desapilar();
+                p.apilar(guardar);
+            }
+            if(posicion > 1){
+                actual = p.desapilar();
+                guardar = obtenerElementoEnPosicion(p, posicion - 1);
+                p.apilar(actual);
+            }
+        }
+
+        return guardar;
+    }
+
 }
