@@ -5,7 +5,7 @@ import Stack.PilaVacia;
 import Stack.TadPila;
 
 public class PruebaStack08 {
-    public static void main(String[] args) throws PilaVacia {
+    public static void main(String[] args) {
         TadPila<String> miPila = new TadPila<>("Pila Integers");
         miPila.apilar("C");
         miPila.apilar("B");
