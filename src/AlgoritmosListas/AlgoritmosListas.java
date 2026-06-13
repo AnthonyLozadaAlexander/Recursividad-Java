@@ -288,6 +288,7 @@ public class AlgoritmosListas {
     public static <T> void invertirLista(Lista<T> lista){
         if(!lista.esNulo()){
             Lista<T> aux = new TadLista<>();
+            // duplicado de la lista original para un aux
             aux.asignarReferencia(lista.devolverReferencia());
             invertirListaR(aux, lista);
         }
