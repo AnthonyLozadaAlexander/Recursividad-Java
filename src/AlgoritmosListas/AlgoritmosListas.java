@@ -341,6 +341,33 @@ public class AlgoritmosListas {
         return resul;
     }
 
+    public static <T> void eliminarUltimo(Lista<T> lista){
+        if(!lista.esNulo()){
+            if(countNodos(lista) == 1){
+                lista.asignarNulo();
+            }else {
+                Lista<T> aux = new TadLista<>();
+                aux.asignarReferencia(lista.devolverReferencia());
+                eliminarUltimoR(aux);
+            }
+        }
+    }
+
+    private static <T> void eliminarUltimoR(Lista<T> aux){
+            boolean on = false;
+            Lista<T> siguiente = new TadLista<>();
+            // actualizo aux al siguiente de inicio
+            aux.asignarReferencia(aux.devolverSiguiente());
+
+            // asigno al inicio de lista siguiente el siguiente del actual de aux
+            siguiente.asignarReferencia(aux.devolverSiguiente());
+
+            if(siguiente.devolverSiguiente() == null){
+                aux.asignarReferenciaSiguiente(null);
+            }else{
+                eliminarUltimoR(aux);
+            }
+    }
 }
 
 
