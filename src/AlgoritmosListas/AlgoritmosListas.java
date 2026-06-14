@@ -19,8 +19,8 @@ public class AlgoritmosListas {
         }
         Lista<T> aux = new TadLista<T>();
         aux.asignarReferencia(lista.devolverReferencia()); // el nodo auxiliar toma la referencia del nodo siguiente al
-                                                           // nodo cabeza, para empezar a contar desde el primer nodo de
-                                                           // la lista
+        // nodo cabeza, para empezar a contar desde el primer nodo de
+        // la lista
         return contarR(aux); // llama al metodo recursivo privado
     }
 
@@ -33,7 +33,7 @@ public class AlgoritmosListas {
 
         Lista<T> sig = new TadLista<T>();
         sig.asignarReferencia(aux.devolverSiguiente()); // el nodo sig toma la referencia del nodo siguiente al nodo
-                                                        // auxiliar, para avanzar al siguiente nodo
+        // auxiliar, para avanzar al siguiente nodo
         return 1 + contarR(sig);
 
     }
@@ -104,7 +104,7 @@ public class AlgoritmosListas {
             duplicarLista2R(aux, listaD); // invocacion recursiva
 
             insertarAlPrincipio(listaD, dato); // una vez terminada la recursividad, se insertan los datos al principio
-                                               // de la listaD
+            // de la listaD
         }
     }
 
@@ -122,9 +122,9 @@ public class AlgoritmosListas {
     public static <T> boolean buscarR(Lista<T> aux, T dato) {
         boolean resul = false;
         if (!aux.esNulo()) { // caso base, si el nodo es nulo, quiere decir que se busco toda la lista y no
-                             // se encontro el dato
+            // se encontro el dato
             if (aux.devolverClave().equals(dato)) { // si el dato del nodo actual es igual al dato buscado, si se cumple
-                                                    // devuelve true
+                // devuelve true
                 resul = true;
             } else {
                 Lista<T> sig = new TadLista<T>(); // lista sig aux para el siguiente del nodo
@@ -140,7 +140,7 @@ public class AlgoritmosListas {
         if (!lista.esNulo()) {
             Lista<T> aux = new TadLista<T>();
             aux.asignarReferencia(lista.devolverReferencia()); // le doy a aux el primer nodo que a su vez se conecta
-                                                               // con los demas nodos
+            // con los demas nodos
             imprimirInversoR(aux);
         } else {
             System.out.println("Error: Lista Vacia");
@@ -220,16 +220,16 @@ public class AlgoritmosListas {
         }
     }
 
-    public static <T> void imprimirInvertido(Lista<T> lista){
-        if(!lista.esNulo()){
+    public static <T> void imprimirInvertido(Lista<T> lista) {
+        if (!lista.esNulo()) {
             Lista<T> aux = new TadLista<>();
             aux.asignarReferencia(lista.devolverReferencia());
             imprimirInvertidoR(aux);
         }
     }
 
-    private static <T> void imprimirInvertidoR(Lista<T> aux){
-        if(!aux.esNulo()){
+    private static <T> void imprimirInvertidoR(Lista<T> aux) {
+        if (!aux.esNulo()) {
             T guardar = aux.devolverClave();
             aux.asignarReferencia(aux.devolverSiguiente());
             imprimirInvertidoR(aux);
@@ -237,9 +237,9 @@ public class AlgoritmosListas {
         }
     }
 
-    public static<T> int countNodos(Lista<T> lista){
+    public static <T> int countNodos(Lista<T> lista) {
         int cant = 0;
-        if(!lista.esNulo()){
+        if (!lista.esNulo()) {
             Lista<T> aux = new TadLista<>();
             aux.asignarReferencia(lista.devolverReferencia());
             cant = countNodosR(aux);
@@ -247,11 +247,11 @@ public class AlgoritmosListas {
         return cant;
     }
 
-    private static <T> int countNodosR(Lista<T> aux){
-        int result  = 0;
-        if(aux.esNulo()){
+    private static <T> int countNodosR(Lista<T> aux) {
+        int result = 0;
+        if (aux.esNulo()) {
             return 0;
-        }else{
+        } else {
             aux.asignarReferencia(aux.devolverSiguiente());
             result = 1 + countNodosR(aux);
         }
@@ -259,23 +259,23 @@ public class AlgoritmosListas {
         return result;
     }
 
-    public static <T> boolean contiene(Lista<T> lista, T dato){
+    public static <T> boolean contiene(Lista<T> lista, T dato) {
         boolean result = false;
-        if(!lista.esNulo()){
-            Lista<T>  aux = new TadLista<>();
+        if (!lista.esNulo()) {
+            Lista<T> aux = new TadLista<>();
             aux.asignarReferencia(lista.devolverReferencia());
-            result = contieneR(aux,dato);
+            result = contieneR(aux, dato);
         }
 
         return result;
     }
 
-    private static <T> boolean contieneR(Lista<T> aux, T dato){
+    private static <T> boolean contieneR(Lista<T> aux, T dato) {
         boolean encontrado = false;
-        if(!aux.esNulo() && encontrado == false){
-            if(aux.devolverClave().equals(dato)){
+        if (!aux.esNulo() && encontrado == false) {
+            if (aux.devolverClave().equals(dato)) {
                 encontrado = true;
-            }else{
+            } else {
                 aux.asignarReferencia(aux.devolverSiguiente());
                 encontrado = contieneR(aux, dato);
             }
@@ -285,8 +285,8 @@ public class AlgoritmosListas {
 
     }
 
-    public static <T> void invertirLista(Lista<T> lista){
-        if(!lista.esNulo()){
+    public static <T> void invertirLista(Lista<T> lista) {
+        if (!lista.esNulo()) {
             Lista<T> aux = new TadLista<>();
             // duplicado de la lista original para un aux
             aux.asignarReferencia(lista.devolverReferencia());
@@ -300,11 +300,49 @@ public class AlgoritmosListas {
             aux.asignarReferencia(aux.devolverSiguiente()); // ir al siguiente nodo para tomar su dato
             invertirListaR(aux, lista); // llamada recursiva
             insertarAlFinal(lista, guardar); // insertando los elementos a la lista
-        }else{
+        } else {
             lista.asignarReferencia(null); // vaciar la referencia lista para poder guardar los datos en el call stack del guardar
         }
     }
 
+    public static <T> boolean existeDuplicado(Lista<T> lista) {
+        boolean resul = false;
+        if (!lista.esNulo()) {
+            Lista<T> aux = new TadLista<>();
+            aux.asignarReferencia(lista.devolverReferencia());
+            T primero = lista.devolverClave();
+            resul = existeDuplicadoR(aux, resul, primero);
+        }
+
+        return resul;
     }
+
+    private static <T> boolean existeDuplicadoR(Lista<T> aux, boolean resul, T primero) {
+        if(resul == false) {
+            if (aux.devolverSiguiente() != null) {
+                Lista<T> subLista = new TadLista<>(); // subLista
+                T anterior = aux.devolverClave(); // inicio
+
+                subLista.asignarReferencia(aux.devolverSiguiente()); // siguiente del inicio
+                T siguiente = subLista.devolverClave(); // siguiente
+
+                if (primero.equals(siguiente)) {
+                    resul = true;
+                }else if(anterior.equals(siguiente)){
+                    resul = true;
+                }else if(buscarR(subLista, anterior)){
+                    resul = true;
+                }else {
+                    aux.asignarReferencia(aux.devolverSiguiente()); // siguiente del aux
+                    resul = existeDuplicadoR(aux, resul, primero);
+                }
+            }
+        }
+        return resul;
+    }
+
+}
+
+
 
 
