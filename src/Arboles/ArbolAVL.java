@@ -3,17 +3,17 @@ package Arboles;
 import Queue.*;
 
 /**
- * �rbol AVL parametrizado para objetos comparables gen�ricos tipo T
- * @author Fausto Redrov�n 
- * @param <T> clase del objeto elemento del �rbol
+ * arbol AVL parametrizado para objetos comparables genericos tipo T
+ * @author Fausto Redrovan
+ * @param <T> clase del objeto elemento del arbol
  */
 public class ArbolAVL<T extends Comparable<T>> extends ArbolBB<T> {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Constructor de un �rbol AVL de nombre <em>nombre</em> y con un nodo ra�z con el <em>dato</em>
-	 * @param nombre Nombre del �rbol AVL
-	 * @param dato Para el nodo ra�z
+	 * @param nombre Nombre del arbol AVL
+	 * @param dato Para el nodo raiz
 	 */
 	public ArbolAVL(String nombre, T dato) {
 		super(nombre, dato);
@@ -74,9 +74,9 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBB<T> {
 	}
 	
 	/**
-	 * Rotaci�n simple a la izquierda
-	 * @param arbol Sub�rbol a rotar
-	 * @return �rbol rotado
+	 * Rotacion simple a la izquierda
+	 * @param arbol Subarbol a rotar
+	 * @return arbol rotado
 	 */
 	public NodoArbol<T> rotacionIzquierda(NodoArbol<T> arbol) {
 		NodoArbol<T> aux  = arbol.getIz();	
@@ -294,7 +294,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBB<T> {
 	
 	private void listarAmplitudNiveles(NodoArbol<T> arbol) throws ColaVacia {
 		NodoArbol<T> p;
-		Cola<NodoArbol<T>> cola = new TadCola<>();
+		Cola<NodoArbol<T>> cola = new TadCola<>("");
 		
 		p = arbol;
 		if(p != null)

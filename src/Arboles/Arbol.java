@@ -87,7 +87,7 @@ public class Arbol<T extends Comparable<T>> implements Serializable{
 	
 	private void listarAmplitud(NodoArbol<T> arbol) throws ColaVacia {
 		NodoArbol<T> p;
-		Cola<NodoArbol<T>> cola = new TadCola<>();
+		Cola<NodoArbol<T>> cola = new TadCola<>("");
 		
 		p = arbol;
 		if(p != null)
@@ -244,7 +244,7 @@ public class Arbol<T extends Comparable<T>> implements Serializable{
 	
 	private void listarAmplitudNiveles(NodoArbol<T> arbol) throws ColaVacia {
 		NodoArbol<T> p;
-		Cola<NodoArbol<T>> cola = new TadCola<>();
+		Cola<NodoArbol<T>> cola = new TadCola<>("");
 		
 		p = arbol;
 		if(p != null)
