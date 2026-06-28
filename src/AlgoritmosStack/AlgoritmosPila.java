@@ -192,4 +192,23 @@ public class AlgoritmosPila<T> {
         return guardar;
     }
 
+    public static <T> int contarOcurrencias(Pila<T> p, T x) throws PilaVacia {
+        T elem = null;
+        int conteo;
+        if(p.pilaVacia()){
+            return 0;
+        }else{
+            elem = p.desapilar();
+            conteo = contarOcurrencias(p, x);
+            p.apilar(elem);
+            if(elem.equals(x)){
+                conteo = 1 + conteo;
+            }else{
+                conteo = 0 + conteo;
+            }
+        }
+
+        return conteo;
+    }
+
 }
