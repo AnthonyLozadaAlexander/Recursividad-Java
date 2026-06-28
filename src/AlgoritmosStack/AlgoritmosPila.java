@@ -234,4 +234,33 @@ public class AlgoritmosPila<T> {
         }
     }
 
+    public static <T> void invertirPila(Pila<T> pila) throws PilaVacia{
+        T guardarCima = null;
+        TadPila<T> aux = new TadPila<>("Aux");
+        TadPila<T> aux2 = new TadPila<>("Aux2");
+
+        if(!pila.pilaVacia())
+            guardarCima = pila.desapilar();
+            invertirPilaR(pila,guardarCima, aux, aux2);
+            invertirPilaConAux(pila, aux2);
+        }
+
+
+    private static <T>  void invertirPilaR(Pila<T> pila,T guardarCima, Pila<T> aux, Pila<T> aux2) throws PilaVacia{
+            if(!pila.pilaVacia()){
+                aux.apilar(pila.desapilar());
+                invertirPilaR(pila, guardarCima, aux, aux2);
+                aux2.apilar(aux.desapilar());
+            }else{
+                pila.apilar(guardarCima);
+            }
+        }
+
+        private static <T> void invertirPilaConAux(Pila<T> pila, Pila<T> aux2) throws PilaVacia{
+            if(!aux2.pilaVacia()){
+                pila.apilar(aux2.desapilar());
+                invertirPilaConAux(pila,aux2);
+            }
+        }
+
 }
