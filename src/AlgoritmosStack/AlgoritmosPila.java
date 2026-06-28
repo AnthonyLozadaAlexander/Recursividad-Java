@@ -168,7 +168,6 @@ public class AlgoritmosPila<T> {
         }
         Integer guardar = pila.desapilar();
         Integer suma = (guardar + sumarElementos(pila));
-        sumarElementos(pila);
         pila.apilar(guardar);
         return suma;
     }
@@ -209,6 +208,30 @@ public class AlgoritmosPila<T> {
         }
 
         return conteo;
+    }
+
+    public static <T> void datoFondo(Pila<T> pila, T dato) throws PilaVacia{
+        T actual = null;
+        if(pila.pilaVacia()){}
+        else if(pila.cima().equals(dato)){
+            insertarAlFondoR(pila, dato);
+        }else{
+            actual = pila.desapilar();
+            datoFondo(pila, dato);
+            pila.apilar(actual);
+        }
+    }
+
+    private static <T> void insertarAlFondoR(Pila<T> pila, T dato) throws PilaVacia{
+        if(pila.pilaVacia()){
+            pila.apilar(dato);
+        }else{
+            T guardar = pila.desapilar();
+            insertarAlFondoR(pila, dato);
+            if(!guardar.equals(dato)) {
+                pila.apilar(guardar);
+            }
+        }
     }
 
 }
