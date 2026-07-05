@@ -103,13 +103,15 @@ public class AlgoritmosArbolesBinario<T extends Comparable<T>> {
 
             if (nodo.getClave().compareTo(dato) == 0) {
                 encontrado = true;
-            }
-            encontrado = buscarR(nodo.getIz(), dato);
+            }else {
+                encontrado = buscarR(nodo.getIz(), dato);
 
-            if (!encontrado) {
-                encontrado = buscarR(nodo.getDe(), dato);
+                if (!encontrado) {
+                    encontrado = buscarR(nodo.getDe(), dato);
+                }
             }
         }
+
         return encontrado;
     }
 
