@@ -1,10 +1,9 @@
 package AlgoritmosArboles;
 
 import Arboles.Arbol;
-import Arboles.ArbolBB;
 import Arboles.NodoArbol;
 
-public class AlgoritmosArboles<T extends Comparable<T>> {
+public class AlgoritmosArbolesABB<T extends Comparable<T>> {
 
     public static <T> int contarNodos(Arbol arbol){
         if(arbol.getRaiz() == null){
@@ -30,7 +29,6 @@ public class AlgoritmosArboles<T extends Comparable<T>> {
                 countN = (countN + 1) + contarNodosR(nodo.getDe());
             }
         }
-
 
         return countN;
     }
