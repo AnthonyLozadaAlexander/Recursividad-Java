@@ -1,9 +1,9 @@
 package PruebasArboles;
 
-import AlgoritmosArboles.AlgoritmosArbolesABB;
+import AlgoritmosArboles.AlgoritmosArbolesBinario;
 import Arboles.Arbol;
 
-public class pruebaArbolBinario02 {
+public class pruebaArbol02 {
     public static void main() {
         // Nodos
         Arbol<Integer> a1 = new Arbol<>(1);
@@ -20,7 +20,7 @@ public class pruebaArbolBinario02 {
         Arbol.juntar(a7, 7, a6, a9);
         Arbol.juntar(a5, 5, a3, a7);
 
-        int count = AlgoritmosArbolesABB.contarHojas(a5);
+        int count = AlgoritmosArbolesBinario.contarHojas(a5);
         System.out.println(count);
     }
 }

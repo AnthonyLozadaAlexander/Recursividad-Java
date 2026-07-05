@@ -3,7 +3,7 @@ package AlgoritmosArboles;
 import Arboles.Arbol;
 import Arboles.NodoArbol;
 
-public class AlgoritmosArbolesABB<T extends Comparable<T>> {
+public class AlgoritmosArbolesBinario<T extends Comparable<T>> {
 
     public static <T> int contarNodos(Arbol arbol){
         if(arbol.getRaiz() == null){
@@ -47,7 +47,7 @@ public class AlgoritmosArbolesABB<T extends Comparable<T>> {
     private static <T> int contarHojasR(NodoArbol nodo, int count){
 
             if(nodo == null){
-                return count;
+                return 0;
             }
 
             if(nodo.getIz() == null && nodo.getDe() == null){
@@ -67,6 +67,26 @@ public class AlgoritmosArbolesABB<T extends Comparable<T>> {
 
         return count;
     }
+
+    public static  <T> int altura(Arbol arbol){
+        int altura = 0;
+        if(arbol != null){
+            altura = alturaR(arbol.getRaiz());
+        }
+
+        return  altura;
+    }
+
+    private static <T> int alturaR(NodoArbol arbol){
+        int alto = 0;
+        if(arbol != null){
+
+            alto = 1 + Math.max(alturaR(arbol.getIz()), alturaR(arbol.getDe()));
+        }
+
+        return alto;
+    }
+
 
 
 
