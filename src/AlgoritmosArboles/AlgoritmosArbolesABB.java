@@ -32,4 +32,42 @@ public class AlgoritmosArbolesABB<T extends Comparable<T>> {
 
         return countN;
     }
+
+    public static <T> int contarHojas(Arbol arbol){
+        int cant = 0;
+        int count = 0;
+
+        if(arbol != null) {
+            cant = contarHojasR(arbol.getRaiz(), count);
+        }
+
+        return cant;
+    }
+
+    private static <T> int contarHojasR(NodoArbol nodo, int count){
+
+            if(nodo == null){
+                return count;
+            }
+
+            if(nodo.getIz() == null && nodo.getDe() == null){
+                count = count + 1;
+            }else{
+
+                // nodo izquierdo es hoja?
+                if(nodo.getIz() != null){
+                    count = contarHojasR(nodo.getIz(), count);
+                }
+
+                // nodo derecho es hoja?
+                if(nodo.getDe() != null){
+                    count = contarHojasR(nodo.getDe(), count);
+                }
+            }
+
+        return count;
+    }
+
+
+
 }
