@@ -11,6 +11,8 @@ public class PruebaQueue015 {
         cola.encolar(2);
         cola.encolar(3);
         cola.encolar(4);
+        cola.encolar(5);
+        cola.encolar(6);
 
         cola.imprimirCola();
 
