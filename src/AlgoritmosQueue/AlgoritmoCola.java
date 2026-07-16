@@ -484,6 +484,36 @@ public class AlgoritmoCola<T> {
 
     }
 
+    public static <T> boolean eliminarPrimeraOcurrencia(Cola<T> cola, T objetivo) throws ColaVacia{
+        boolean eliminado = false;
+        boolean r = false;
+
+        if(!cola.colaVacia()){
+            r = eliminarPrimeraOcurrenciaR(cola, objetivo, eliminado);
+            cola.invertirCola();
+        }
+        return r;
+    }
+
+    private static <T> boolean eliminarPrimeraOcurrenciaR(Cola<T> cola, T objetivo, boolean eliminado) throws
+            ColaVacia{
+        T c = null;
+        if(!cola.colaVacia()){
+            c = cola.desencolar();
+            if(c.equals(objetivo) && eliminado == false){
+                eliminado = true;
+            }else{
+                eliminado = eliminarPrimeraOcurrenciaR(cola, objetivo, eliminado);
+                if(!c.equals(objetivo)) {
+                    cola.encolar(c);
+                }
+            }
+        }
+
+
+        return eliminado;
+    }
+
 }
 
 
