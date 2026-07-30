@@ -1,7 +1,5 @@
 package AlgoritmosStack;
 
-import Queue.Cola;
-import Queue.ColaVacia;
 import Stack.*;
 
 public class AlgoritmosPila<T> {
@@ -162,8 +160,8 @@ public class AlgoritmosPila<T> {
 
     }
 
-    public static <T> int sumarElementos(Pila<Integer> pila) throws PilaVacia{
-        if(pila.pilaVacia()){
+    public static <T> int sumarElementos(Pila<Integer> pila) throws PilaVacia {
+        if (pila.pilaVacia()) {
             return 0;
         }
         Integer guardar = pila.desapilar();
@@ -176,12 +174,12 @@ public class AlgoritmosPila<T> {
         T guardar = null;
         T actual = null;
 
-        if(!p.pilaVacia()) {
+        if (!p.pilaVacia()) {
             if (posicion == 1) {
                 guardar = p.desapilar();
                 p.apilar(guardar);
             }
-            if(posicion > 1){
+            if (posicion > 1) {
                 actual = p.desapilar();
                 guardar = obtenerElementoEnPosicion(p, posicion - 1);
                 p.apilar(actual);
@@ -194,15 +192,15 @@ public class AlgoritmosPila<T> {
     public static <T> int contarOcurrencias(Pila<T> p, T x) throws PilaVacia {
         T elem = null;
         int conteo;
-        if(p.pilaVacia()){
+        if (p.pilaVacia()) {
             return 0;
-        }else{
+        } else {
             elem = p.desapilar();
             conteo = contarOcurrencias(p, x);
             p.apilar(elem);
-            if(elem.equals(x)){
+            if (elem.equals(x)) {
                 conteo = 1 + conteo;
-            }else{
+            } else {
                 conteo = 0 + conteo;
             }
         }
@@ -210,57 +208,86 @@ public class AlgoritmosPila<T> {
         return conteo;
     }
 
-    public static <T> void datoFondo(Pila<T> pila, T dato) throws PilaVacia{
+    public static <T> void datoFondo(Pila<T> pila, T dato) throws PilaVacia {
         T actual = null;
-        if(pila.pilaVacia()){}
-        else if(pila.cima().equals(dato)){
+        if (pila.pilaVacia()) {
+        } else if (pila.cima().equals(dato)) {
             insertarAlFondoR(pila, dato);
-        }else{
+        } else {
             actual = pila.desapilar();
             datoFondo(pila, dato);
             pila.apilar(actual);
         }
     }
 
-    private static <T> void insertarAlFondoR(Pila<T> pila, T dato) throws PilaVacia{
-        if(pila.pilaVacia()){
+    private static <T> void insertarAlFondoR(Pila<T> pila, T dato) throws PilaVacia {
+        if (pila.pilaVacia()) {
             pila.apilar(dato);
-        }else{
+        } else {
             T guardar = pila.desapilar();
             insertarAlFondoR(pila, dato);
-            if(!guardar.equals(dato)) {
+            if (!guardar.equals(dato)) {
                 pila.apilar(guardar);
             }
         }
     }
 
-    public static <T> void invertirPila(Pila<T> pila) throws PilaVacia{
+    public static <T> void invertirPila(Pila<T> pila) throws PilaVacia {
         T guardarCima = null;
         TadPila<T> aux = new TadPila<>("Aux");
         TadPila<T> aux2 = new TadPila<>("Aux2");
 
-        if(!pila.pilaVacia())
+        if (!pila.pilaVacia())
             guardarCima = pila.desapilar();
-            invertirPilaR(pila,guardarCima, aux, aux2);
+        invertirPilaR(pila, guardarCima, aux, aux2);
+        invertirPilaConAux(pila, aux2);
+    }
+
+    private static <T> void invertirPilaR(Pila<T> pila, T guardarCima, Pila<T> aux, Pila<T> aux2) throws PilaVacia {
+        if (!pila.pilaVacia()) {
+            aux.apilar(pila.desapilar());
+            invertirPilaR(pila, guardarCima, aux, aux2);
+            aux2.apilar(aux.desapilar());
+        } else {
+            pila.apilar(guardarCima);
+        }
+    }
+
+    private static <T> void invertirPilaConAux(Pila<T> pila, Pila<T> aux2) throws PilaVacia {
+        if (!aux2.pilaVacia()) {
+            pila.apilar(aux2.desapilar());
             invertirPilaConAux(pila, aux2);
         }
+    }
 
+    public static <T> boolean remplazarElementoCercaBase(Pila<T> Pila, T objetivo, T nuevoValor) throws PilaVacia {
+        boolean modificado = false;
+        boolean aux = false;
 
-    private static <T>  void invertirPilaR(Pila<T> pila,T guardarCima, Pila<T> aux, Pila<T> aux2) throws PilaVacia{
-            if(!pila.pilaVacia()){
-                aux.apilar(pila.desapilar());
-                invertirPilaR(pila, guardarCima, aux, aux2);
-                aux2.apilar(aux.desapilar());
-            }else{
-                pila.apilar(guardarCima);
+        if (!Pila.pilaVacia()) {
+            modificado = remplazarElementoR(Pila, objetivo, nuevoValor, aux);
+        }
+
+        return modificado;
+    }
+
+    private static <T> boolean remplazarElementoR(Pila<T> Pila, T objetivo, T nuevoValor, boolean aux)
+            throws PilaVacia {
+
+        if (!Pila.pilaVacia()) {
+            T guardar = Pila.desapilar();
+            aux = remplazarElementoR(Pila, objetivo, nuevoValor, aux);
+            if (guardar.equals(objetivo)) {
+                if (!aux) {
+                    Pila.apilar(guardar);
+                    aux = true;
+                }
+            } else {
+                Pila.apilar(guardar);
             }
         }
 
-        private static <T> void invertirPilaConAux(Pila<T> pila, Pila<T> aux2) throws PilaVacia{
-            if(!aux2.pilaVacia()){
-                pila.apilar(aux2.desapilar());
-                invertirPilaConAux(pila,aux2);
-            }
-        }
+        return aux;
+    }
 
 }
