@@ -301,7 +301,8 @@ public class AlgoritmosListas {
             invertirListaR(aux, lista); // llamada recursiva
             insertarAlFinal(lista, guardar); // insertando los elementos a la lista
         } else {
-            lista.asignarReferencia(null); // vaciar la referencia lista para poder guardar los datos en el call stack del guardar
+            lista.asignarReferencia(null); // vaciar la referencia lista para poder guardar los datos en el call stack
+                                           // del guardar
         }
     }
 
@@ -318,7 +319,7 @@ public class AlgoritmosListas {
     }
 
     private static <T> boolean existeDuplicadoR(Lista<T> aux, boolean resul, T primero) {
-        if(resul == false) {
+        if (resul == false) {
             if (aux.devolverSiguiente() != null) {
                 Lista<T> subLista = new TadLista<>(); // subLista
                 T anterior = aux.devolverClave(); // inicio
@@ -328,11 +329,11 @@ public class AlgoritmosListas {
 
                 if (primero.equals(siguiente)) {
                     resul = true;
-                }else if(anterior.equals(siguiente)){
+                } else if (anterior.equals(siguiente)) {
                     resul = true;
-                }else if(buscarR(subLista, anterior)){
+                } else if (buscarR(subLista, anterior)) {
                     resul = true;
-                }else {
+                } else {
                     aux.asignarReferencia(aux.devolverSiguiente()); // siguiente del aux
                     resul = existeDuplicadoR(aux, resul, primero);
                 }
@@ -341,11 +342,11 @@ public class AlgoritmosListas {
         return resul;
     }
 
-    public static <T> void eliminarUltimo(Lista<T> lista){
-        if(!lista.esNulo()){
-            if(countNodos(lista) == 1){
+    public static <T> void eliminarUltimo(Lista<T> lista) {
+        if (!lista.esNulo()) {
+            if (countNodos(lista) == 1) {
                 lista.asignarNulo();
-            }else {
+            } else {
                 Lista<T> aux = new TadLista<>();
                 aux.asignarReferencia(lista.devolverReferencia());
                 eliminarUltimoR(aux);
@@ -353,23 +354,19 @@ public class AlgoritmosListas {
         }
     }
 
-    private static <T> void eliminarUltimoR(Lista<T> aux){
-            boolean on = false;
-            Lista<T> siguiente = new TadLista<>();
-            // actualizo aux al siguiente de inicio
-            aux.asignarReferencia(aux.devolverSiguiente());
+    private static <T> void eliminarUltimoR(Lista<T> aux) {
+        boolean on = false;
+        Lista<T> siguiente = new TadLista<>();
+        // actualizo aux al siguiente de inicio
+        aux.asignarReferencia(aux.devolverSiguiente());
 
-            // asigno al inicio de lista siguiente el siguiente del actual de aux
-            siguiente.asignarReferencia(aux.devolverSiguiente());
+        // asigno al inicio de lista siguiente el siguiente del actual de aux
+        siguiente.asignarReferencia(aux.devolverSiguiente());
 
-            if(siguiente.devolverSiguiente() == null){
-                aux.asignarReferenciaSiguiente(null);
-            }else{
-                eliminarUltimoR(aux);
-            }
+        if (siguiente.devolverSiguiente() == null) {
+            aux.asignarReferenciaSiguiente(null);
+        } else {
+            eliminarUltimoR(aux);
+        }
     }
 }
-
-
-
-
