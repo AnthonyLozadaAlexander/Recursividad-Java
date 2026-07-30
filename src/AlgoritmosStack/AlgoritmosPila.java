@@ -277,17 +277,15 @@ public class AlgoritmosPila<T> {
         if (!Pila.pilaVacia()) {
             T guardar = Pila.desapilar();
             aux = remplazarElementoR(Pila, objetivo, nuevoValor, aux);
-            if (guardar.equals(objetivo)) {
-                if (!aux) {
-                    Pila.apilar(guardar);
+            if (guardar.equals(objetivo) && (!aux)){
+                    Pila.apilar(nuevoValor);
                     aux = true;
-                }
-            } else {
+            }else{
                 Pila.apilar(guardar);
             }
+
         }
 
         return aux;
     }
-
 }
