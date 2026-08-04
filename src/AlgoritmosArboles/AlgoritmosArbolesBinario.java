@@ -115,4 +115,10 @@ public class AlgoritmosArbolesBinario<T extends Comparable<T>> {
         return encontrado;
     }
 
+    public static <T extends Comparable<T>> void imprimirHojas(Arbol<T> arbol) {
+        if (arbol != null && arbol.getRaiz() != null) {
+
+        }
+    }
+
 }
