@@ -5,7 +5,7 @@ import Arboles.ArbolBB;
 
 public class pruebaArbol05 {
     public static void main(String[] args) {
-        ArbolBB<Integer> abb = new ArbolBB<Integer> ("Mi ABB");
+        ArbolBB<Integer> abb = new ArbolBB<Integer>("Mi ABB");
         abb.insertar(10);
         abb.insertar(5);
         abb.insertar(15);

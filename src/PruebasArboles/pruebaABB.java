@@ -1,6 +1,7 @@
 package PruebasArboles;
 
 import Arboles.ArbolBB;
+
 public class pruebaABB {
 	 public static void main (String[] args) {
 	    	ArbolBB<Integer> abb = new ArbolBB<Integer> ("Mi ABB");
@@ -13,6 +14,7 @@ public class pruebaABB {
 	    	abb.insertar(75);
 	    	abb.insertar(25);
 	    	abb.insertar(68);
+
 	    	System.out.println("Recorrido en PreOrden");
 	    	abb.preOrder();
 	    	System.out.println("\nRecorrido en InOrder");
