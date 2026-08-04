@@ -99,7 +99,6 @@ public class AlgoritmosArbolesBinario<T extends Comparable<T>> {
         boolean encontrado = false;
 
         if (nodo != null) {
-
             if (nodo.getClave().compareTo(dato) == 0) {
                 encontrado = true;
             } else {
@@ -150,7 +149,7 @@ public class AlgoritmosArbolesBinario<T extends Comparable<T>> {
         if (nodo != null) {
             // si la clave del nodo es igual al dato
             if (nodo.getClave().compareTo(dato) == 0) {
-                if (nodo.getIz() == null && nodo.getDe() == null) {
+                if (nodo.getIz() == null && nodo.getDe() == null) { // si es hoja
                     resul = true;
                 }
                 // si no, sigo buscando en las claves de los hijos para saber si el dato es igual.
