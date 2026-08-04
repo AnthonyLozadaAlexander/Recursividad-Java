@@ -15,5 +15,6 @@ public class pruebaArbol05 {
 
         AlgoritmosArbolesBinario.imprimirHojas(abb);
         System.out.println("Cantidad Hojas: " + AlgoritmosArbolesBinario.contarHojas(abb));
+        System.out.println("7 es hoja?: " + (AlgoritmosArbolesBinario.esHoja(abb, 7) ? "Si es Hoja" : "No es Hoja"));
     }
 }
