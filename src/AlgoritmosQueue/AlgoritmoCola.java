@@ -3,9 +3,6 @@ package AlgoritmosQueue;
 import java.util.ArrayList;
 
 import Queue.*;
-import Stack.Pila;
-import Stack.PilaVacia;
-import Stack.TadPila;
 
 public class AlgoritmoCola<T> {
 
@@ -108,13 +105,12 @@ public class AlgoritmoCola<T> {
     }
 
     private static void rotarCola(Cola<Integer> c, int veces) throws ColaVacia {
-        if (veces == 0) {
-            return;
+        if (!(veces == 0)) {
+            Integer primero = c.desencolar();
+            c.encolar(primero);
+            rotarCola(c, veces - 1);
         }
 
-        Integer primero = c.desencolar();
-        c.encolar(primero);
-        rotarCola(c, veces - 1);
     }
 
     public static <T> void insertarEnMedio(Cola<T> cola, T Elemento) throws ColaVacia {
@@ -124,15 +120,6 @@ public class AlgoritmoCola<T> {
         cola.invertirCola();
     }
 
-    private static <T> void ordenarCola(Cola<T> cola) throws ColaVacia {
-        int n = cola.numElemCola();
-        ArrayList<T> aux = new ArrayList<>();
-        for (int i = 0; i < n; i++) {
-            T guardar = cola.desencolar();
-            aux.add(i, guardar);
-        }
-
-    }
 
     private static <T> void insertarAux(Cola<T> cola, T elemento, int mitad, int actual) throws ColaVacia {
 
@@ -213,14 +200,14 @@ public class AlgoritmoCola<T> {
 
     }
 
-    public static <T> void intercambairLugares(Cola<T> cola, int pos, int posCamb) throws ColaVacia {
+    public static <T> void intercambiarLugares(Cola<T> cola, int pos, int posCamb) throws ColaVacia {
 
-        intercambairLugaresR(cola, pos, posCamb, 1, null);
+        intercambiarLugaresR(cola, pos, posCamb, 1, null);
 
         cola.invertirCola();
     }
 
-    private static <T> T intercambairLugaresR(Cola<T> cola, int pos, int posCamb, int cont, T d) throws ColaVacia {
+    private static <T> T intercambiarLugaresR(Cola<T> cola, int pos, int posCamb, int cont, T d) throws ColaVacia {
 
         T res = null;
         // guardar caso base
@@ -230,7 +217,7 @@ public class AlgoritmoCola<T> {
                 d = elem;
             }
 
-            res = intercambairLugaresR(cola, pos, posCamb, cont + 1, d);
+            res = intercambiarLugaresR(cola, pos, posCamb, cont + 1, d);
 
             // Intercambio de los elementos de dichas posiciones
             if (cont == pos) {
@@ -349,7 +336,6 @@ public class AlgoritmoCola<T> {
 
             if (actual % 2 == 0) {
                 c.encolar(actual);
-                c.invertirCola();
             }
 
         }
@@ -515,5 +501,7 @@ public class AlgoritmoCola<T> {
 
         return r;
     }
+
+
 
 }

@@ -6,20 +6,20 @@ import Arboles.NodoArbol;
 public class AlgoritmosArbolesBinario<T extends Comparable<T>> {
 
     public static <T> int contarNodos(Arbol arbol) {
-        if (arbol.getRaiz() == null) {
-            return 0;
-        } else {
-            int total = contarNodosR(arbol.getRaiz());
-            return (1 + total); // 1 + por la raiz
+        int total = 0;
+        if(arbol != null) { // si arbol existe
+            if (arbol.getRaiz() != null) { // si arbol no esta vacio
+                total = contarNodosR(arbol.getRaiz());
+            }
         }
+        return (1 + total); // 1 + por la raiz
     }
 
     private static <T> int contarNodosR(NodoArbol nodo) {
         int countN = 0;
 
-        if (nodo == null) {
-            return 0;
-        } else {
+        if (!(nodo == null)) {
+
             if (nodo.getIz() != null) {
                 countN = (countN + 1) + contarNodosR(nodo.getIz());
             } else {

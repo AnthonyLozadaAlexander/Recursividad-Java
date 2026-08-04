@@ -16,7 +16,7 @@ public class PuebaQueue04 {
 
         try {
           
-            AlgoritmoCola.intercambairLugares(cola, 1, 3);
+            AlgoritmoCola.intercambiarLugares(cola, 1, 3);
             cola.imprimirCola();
         } catch (ColaVacia e) {
 
