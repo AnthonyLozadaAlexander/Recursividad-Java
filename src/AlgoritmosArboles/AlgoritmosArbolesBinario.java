@@ -116,8 +116,22 @@ public class AlgoritmosArbolesBinario<T extends Comparable<T>> {
     }
 
     public static <T extends Comparable<T>> void imprimirHojas(Arbol<T> arbol) {
-        if (arbol != null && arbol.getRaiz() != null) {
+        if (arbol != null) {
+            if(arbol.getRaiz() != null) {
+                imprimirHojasR(arbol.getRaiz());
+            }
+        }
+    }
 
+    private static <T extends Comparable<T>> void imprimirHojasR(NodoArbol<T> nodo){
+        if(nodo != null){
+
+            if(nodo.getIz() == null && nodo.getDe() == null){
+                System.out.println(nodo.getClave());
+            }else{
+                imprimirHojasR(nodo.getIz());
+                imprimirHojasR(nodo.getDe());
+            }
         }
     }
 
