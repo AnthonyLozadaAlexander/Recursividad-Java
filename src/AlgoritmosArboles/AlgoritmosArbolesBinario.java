@@ -38,6 +38,7 @@ public class AlgoritmosArbolesBinario<T extends Comparable<T>> {
         int count = 0;
 
         if (arbol != null) {
+            if(arbol.getRaiz() != null)
             cant = contarHojasR(arbol.getRaiz(), count);
         }
 
@@ -46,22 +47,20 @@ public class AlgoritmosArbolesBinario<T extends Comparable<T>> {
 
     private static <T> int contarHojasR(NodoArbol nodo, int count) {
 
-        if (nodo == null) {
-            return 0;
-        }
+        if (nodo != null) {
+            if (nodo.getIz() == null && nodo.getDe() == null) {
+                count = count + 1;
+            } else {
 
-        if (nodo.getIz() == null && nodo.getDe() == null) {
-            count = count + 1;
-        } else {
+                // nodo izquierdo existe?
+                if (nodo.getIz() != null) {
+                    count = contarHojasR(nodo.getIz(), count);
+                }
 
-            // nodo izquierdo es hoja?
-            if (nodo.getIz() != null) {
-                count = contarHojasR(nodo.getIz(), count);
-            }
-
-            // nodo derecho es hoja?
-            if (nodo.getDe() != null) {
-                count = contarHojasR(nodo.getDe(), count);
+                // nodo derecho existe?
+                if (nodo.getDe() != null) {
+                    count = contarHojasR(nodo.getDe(), count);
+                }
             }
         }
 
