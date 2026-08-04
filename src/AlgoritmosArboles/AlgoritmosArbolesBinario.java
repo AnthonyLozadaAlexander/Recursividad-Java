@@ -168,13 +168,13 @@ public class AlgoritmosArbolesBinario<T extends Comparable<T>> {
     public static <T extends Comparable<T>> int contar(Arbol<T> arbol){
         int resul = 0;
         int count = 0;
+
         if(arbol == null){
             resul = -1;
         }else{
             if(arbol.getRaiz() ==  null){
                 resul = 0;
             }else{
-                count = count + 1;
                 resul = contarR(arbol.getRaiz(), count);
             }
         }
@@ -184,12 +184,9 @@ public class AlgoritmosArbolesBinario<T extends Comparable<T>> {
 
     private static <T extends Comparable<T>> int contarR(NodoArbol<T> nodo, int count){
         if(nodo != null){
-            if(nodo.getIz() != null){
-                count = 1 + contarR(nodo.getIz(), count);
-            }
-            if(nodo.getDe() != null){
-                count = 1 + contarR(nodo.getDe(), count);
-            }
+            count = count + 1;
+            count = contarR(nodo.getIz(), count); // pasa el count a nodo.getIz()
+            count = contarR(nodo.getDe(), count); // pasa el count a nodo.getDe()
         }
         return count;
     }
