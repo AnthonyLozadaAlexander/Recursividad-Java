@@ -7,7 +7,7 @@ public class AlgoritmosArbolesBinario<T extends Comparable<T>> {
 
     public static <T> int contarNodos(Arbol arbol) {
         int total = 0;
-        if(arbol != null) { // si arbol existe
+        if (arbol != null) { // si arbol existe
             if (arbol.getRaiz() != null) { // si arbol no esta vacio
                 total = contarNodosR(arbol.getRaiz());
             }
@@ -152,7 +152,8 @@ public class AlgoritmosArbolesBinario<T extends Comparable<T>> {
                 if (nodo.getIz() == null && nodo.getDe() == null) { // si es hoja
                     resul = true;
                 }
-                // si no, sigo buscando en las claves de los hijos para saber si el dato es igual.
+                // si no, sigo buscando en las claves de los hijos para saber si el dato es
+                // igual.
             } else {
                 resul = esHojaR(nodo.getIz(), dato); // busca en rama izquierda
                 if (!resul) { // si no encontro en rama izquierda, busca en derecha
@@ -162,6 +163,35 @@ public class AlgoritmosArbolesBinario<T extends Comparable<T>> {
         }
 
         return resul;
+    }
+
+    public static <T extends Comparable<T>> int contar(Arbol<T> arbol){
+        int resul = 0;
+        int count = 0;
+        if(arbol == null){
+            resul = -1;
+        }else{
+            if(arbol.getRaiz() ==  null){
+                resul = 0;
+            }else{
+                count = count + 1;
+                resul = contarR(arbol.getRaiz(), count);
+            }
+        }
+
+        return resul;
+    }
+
+    private static <T extends Comparable<T>> int contarR(NodoArbol<T> nodo, int count){
+        if(nodo != null){
+            if(nodo.getIz() != null){
+                count = 1 + contarR(nodo.getIz(), count);
+            }
+            if(nodo.getDe() != null){
+                count = 1 + contarR(nodo.getDe(), count);
+            }
+        }
+        return count;
     }
 
 }
