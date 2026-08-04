@@ -166,7 +166,7 @@ public class AlgoritmoCola<T> {
         return aviso;
     }
 
-    // de una cola quiero q dos posisiones intercambiennn luagar
+    // de una cola quiero q dos posisiones se borren de lugar
     // ejemplo tenngo 5 6 7 8 1 queiro q el de la posision 2 se cambie por la
     // posision [1][2][3][4][5]
     // 4 entonncnes quedaria 5 8 7 6 1 (ojo empiennsa desde la psosisionn 1)
