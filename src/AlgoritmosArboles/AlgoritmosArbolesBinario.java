@@ -148,16 +148,17 @@ public class AlgoritmosArbolesBinario<T extends Comparable<T>> {
     private static <T extends Comparable<T>> boolean esHojaR(NodoArbol<T> nodo, T dato) {
         boolean resul = false;
         if (nodo != null) {
+            // si la clave del nodo es igual al dato
             if (nodo.getClave().compareTo(dato) == 0) {
                 if (nodo.getIz() == null && nodo.getDe() == null) {
                     resul = true;
                 }
-                resul = esHojaR(nodo.getIz(), dato);
-
-                if (!resul) {
+                // si no, sigo buscando en las claves de los hijos para saber si el dato es igual.
+            } else {
+                resul = esHojaR(nodo.getIz(), dato); // busca en rama izquierda
+                if (!resul) { // si no encontro en rama izquierda, busca en derecha
                     resul = esHojaR(nodo.getDe(), dato);
                 }
-
             }
         }
 
