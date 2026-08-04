@@ -14,5 +14,6 @@ public class pruebaArbol05 {
         abb.insertar(20);
 
         AlgoritmosArbolesBinario.imprimirHojas(abb);
+        System.out.println("Cantidad Hojas: " + AlgoritmosArbolesBinario.contarHojas(abb));
     }
 }
