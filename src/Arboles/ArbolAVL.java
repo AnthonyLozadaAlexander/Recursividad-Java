@@ -1,35 +1,37 @@
 package Arboles;
 
-import Queue.*;
+import tadCola.Cola;
+import tadCola.ColaVacia;
+import tadCola.TadCola;
 
 /**
- * arbol AVL parametrizado para objetos comparables genericos tipo T
- * @author Fausto Redrovan
- * @param <T> clase del objeto elemento del arbol
+ * �rbol AVL parametrizado para objetos comparables gen�ricos tipo T
+ * @author Fausto Redrov�n 
+ * @param <T> clase del objeto elemento del �rbol
  */
 public class ArbolAVL<T extends Comparable<T>> extends ArbolBB<T> {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Constructor de un �rbol AVL de nombre <em>nombre</em> y con un nodo ra�z con el <em>dato</em>
-	 * @param nombre Nombre del arbol AVL
-	 * @param dato Para el nodo raiz
+	 * @param nombre Nombre del �rbol AVL
+	 * @param dato Para el nodo ra�z
 	 */
 	public ArbolAVL(String nombre, T dato) {
 		super(nombre, dato);
 	}
 	
 	/**
-	 * Constructor de un arbol AVL con nombre y vacio (nulo)
-	 * @param nombre Nombre del arbol nulo (vacio)
+	 * Constructor de un �rbol AVL con nombre y vac�o (nulo)
+	 * @param nombre Nombre del �rbol nulo (vac�o)
 	 */
 	public ArbolAVL(String nombre) {
 		super(nombre);
 	}
 	
 	/**
-	 * Constructor de un arbol AVL sin nombre y con un nodo ra�z con el <em>dato</em>
-	 * @param raiz Nodo raiz
+	 * Constructor de un �rbol AVL sin nombre y con un nodo ra�z con el <em>dato</em>
+	 * @param raiz Nodo ra�z
 	 */
 	public ArbolAVL(T dato) {
 		super(null, dato);
@@ -74,9 +76,9 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBB<T> {
 	}
 	
 	/**
-	 * Rotacion simple a la izquierda
-	 * @param arbol Subarbol a rotar
-	 * @return arbol rotado
+	 * Rotaci�n simple a la izquierda
+	 * @param arbol Sub�rbol a rotar
+	 * @return �rbol rotado
 	 */
 	public NodoArbol<T> rotacionIzquierda(NodoArbol<T> arbol) {
 		NodoArbol<T> aux  = arbol.getIz();	
@@ -294,7 +296,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBB<T> {
 	
 	private void listarAmplitudNiveles(NodoArbol<T> arbol) throws ColaVacia {
 		NodoArbol<T> p;
-		Cola<NodoArbol<T>> cola = new TadCola<>("");
+		Cola<NodoArbol<T>> cola = new TadCola<>();
 		
 		p = arbol;
 		if(p != null)

@@ -2,7 +2,9 @@ package Arboles;
 
 import java.io.Serializable;
 
-import Queue.*;
+import tadCola.Cola;
+import tadCola.ColaVacia;
+import tadCola.TadCola;
 
 public class Arbol<T extends Comparable<T>> implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -87,7 +89,7 @@ public class Arbol<T extends Comparable<T>> implements Serializable{
 	
 	private void listarAmplitud(NodoArbol<T> arbol) throws ColaVacia {
 		NodoArbol<T> p;
-		Cola<NodoArbol<T>> cola = new TadCola<>("");
+		Cola<NodoArbol<T>> cola = new TadCola<>();
 		
 		p = arbol;
 		if(p != null)
@@ -244,7 +246,7 @@ public class Arbol<T extends Comparable<T>> implements Serializable{
 	
 	private void listarAmplitudNiveles(NodoArbol<T> arbol) throws ColaVacia {
 		NodoArbol<T> p;
-		Cola<NodoArbol<T>> cola = new TadCola<>("");
+		Cola<NodoArbol<T>> cola = new TadCola<>();
 		
 		p = arbol;
 		if(p != null)
@@ -335,11 +337,11 @@ public class Arbol<T extends Comparable<T>> implements Serializable{
 	
 	public void info() {
 		if(this.getRaiz() != null) {
-			System.out.println("Informaci�n del �rbol " + this.getNombre());
+			System.out.println("Información del árbol " + this.getNombre());
 			System.out.println("Altura: " + this.altura());
-			System.out.println("N�mero de nodos: " + this.numeroDeNodos());
-			System.out.println("N�mero de hojas: " + this.numeroDeHojas());
-			System.out.println("Arbol est� completo?: " + (this.esCompleto()?"SI":"NO"));
+			System.out.println("Número de nodos: " + this.numeroDeNodos());
+			System.out.println("Número de hojas: " + this.numeroDeHojas());
+			System.out.println("Arbol está completo?: " + (this.esCompleto()?"SI":"NO"));
 			System.out.println("Dato menor: " + this.menor());
 			System.out.println("Dato mayor: " + this.mayor());
 			System.out.println("Recorridos");
