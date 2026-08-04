@@ -2,146 +2,122 @@ package Queue;
 
 public class TadCola<T> implements Cola<T> {
     private NodoCola<T> principio;
-    private NodoCola<T> fin;
-    private String nombreCola;
+	private NodoCola<T> fin;
+	private String nombre;
 
-    public TadCola(String nombreCola) {
-        this.nombreCola = nombreCola;
-        principio = null;
-        fin = null;
-    }
+	public TadCola() {
+		principio = null;
+		fin = null;
+	}
 
-    public T primero() throws ColaVacia{
-        if(colaVacia()){
-            throw new ColaVacia("Error: La Cola Se Encuentra Vacia");
-        }else {
-            return principio.dato;
-        }
-    }
+	public TadCola(String nombre) {
+		super();
+		principio = null;
+		fin = null;
+		this.nombre = nombre;
+	}
 
-    @Override
-    public void encolar(T dato) {
-        NodoCola<T> aux;
-        aux = new NodoCola<>(dato, null); // nodo que almacena el dato a conectar con cola
+	public String getNombre() {
+		return nombre;
+	}
 
-        if (principio == null) { // si el puntero principio es null, se refiere a que fue creado y esta vacio
-            principio = aux; // principio conecta con el nodo q almacena el dato
-            fin = aux; // fin conecta con el nodo que almacena el dato
-        } else {
-            fin.siguiente = aux; // el puntero de fin se mueve al siguiente elemento de la cola tomando el nuevo
-                                 // nodo creado con el dato almacenado
-            fin = aux; // se actualiza el puntero de fin apuntando al ultimo elemento de la cola
-        }
-    }
+	public boolean colaVacia() {
+		return principio == null;
+	}
 
-    @Override
-    public T desencolar() throws ColaVacia {
-        if (colaVacia()) {
-            throw new ColaVacia("Desencolar: la cola se encuentra vacia");
-        } else {
-            T resultado; // guardar el resultado
-            resultado = principio.dato; // principio.dato se refiere al primer elemento de la cola
-            principio = principio.siguiente; // principio avanzara al siguiente elemento de la cola
-            if (principio == null) { // si principio es igual a null
-                fin = null; // puntero fin apunta al null
-            }
-            return resultado; // muestra el resultado desencolado de la cola
-        }
-    }
+	public void eliminarCola() {
+		principio = null;
+		fin = null;
+	}
 
-    @Override
-    public void imprimirCola() {
-        NodoCola<T> aux;
-        System.out.println("Cola: " + this.nombreCola);
-        aux = principio; // aux copia la cola principio (original)
-        while (aux != null) {
-            System.out.print(aux.dato + " ");
-            aux = aux.siguiente; // aux avanza al siguiente posicion de la Cola
-        }
+	public T primero() throws ColaVacia {
+		if (colaVacia())
+			throw new ColaVacia("La cola está vacía");
+		else
+			return principio.dato;
+	}
 
-        System.out.println();
+	public void encolar(T x) {
+		NodoCola<T> aux;
+		aux = new NodoCola<>(x, null);
+		if (principio == null) {
+			principio = aux;
+			fin = aux;
+		} else {
+			fin.siguiente = aux;
+			fin = aux;
+		}
+	}
 
-    }
+	public T desencolar() throws ColaVacia {
+		if (colaVacia()) {
+			throw new ColaVacia("Desencolar: La cola está vacía");
+		} else {
+			T resultado;
+			resultado = principio.dato;
+			principio = principio.siguiente;
+			if (principio == null)
+				fin = null;
+			return resultado;
+		}
+	}
 
-    @Override
-    public int numElemCola() {
-        int count = 0; // reinicia el contador de elementos en la cola, para volverlos a contar
-        NodoCola<T> aux; // nodo Auxiliar
+	public void quitarPrimero() throws ColaVacia {
+		if (colaVacia()) {
+			throw new ColaVacia("Quitar primero: La cola est  vac a");
+		} else {
+			principio = principio.siguiente;
+			if (principio == null)
+				fin = null;
+		}
+	}
 
-        aux = principio; // nodo Auxiliar toma la referencia del nodo Principio (original)
-        while (aux != null) {
-            count++;
-            aux = aux.siguiente; // vector[i] = vector[i+1]
+	public void mostrarEstadoCola() {
+		System.out.println("Estado de la cola:");
+		System.out.println("Número de elementos: " + this.numElemCola());
+		if (!colaVacia()) {
+			System.out.println("Primer elemento - Clave: " + principio.dato);
+			System.out.println("Último elemento - Clave: " + fin.dato);
+		}
+	}
 
-        }
+	public void imprimirCola() {
+		NodoCola<T> aux;
+		System.out.print("Estado de la cola " + this.getNombre() + ": ");
+		aux = principio;
+		while (aux != null) {
+			System.out.print(aux.dato + " ");
+			aux = aux.siguiente;
+		}
+		System.out.println();
+	}
 
-        return count;
-    }
+	public int numElemCola() {
+		NodoCola<T> aux;
+		int resul;
 
-    @Override
-    public void invertirColaIterativo() {
+		aux = principio;
+		resul = 0;
+		while (aux != null) {
+			++resul;
+			aux = aux.siguiente;
+		}
+		return resul;
+	}
 
-        if(!colaVacia()) {
-            int n = numElemCola();
-            T vector[] = (T[]) new Object[n]; // vector de tipo Generico
-            for (int i = 0; i < n; i++) {
-                vector[i] = principio.dato; // el vector va guardar los elementos del nodo principio.dato
-                principio = principio.siguiente; // el nodo se mueve al siguiente nodo
-                if (principio == null) { // cuando el nodo principio este vacio
-                    fin = null; // puntero fin apuntara a null
-                }
+	public void invertirCola() {
+		T elem;
+		if (!colaVacia()) {
+			try {
+				elem = desencolar();
+				invertirCola();
+				encolar(elem);
+			} catch (ColaVacia e) {
+				
+			}
+			
+		}
+	}
 
-            }
-
-            for (int i = n - 1; i >= 0; i--) {
-                this.encolar(vector[i]); // va encolar los elementos del vector invertidos a la cola
-            }
-        }
-    }
-
-    public void invertirCola()  {
-        T guardar;
-        if(!colaVacia()) {
-            try {
-                guardar = this.desencolar();
-                invertirCola();
-                this.encolar(guardar);
-            } catch (ColaVacia e) {
-
-            }
-        }
-
-    }
-
-    @Override
-    public String getNombre() {
-        return nombreCola;
-    }
-
-    @Override
-    public void mostrarEstadoCola() {
-        System.out.println("Estado De La Cola:");
-        System.out.println("Numero Elementos: " + this.numElemCola());
-        if (!colaVacia()) {
-            System.out.println("Primer Elemento: " + " [Principio] -> " + principio.dato); // principio.dato es el
-                                                                                           // elemento primero que esta
-                                                                                           // conectado al puntero
-                                                                                           // principio
-            System.out.println("Ultimo Elemento: " + " [Fin] -> " + fin.dato); // fin.dato es el elemento final de la
-                                                                               // cola que esta conectado al puntero fin
-        }
-
-    }
-
-    @Override
-    public void eliminarCola() {
-        principio = null; // desconectamos el nodo del principio
-        fin = null; // desconectamos el nodo del final
-    }
-
-    @Override
-    public boolean colaVacia() {
-        return principio == null;
-    }
 
 }

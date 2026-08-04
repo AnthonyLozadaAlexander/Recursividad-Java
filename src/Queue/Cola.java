@@ -1,26 +1,26 @@
 package Queue;
 
 public interface Cola<T> {
-    void encolar(T dato);
+    boolean colaVacia();
+
+    void eliminarCola();
+
+    T primero() throws ColaVacia;
+
+    void encolar(T x);
 
     T desencolar() throws ColaVacia;
+
+    void quitarPrimero() throws ColaVacia;
+
+    void mostrarEstadoCola();
 
     void imprimirCola();
 
     int numElemCola();
 
-    void invertirColaIterativo();
-
     void invertirCola();
 
     String getNombre();
-
-    void mostrarEstadoCola();
-
-    void eliminarCola();
-
-    boolean colaVacia();
-
-    T primero() throws ColaVacia;
 
 }

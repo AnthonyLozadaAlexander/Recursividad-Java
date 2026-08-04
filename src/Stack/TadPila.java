@@ -2,13 +2,17 @@ package Stack;
 
 public class TadPila<T> implements Pila<T> {
 
-    private NodoPila<T> nodoCima; // puntero principal de la cima
-    private int tamanio; // contador de elementos
-    private String nombre; // nombre para la pila
+    NodoPila<T> pila;
+    private String nombre;
+
+    public TadPila() {
+        pila = null;
+        nombre = "";
+    }
 
     public TadPila(String nombre) {
-        this.nodoCima = null; // la pila inicia vacia
-        this.tamanio = 0; // su tamanio tambien inicia en 0
+        super();
+        pila = null;
         this.nombre = nombre;
     }
 
@@ -17,80 +21,64 @@ public class TadPila<T> implements Pila<T> {
     }
 
     public boolean pilaVacia() {
-        return nodoCima == null; // true
+        return pila == null;
+    }
+
+    public void eliminarPila() {
+        pila = null;
+    }
+
+    public T cima() throws PilaVacia {
+        if (pilaVacia())
+            throw new PilaVacia("La pila está vacía");
+        else
+            return pila.dato;
+    }
+
+    public void apilar(T dato) {
+        pila = new NodoPila<>(dato, pila);
+    }
+
+    public T desapilar() throws PilaVacia {
+        T resultado;
+        if (pilaVacia()) {
+            throw new PilaVacia("Desapilar: La pila está vacía");
+        } else {
+            resultado = pila.dato;
+            pila = pila.siguiente;
+            return resultado;
+        }
+    }
+
+    public void decapitar() throws PilaVacia {
+        if (pilaVacia()) {
+            throw new PilaVacia("Decapitar: La pila está vacía");
+        } else
+            pila = pila.siguiente;
     }
 
     public void imprimirPila() {
-        boolean vacia = pilaVacia();
         NodoPila<T> aux;
-        aux = nodoCima;
-        if (pilaVacia()) {
-            System.out.println("Error: Pila Vacia");
-        }
-
-        while (!vacia) {
-            System.out.println(aux.dato + " ");
+        System.out.print("Estado de la pila " + this.getNombre() + ": ");
+        aux = pila;
+        while (aux != null) {
+            System.out.print(aux.dato + " ");
             aux = aux.siguiente;
-            if (aux == null) {
-                vacia = true;
-            }
-
         }
         System.out.println();
     }
 
-    public void apilar(T dato) {
-        NodoPila<T> aux = new NodoPila<>(dato); // utilizamos un nodo aux para crear un nuevo nodo y poder asignar el
-                                                // dato al nuevo nodo
-        aux.siguiente = nodoCima; // toma el puntero de la cima y lo asigna al nuevo nodo aux
-        nodoCima = aux;
-        tamanio++;
-    }
+    public int numElemPila() {
+        NodoPila<T> aux;
+        int resul;
 
-    public T desapilar() throws PilaVacia {
-        T guardar;
-        if (pilaVacia()) {
-            throw new PilaVacia("La Pila se encuentra vacia");
+        aux = pila;
+        resul = 0;
+        while (aux != null) {
+            ++resul;
+            aux = aux.siguiente;
         }
-        guardar = nodoCima.dato;
-        nodoCima = nodoCima.siguiente;
-        tamanio--;
-        return guardar;
-    }
-
-    public T cima() {
-        if (pilaVacia()) {
-            throw new IllegalStateException("La Pila se encuentra vacia");
-        }
-
-        return nodoCima.dato;
-    }
-
-    public int getTamanio() {
-        return tamanio;
-    }
-
-    public void invertirPila() throws PilaVacia {
-
-        TadPila<T> pilaAux = new TadPila<>("Aux");
-        // pila auxiliar
-
-        // mientras la pila no este vacia
-        while (!this.pilaVacia()) {
-            T guardar;
-            guardar = this.desapilar(); // desapilamos la pila original
-            pilaAux.apilar(guardar);
-        }
-
-        nodoCima = pilaAux.nodoCima;
-
-    }
-
-    @Override
-    public void vaciarPila() {
-        // desconectamos el puntero de la cima de los nodos de la pila
-        nodoCima = null;
-        tamanio = 0;
+        return resul;
     }
 
 }

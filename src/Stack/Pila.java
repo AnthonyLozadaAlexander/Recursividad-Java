@@ -1,15 +1,22 @@
 package Stack;
 
 public interface Pila<T> {
-    boolean pilaVacia() throws PilaVacia;
+    boolean pilaVacia();
 
-    void apilar(T dato);
+    void eliminarPila();
+
+    T cima() throws PilaVacia;
+
+    void apilar(T x);
 
     T desapilar() throws PilaVacia;
 
-    T cima();
+    void decapitar() throws PilaVacia;
 
-    int getTamanio();
+    void imprimirPila();
 
-    void vaciarPila();
+    // void leerPila () throws NumberFormatException, IOException;
+    int numElemPila();
+
+    String getNombre();
 }

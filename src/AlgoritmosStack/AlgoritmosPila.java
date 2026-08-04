@@ -61,7 +61,7 @@ public class AlgoritmosPila<T> {
 
     public static <T> Integer buscarElementoMaximoN(Pila<Integer> p) throws PilaVacia {
         //
-        if (p.getTamanio() == 1) { // toma el ultimo de la pila para retornar y comparar
+        if (p.numElemPila() == 1) { // toma el ultimo de la pila para retornar y comparar
             Integer save = p.desapilar();
             p.apilar(save); // apilamos para no perder
             return save;
@@ -81,7 +81,7 @@ public class AlgoritmosPila<T> {
         Integer Max = 0;
         // [5] , 9 , 3
         if (!p.pilaVacia()) {
-            if (p.getTamanio() == 1) { // cuando llego al fondo de la pila
+            if (p.numElemPila() == 1) { // cuando llego al fondo de la pila
                 Integer save = p.desapilar();
                 p.apilar(save);
                 Max = save;
@@ -134,11 +134,11 @@ public class AlgoritmosPila<T> {
     }
 
     public static <T> void eliminarBase(Pila<T> pila) throws PilaVacia {
-        if (pila.getTamanio() == 1) {
+        if (pila.numElemPila() == 1) {
             T eliminar = pila.desapilar();
         }
 
-        if (pila.getTamanio() > 1) {
+        if (pila.numElemPila() > 1) {
             T guardar = pila.desapilar();
             eliminarBase(pila);
             pila.apilar(guardar);
@@ -277,10 +277,10 @@ public class AlgoritmosPila<T> {
         if (!Pila.pilaVacia()) {
             T guardar = Pila.desapilar();
             aux = remplazarElementoR(Pila, objetivo, nuevoValor, aux);
-            if (guardar.equals(objetivo) && (!aux)){
-                    Pila.apilar(nuevoValor);
-                    aux = true;
-            }else{
+            if (guardar.equals(objetivo) && (!aux)) {
+                Pila.apilar(nuevoValor);
+                aux = true;
+            } else {
                 Pila.apilar(guardar);
             }
 

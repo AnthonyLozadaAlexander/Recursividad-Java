@@ -4,9 +4,9 @@ public class NodoCola<T> {
     T dato;
     NodoCola<T> siguiente;
 
-    NodoCola(T dato, NodoCola<T> siguiente) {
+    NodoCola(T dato, NodoCola<T> n) {
         this.dato = dato;
-        this.siguiente = null;
+        this.siguiente = n;
     }
 
 }
