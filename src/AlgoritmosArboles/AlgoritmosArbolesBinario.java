@@ -38,8 +38,8 @@ public class AlgoritmosArbolesBinario<T extends Comparable<T>> {
         int count = 0;
 
         if (arbol != null) {
-            if(arbol.getRaiz() != null)
-            cant = contarHojasR(arbol.getRaiz(), count);
+            if (arbol.getRaiz() != null)
+                cant = contarHojasR(arbol.getRaiz(), count);
         }
 
         return cant;
@@ -116,22 +116,52 @@ public class AlgoritmosArbolesBinario<T extends Comparable<T>> {
 
     public static <T extends Comparable<T>> void imprimirHojas(Arbol<T> arbol) {
         if (arbol != null) {
-            if(arbol.getRaiz() != null) {
+            if (arbol.getRaiz() != null) {
                 imprimirHojasR(arbol.getRaiz());
             }
         }
     }
 
-    private static <T extends Comparable<T>> void imprimirHojasR(NodoArbol<T> nodo){
-        if(nodo != null){
+    private static <T extends Comparable<T>> void imprimirHojasR(NodoArbol<T> nodo) {
+        if (nodo != null) {
 
-            if(nodo.getIz() == null && nodo.getDe() == null){
+            if (nodo.getIz() == null && nodo.getDe() == null) {
                 System.out.println(nodo.getClave());
-            }else{
+            } else {
                 imprimirHojasR(nodo.getIz());
                 imprimirHojasR(nodo.getDe());
             }
         }
+    }
+
+    public static <T extends Comparable<T>> boolean esHoja(Arbol<T> arbol, T dato) {
+        boolean result = false;
+        if (arbol != null) {
+            if (arbol.getRaiz() != null) {
+                result = esHojaR(arbol.getRaiz(), dato);
+            }
+        }
+
+        return result;
+    }
+
+    private static <T extends Comparable<T>> boolean esHojaR(NodoArbol<T> nodo, T dato) {
+        boolean resul = false;
+        if (nodo != null) {
+            if (nodo.getClave().compareTo(dato) == 0) {
+                if (nodo.getIz() == null && nodo.getDe() == null) {
+                    resul = true;
+                }
+                resul = esHojaR(nodo.getIz(), dato);
+
+                if (!resul) {
+                    resul = esHojaR(nodo.getDe(), dato);
+                }
+
+            }
+        }
+
+        return resul;
     }
 
 }
