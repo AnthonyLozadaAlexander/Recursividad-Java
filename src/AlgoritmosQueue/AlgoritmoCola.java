@@ -452,7 +452,7 @@ public class AlgoritmoCola<T> {
                 cola.encolar(actual);
                 cola.encolar(a);
 
-            }else{
+            } else {
                 cola.encolar(actual);
 
             }
@@ -468,54 +468,52 @@ public class AlgoritmoCola<T> {
     private static <T> void insertarDelanteDeR2(Cola<T> cola, T a, T b) throws ColaVacia {
         boolean resul = false;
         T actual = null;
-        if(!cola.colaVacia() && resul == false){
+        if (!cola.colaVacia() && resul == false) {
             actual = cola.desencolar();
-            if(actual.equals(b)){
+            if (actual.equals(b)) {
                 resul = true;
             }
             insertarDelanteDeR2(cola, a, b);
-            if(resul == true){
+            if (resul == true) {
                 cola.encolar(actual);
                 cola.encolar(a);
-            }else {
+            } else {
                 cola.encolar(actual);
             }
         }
 
     }
 
-    public static <T> boolean eliminarPrimeraOcurrencia(Cola<T> cola, T objetivo) throws ColaVacia{
+    public static <T> boolean eliminarPrimeraOcurrencia(Cola<T> cola, T objetivo) throws ColaVacia {
         boolean eliminado = false;
         boolean r = false;
 
-        if(!cola.colaVacia()){
+        if (!cola.colaVacia()) {
             r = eliminarPrimeraOcurrenciaR(cola, objetivo, eliminado);
             cola.invertirCola();
         }
         return r;
     }
 
-    private static <T> boolean eliminarPrimeraOcurrenciaR(Cola<T> cola, T objetivo, boolean eliminado) throws
-            ColaVacia{
+    private static <T> boolean eliminarPrimeraOcurrenciaR(Cola<T> cola, T objetivo, boolean eliminado)
+            throws ColaVacia {
         T c = null;
         boolean eliminarObjetivo = false;
         boolean r = eliminado;
-        if(!cola.colaVacia()){
-                c = cola.desencolar();
-                if(c.equals(objetivo) && r == false){
-                    r = true;
-                    eliminarObjetivo = true;
-                }
+        if (!cola.colaVacia()) {
+            c = cola.desencolar();
+            if (c.equals(objetivo) && r == false) {
+                r = true;
+                eliminarObjetivo = true;
+            }
 
-                r = eliminarPrimeraOcurrenciaR(cola, objetivo, r);
-                if(eliminarObjetivo == false) {
-                    cola.encolar(c);
-                }
+            r = eliminarPrimeraOcurrenciaR(cola, objetivo, r);
+            if (eliminarObjetivo == false) {
+                cola.encolar(c);
+            }
         }
 
         return r;
     }
 
 }
-
-
