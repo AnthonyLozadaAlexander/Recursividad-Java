@@ -2,9 +2,7 @@ package Arboles;
 
 import java.io.Serializable;
 
-import tadCola.Cola;
-import tadCola.ColaVacia;
-import tadCola.TadCola;
+import Queue.*;
 
 public class Arbol<T extends Comparable<T>> implements Serializable{
 	private static final long serialVersionUID = 1L;
