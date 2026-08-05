@@ -164,16 +164,16 @@ public class AlgoritmosArbolesBinario<T extends Comparable<T>> {
         return resul;
     }
 
-    public static <T extends Comparable<T>> int contar(Arbol<T> arbol){
+    public static <T extends Comparable<T>> int contar(Arbol<T> arbol) {
         int resul = 0;
         int count = 0;
 
-        if(arbol == null){
+        if (arbol == null) {
             resul = -1;
-        }else{
-            if(arbol.getRaiz() ==  null){
+        } else {
+            if (arbol.getRaiz() == null) {
                 resul = 0;
-            }else{
+            } else {
                 resul = contarR(arbol.getRaiz(), count);
             }
         }
@@ -181,8 +181,8 @@ public class AlgoritmosArbolesBinario<T extends Comparable<T>> {
         return resul;
     }
 
-    private static <T extends Comparable<T>> int contarR(NodoArbol<T> nodo, int count){
-        if(nodo != null){
+    private static <T extends Comparable<T>> int contarR(NodoArbol<T> nodo, int count) {
+        if (nodo != null) {
             count = count + 1;
             count = contarR(nodo.getIz(), count); // pasa el count a nodo.getIz()
             count = contarR(nodo.getDe(), count); // pasa el count a nodo.getDe()
@@ -190,13 +190,13 @@ public class AlgoritmosArbolesBinario<T extends Comparable<T>> {
         return count;
     }
 
-    public static <T extends Comparable<T>> T aleatorio(Arbol<T> arbol){
+    public static <T extends Comparable<T>> T aleatorio(Arbol<T> arbol) {
         T resul = null;
         int total = 0;
         int index = 0;
 
-        if(arbol != null){
-            if(arbol.getRaiz() != null){
+        if (arbol != null) {
+            if (arbol.getRaiz() != null) {
                 total = contar(arbol);
                 index = Algoritmos.Algoritmos.aleatorio(0, total - 1); // elige un indice al azar
                 resul = aleatorioR(arbol.getRaiz(), index); // busca el  elemento
@@ -206,20 +206,20 @@ public class AlgoritmosArbolesBinario<T extends Comparable<T>> {
         return resul;
     }
 
-    private static <T extends Comparable<T>> T aleatorioR(NodoArbol<T> nodo,  int index){
+    private static <T extends Comparable<T>> T aleatorioR(NodoArbol<T> nodo, int index) {
         int cantIzquierda = 0;
         T resul = null;
-        if(nodo != null){
+        if (nodo != null) {
             cantIzquierda = contarR(nodo.getIz(), 0); // cuenta los nodos de la rama izquierda
-            if(index < cantIzquierda){
+            if (index < cantIzquierda) {
                 resul = aleatorioR(nodo.getIz(), index); // busca en la izquierda de la rama del arbol
             }
 
-            if(index == cantIzquierda){
+            if (index == cantIzquierda) {
                 resul = nodo.getClave();
             }
 
-            if(index > cantIzquierda){
+            if (index > cantIzquierda) {
                 resul = aleatorioR(nodo.getDe(), index - cantIzquierda - 1); // busca en la derecha y resta el indice descontando los nodos ya explorados con el nodo actual (-1).
             }
         }
