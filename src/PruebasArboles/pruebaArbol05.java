@@ -18,5 +18,6 @@ public class pruebaArbol05 {
         System.out.println("7 es hoja?: " + (AlgoritmosArbolesBinario.esHoja(abb, 7) ? "Si es Hoja" : "No es Hoja"));
 
         System.out.println("Contar ABB: " + AlgoritmosArbolesBinario.contar(abb));
+        System.out.println("Elemento Aleatorio Del Arbol: " + AlgoritmosArbolesBinario.aleatorio(abb));
     }
 }
