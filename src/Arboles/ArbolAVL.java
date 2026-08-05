@@ -1,8 +1,6 @@
 package Arboles;
 
-import tadCola.Cola;
-import tadCola.ColaVacia;
-import tadCola.TadCola;
+import Queue.*;
 
 /**
  * �rbol AVL parametrizado para objetos comparables gen�ricos tipo T
