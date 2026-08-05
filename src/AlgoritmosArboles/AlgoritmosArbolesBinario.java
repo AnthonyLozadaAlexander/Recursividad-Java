@@ -22,9 +22,8 @@ public class AlgoritmosArbolesBinario<T extends Comparable<T>> {
 
             if (nodo.getIz() != null) {
                 countN = (countN + 1) + contarNodosR(nodo.getIz());
-            } else {
-
             }
+
             if (nodo.getDe() != null) {
                 countN = (countN + 1) + contarNodosR(nodo.getDe());
             }
@@ -189,6 +188,42 @@ public class AlgoritmosArbolesBinario<T extends Comparable<T>> {
             count = contarR(nodo.getDe(), count); // pasa el count a nodo.getDe()
         }
         return count;
+    }
+
+    public static <T extends Comparable<T>> T aleatorio(Arbol<T> arbol){
+        T resul = null;
+        int total = 0;
+        int index = 0;
+
+        if(arbol != null){
+            if(arbol.getRaiz() != null){
+                total = contar(arbol);
+                index = Algoritmos.Algoritmos.aleatorio(0, total - 1); // elige un indice al azar
+                resul = aleatorioR(arbol.getRaiz(), index); // busca el  elemento
+            }
+        }
+
+        return resul;
+    }
+
+    private static <T extends Comparable<T>> T aleatorioR(NodoArbol<T> nodo,  int index){
+        int cantIzquierda = 0;
+        T resul = null;
+        if(nodo != null){
+            cantIzquierda = contarR(nodo.getIz(), 0); // cuenta los nodos de la rama izquierda
+            if(index < cantIzquierda){
+                resul = aleatorioR(nodo.getIz(), index); // busca en la izquierda de la rama del arbol
+            }
+            if(index == cantIzquierda){
+                resul = nodo.getClave();
+            }
+
+            if(index > cantIzquierda){
+                resul = aleatorioR(nodo.getDe(), index - cantIzquierda - 1); // busca en la derecha y resta el indice descontando los nodos ya explorados con el nodo actual (-1).
+            }
+        }
+
+        return resul;
     }
 
 }
