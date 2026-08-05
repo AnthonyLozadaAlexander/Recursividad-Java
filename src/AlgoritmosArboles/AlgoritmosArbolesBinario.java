@@ -214,6 +214,7 @@ public class AlgoritmosArbolesBinario<T extends Comparable<T>> {
             if(index < cantIzquierda){
                 resul = aleatorioR(nodo.getIz(), index); // busca en la izquierda de la rama del arbol
             }
+
             if(index == cantIzquierda){
                 resul = nodo.getClave();
             }
