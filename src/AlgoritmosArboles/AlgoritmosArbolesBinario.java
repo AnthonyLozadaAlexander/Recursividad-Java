@@ -214,15 +214,33 @@ public class AlgoritmosArbolesBinario<T extends Comparable<T>> {
             if (index < cantIzquierda) {
                 resul = aleatorioR(nodo.getIz(), index); // busca en la izquierda de la rama del arbol
             }
-
-            if (index == cantIzquierda) {
+            else if (index == cantIzquierda) {
                 resul = nodo.getClave();
+            }else{
+                resul = aleatorioR(nodo.getDe(), index - cantIzquierda - 1);
             }
 
-            if (index > cantIzquierda) {
+            /*if (index > cantIzquierda) {
                 resul = aleatorioR(nodo.getDe(), index - cantIzquierda - 1); // busca en la derecha y resta el indice descontando los nodos ya explorados con el nodo actual (-1).
+            }*/
+        }
+
+        return resul;
+    }
+
+    public static <T extends Comparable<T>> boolean modificar(Arbol<T> arbol, T datoViejo, T datoNuevo){
+        boolean resul = false;
+        if(arbol != null){
+            if(arbol.getRaiz() != null){
+                resul = modificaR(arbol.getRaiz(), datoViejo, datoNuevo);
             }
         }
+
+        return resul;
+    }
+
+    private static <T extends Comparable<T>> boolean modificaR(NodoArbol<T> nodo, T datoViejo, T datoNuevo){
+        boolean resul = false;
 
         return resul;
     }
