@@ -241,6 +241,15 @@ public class AlgoritmosArbolesBinario<T extends Comparable<T>> {
 
     private static <T extends Comparable<T>> boolean modificaR(NodoArbol<T> nodo, T datoViejo, T datoNuevo){
         boolean resul = false;
+        if(nodo  != null){
+            if(nodo.getClave().compareTo(datoViejo) == 0){
+                nodo.setClave(datoNuevo);
+                resul = true;
+            }else if(!resul){
+                resul = modificaR(nodo.getIz(), datoViejo, datoNuevo);
+                resul = modificaR(nodo.getDe(), datoViejo, datoNuevo);
+            }
+        }
 
         return resul;
     }
