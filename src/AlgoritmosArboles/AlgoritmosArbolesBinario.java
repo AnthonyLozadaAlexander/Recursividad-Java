@@ -69,7 +69,9 @@ public class AlgoritmosArbolesBinario<T extends Comparable<T>> {
     public static <T> int altura(Arbol arbol) {
         int altura = 0;
         if (arbol != null) {
-            altura = alturaR(arbol.getRaiz());
+            if (arbol.getRaiz() != null) {
+                altura = alturaR(arbol.getRaiz());
+            }
         }
 
         return altura;
@@ -78,7 +80,6 @@ public class AlgoritmosArbolesBinario<T extends Comparable<T>> {
     private static <T> int alturaR(NodoArbol nodo) {
         int alto = 0;
         if (nodo != null) {
-
             alto = 1 + Math.max(alturaR(nodo.getIz()), alturaR(nodo.getDe()));
         }
 
