@@ -267,9 +267,9 @@ public class AlgoritmosArbolesBinario<T extends Comparable<T>> {
 
     private static <T extends Comparable<T>> void imprimirNivelR(NodoArbol<T> nodo, int nivel){
         if(nodo != null){
-            if(nivel == 1){
+            if(nivel == 1){ // el nivel 1 es el nivel de dicho subarbol, dependiendo del nivel, el getIz o getDe bajaran hasta ahi para imprimir sus nodos.
                 System.out.println(nodo.getClave());
-            }else if(nivel > 1){
+            }else if(nivel > 1){ // llamada recursiva
                 imprimirNivelR(nodo.getIz(), nivel  - 1);
                 imprimirNivelR(nodo.getDe(), nivel  - 1);
             }
