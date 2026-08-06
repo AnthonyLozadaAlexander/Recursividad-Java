@@ -13,6 +13,10 @@ public class pruebaABB06 {
         abb.insertar(3);
         abb.insertar(7);
         abb.insertar(20);
+        System.out.println("Arbol ABB Antes De Modificar");
+        abb.info();
+
+        System.out.println("------------------------------------------------------");
 
         modificar = AlgoritmosArbolesBinario.modificar(abb, 7, 99);
         System.out.println("El arbol abb fue " + (modificar ? "Modificado Con Exito" : "No Se Pudo Modificar"));
