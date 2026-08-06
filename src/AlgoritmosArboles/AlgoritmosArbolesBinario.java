@@ -257,4 +257,23 @@ public class AlgoritmosArbolesBinario<T extends Comparable<T>> {
         return resul;
     }
 
+    public static <T extends Comparable<T>> void imprimirNivel(Arbol<T> arbol, int nivel){
+        if(arbol != null){
+            if(arbol.getRaiz() != null){
+                imprimirNivelR(arbol.getRaiz(), nivel);
+            }
+        }
+    }
+
+    private static <T extends Comparable<T>> void imprimirNivelR(NodoArbol<T> nodo, int nivel){
+        if(nodo != null){
+            if(nivel == 1){
+                System.out.println(nodo.getClave());
+            }else if(nivel > 1){
+                imprimirNivelR(nodo.getIz(), nivel  - 1);
+                imprimirNivelR(nodo.getDe(), nivel  - 1);
+            }
+        }
+    }
+
 }
