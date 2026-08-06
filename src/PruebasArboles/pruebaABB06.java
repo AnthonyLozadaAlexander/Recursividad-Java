@@ -21,5 +21,9 @@ public class pruebaABB06 {
         modificar = AlgoritmosArbolesBinario.modificar(abb, 7, 99);
         System.out.println("El arbol abb fue " + (modificar ? "Modificado Con Exito" : "No Se Pudo Modificar"));
         abb.info();
+
+
+        System.out.println("Arbol ABB nivel 3: " + "\n");
+        AlgoritmosArbolesBinario.imprimirNivel(abb, 3);
     }
 }
