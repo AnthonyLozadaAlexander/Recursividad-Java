@@ -276,4 +276,74 @@ public class AlgoritmosArbolesBinario<T extends Comparable<T>> {
         }
     }
 
+    //  ---------------------------------------------------------------------------------
+
+    public static <T extends Comparable<T>> int contarV2(Arbol<T> arbol) {
+        int cantidad;
+
+        cantidad = 0;
+
+        if (arbol != null) {
+            cantidad = contarRV2(arbol.getRaiz());
+        } else {
+            cantidad = -1;
+        }
+
+        return cantidad;
+    }
+
+    private static <T extends Comparable<T>> int contarRV2(NodoArbol<T> nodo) {
+        int cantidad;
+
+        cantidad = 0;
+
+        if (nodo != null) {
+            cantidad = 1;
+            cantidad = cantidad + contarRV2(nodo.getIz()) + contarRV2(nodo.getDe());
+        }
+
+        return cantidad;
+    }
+
+    public static <T extends Comparable<T>> T aleatorioV2(Arbol<T> arbol) {
+        T dato;
+        int total;
+        int posicion;
+
+        dato = null;
+
+        if (arbol != null && arbol.getRaiz() != null) {
+            total = contarRV2(arbol.getRaiz());
+            posicion = (int)(Math.random() * total) + 1;
+            dato = aleatorioRV2(arbol.getRaiz(), posicion);
+        }
+
+        return dato;
+    }
+
+    private static <T extends Comparable<T>> T aleatorioRV2(NodoArbol<T> raiz, int posicion) {
+        T dato;
+        int cantIz;
+
+        dato = null;
+
+        if (raiz != null) {
+            cantIz = contarRV2(raiz.getIz());
+
+            if (posicion == cantIz + 1) {
+                dato = raiz.getClave();
+            } else {
+                if (posicion <= cantIz) {
+                    dato = aleatorioRV2(raiz.getIz(), posicion);
+                } else {
+                    dato = aleatorioRV2(raiz.getDe(), posicion - cantIz - 1);
+                }
+            }
+        }
+
+        return dato;
+    }
+
+    // ----------------------------------------------------------------------------------
+
 }
