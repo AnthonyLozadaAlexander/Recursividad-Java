@@ -245,9 +245,11 @@ public class AlgoritmosArbolesBinario<T extends Comparable<T>> {
             if(nodo.getClave().compareTo(datoViejo) == 0){
                 nodo.setClave(datoNuevo);
                 resul = true;
-            }else if(!resul){
+            }else {
                 resul = modificaR(nodo.getIz(), datoViejo, datoNuevo);
-                resul = modificaR(nodo.getDe(), datoViejo, datoNuevo);
+                if(!resul) {
+                    resul = modificaR(nodo.getDe(), datoViejo, datoNuevo);
+                }
             }
         }
 
