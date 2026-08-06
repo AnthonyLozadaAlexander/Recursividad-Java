@@ -288,4 +288,22 @@ public class AlgoritmosPila<T> {
 
         return aux;
     }
+
+
+    public static <T extends Comparable<T>> void datoFondo(Pila<T> pila, T dato) {
+        if(!pila.pilaVacia()) {
+            T elem;
+            try {
+                elem = pila.desapilar();
+                if(elem.compareTo(dato) == 0)
+                    Algoritmos.AlgoritmosPila.sumergir(pila, dato);
+                else {
+                    datoFondo(pila, dato);
+                    pila.apilar(elem);
+                }
+            } catch (PilaVacia e) {
+            }
+
+        }
+    }
 }
