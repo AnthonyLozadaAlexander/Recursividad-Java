@@ -15,13 +15,11 @@ public class PruebaStack12 {
         System.out.println("Pila Actual");
         miPila.imprimirPila();
 
-        try {
+
             AlgoritmosPila.datoFondo(miPila, 3);
             System.out.println("Pila despues de insertar al fondo");
             miPila.imprimirPila();
-        } catch (PilaVacia e) {
 
-        }
 
     }
 }
