@@ -124,7 +124,7 @@ public class AlgoritmosArbolesBinario<T extends Comparable<T>> {
     private static <T extends Comparable<T>> void imprimirHojasR(NodoArbol<T> nodo) {
         if (nodo != null) {
 
-            if (nodo.getIz() == null && nodo.getDe() == null) {
+            if (nodo.getIz() == null && nodo.getDe() == null) { // es hoja cuando no tiene hijos ni izquierda y derecho
                 System.out.println(nodo.getClave());
             } else {
                 imprimirHojasR(nodo.getIz());
