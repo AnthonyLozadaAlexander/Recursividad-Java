@@ -502,6 +502,34 @@ public class AlgoritmoCola<T> {
         return r;
     }
 
+    public static <T extends Comparable<T>> void datoPrimero(Cola<T> cola, T dato) {
+        if(cola!=null && dato!=null && !cola.colaVacia()) {
+            try {
+                if(datoPrimeroR(cola, dato))
+                    cola.encolar(dato);
+                cola.invertirCola();
+            } catch (ColaVacia e) {
+            }
+        }
+
+    }
+
+    private static <T extends Comparable<T>> boolean datoPrimeroR(Cola<T> cola, T dato) throws ColaVacia {
+        boolean resul = false;
+        if(!cola.colaVacia()) {
+            T elem = cola.desencolar();
+            if(elem.compareTo(dato) == 0) {
+                cola.invertirCola();
+                resul = true;
+            }
+            else {
+                resul = datoPrimeroR(cola, dato);
+                cola.encolar(elem);
+            }
+        }
+        return resul;
+    }
+
 
 
 }
