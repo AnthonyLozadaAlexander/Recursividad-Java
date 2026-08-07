@@ -6,14 +6,11 @@ public class AlgoritmosPila<T> {
 
     public static int contarPila(Pila<Integer> p) throws PilaVacia {
         int count = 0;
-        if (p.pilaVacia()) {
-            return 0;
+        if (!p.pilaVacia()) {
+            Integer guardar = p.desapilar();
+            count = 1 + contarPila(p);
+            p.apilar(guardar);
         }
-
-        Integer guardar = p.desapilar();
-        count = 1 + contarPila(p);
-        p.apilar(guardar);
-
         return count;
     }
 
